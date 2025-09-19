@@ -10,7 +10,7 @@
 
 ## Corrector
 
-- A definir
+- Franco Papa.
 
 ## Descripción
 
