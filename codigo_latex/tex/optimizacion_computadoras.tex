@@ -1,0 +1,16 @@
+\section{Mecanismo de Optimización del Uso de Recursos}
+
+Cada computadora que participa como nodo de procesamiento en el sistema distribuido 
+estará dedicada a ejecutar una operación determinada (por ejemplo, filtrado o reducción). 
+
+Si bien en una primera versión se teorizó la posibilidad de generar varios procesos por 'CPU' para buscar algún tipo de optimización del rendimiento de cada computadora, luego de la primera entrega con el corrector se definió que no resultaría necesario para la implementación de la resolución.
+
+Por lo tanto, se descarta esta mejora para esta versión del sistema, pero se deja como recomendación por si se realiza una actualización a futuro en búsqueda de optimizar tiempos de procesamiento de consultas.
+
+De ser así, se debe recordar que al implementar la paralelización, se debe hacer mediante 
+\textbf{multiprocesos} y no mediante \textbf{multithreading}. 
+La justificación de esta elección radica en que Python presenta limitaciones para 
+tareas de cómputo intensivo debido al \textit{Global Interpreter Lock} (GIL).
+
+La librería de \texttt{multiprocessing} permite crear procesos independientes que aprovechan 
+mejor las capacidades de CPUs con múltiples núcleos.

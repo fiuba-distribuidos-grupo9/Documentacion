@@ -1,0 +1,19 @@
+\section{Implementación del Usuario}
+
+La interacción de los usuarios con el sistema distribuido se realizará mediante un esquema 
+multihilo. Para cada usuario que se conecte, se levantarán dos hilos principales:
+
+\begin{itemize}
+    \item \textbf{Hilo de envío:} Encargado de transmitir al sistema distribuido 
+    todos los archivos necesarios (\texttt{menu\_items.csv}, \texttt{transactions.csv}, 
+    \texttt{users.csv}, entre otros). Este hilo asegura que la consulta planteada 
+    disponga de la información completa para ser resuelta.
+    
+    \item \textbf{Hilo de recepción:} Dedicado a permanecer en escucha, esperando 
+    la respuesta correspondiente a las consultas solicitadas. Una vez que los nodos 
+    de procesamiento finalizan, este hilo recibe los resultados y los entrega al usuario.
+\end{itemize}
+
+De esta manera se logra una interacción no bloqueante y escalable.  
+La arquitectura está diseñada para soportar múltiples usuarios en simultáneo, 
+escalando el número de hilos proporcionalmente a la cantidad de clientes activos.

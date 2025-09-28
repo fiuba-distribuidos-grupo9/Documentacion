@@ -1,0 +1,142 @@
+\documentclass{estilo}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\graphicspath{{img/}}
+\usepackage{float}
+\usepackage{placeins}
+\usepackage{amsmath}        % para los vectores columnas
+\usepackage{amsfonts}       % para las negrita de pizarra
+\usepackage{amssymb}        % para simbolos matematicos
+\usepackage{hyperref}       % para utilizar referencias
+\usepackage{multirow}       % para las tablas
+\usepackage{dsfont}
+\usepackage{listings}
+\usepackage{xcolor}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+\usepackage{enumitem,multicol,setspace}
+\newcounter{subenum}[enumi] % para las multicolumnas
+\renewcommand{\thesubenum}{\arabic{subenum}}
+\usepackage[nomessages]{fp}
+\FPeval\thecolwidth{round(1/4:4)}% Specify number of columns -> column width
+\newcommand{\newitem}[1]{%
+  \refstepcounter{subenum}%
+  \parbox{\dimexpr\thecolwidth\linewidth-.5\columnsep}{%
+    \makebox[\labelwidth][r]{(\thesubenum)\hspace*{\labelsep}}%
+    #1}\hfill%
+}
+
+\usepackage{scalerel,stackengine} % para el sombrero
+\stackMath
+\newcommand\rhat[1]{%
+\savestack{\tmpbox}{\stretchto{%
+  \scaleto{%
+    \scalerel*[\widthof{\ensuremath{#1}}]{\kern-.6pt\bigwedge\kern-.6pt}%
+    {\rule[-\textheight/2]{1ex}{\textheight}}%WIDTH-LIMITED BIG WEDGE
+  }{\textheight}% 
+}{0.5ex}}%
+\stackon[1pt]{#1}{\tmpbox}%
+}
+\parskip 1ex
+
+\usepackage{mathtools}      % floor y ceil
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor} 
+
+\usepackage[style=authoryear-comp]{biblatex}
+
+\begin{document}
+\maketitle
+
+\newpage
+\justifying{
+\hypertarget{res}{\section*{Tabla de contenidos}}
+\input{tex/tabla de contenidos}
+\newpage
+\hypertarget{res}{\section*{Definiciones iniciales}}
+\input{tex/introduccion}
+\newpage
+\input{tex/operaciones}
+\newpage
+\input{tex/implementacion_usuarios}
+\input{tex/optimizacion_computadoras}
+\input{tex/archivos}
+}
+
+\newpage
+\justifying{
+\hypertarget{res}{\section*{Descripción de ejecución de las consultas}}
+\input{tex/querys}
+}
+
+\newpage
+\justifying{
+\hypertarget{res}{\section*{Vistas 4+1}}
+\input{tex/escenarios}
+\newpage
+\input{tex/vista_procesos}
+\newpage
+\input{tex/vista_fisica}
+\newpage
+\input{tex/vista_desarrollo}
+\newpage
+\input{tex/vista_logica}
+}
+
+\newpage
+\justifying{
+\hypertarget{res}{\section*{Diagramas}}
+\input{tex/dag}
+% \newpage
+% \input{tex/secuencia}
+% \newpage
+% \input{tex/actividades}
+% \newpage
+% \input{tex/paquetes}
+}
+
+\newpage
+\justifying{
+\hypertarget{res}{\section*{Middleware y Protocolos}}
+\input{tex/middleware}
+\input{tex/protocolo}
+}
+
+\newpage
+\justifying{
+\hypertarget{res}{\section*{Mecanismos de control}}
+\input{tex/control}
+}
+
+\newpage
+\justifying{
+\hypertarget{res}{\section*{Planificación del desarrollo}}
+\input{tex/cronograma_teorico}
+\newpage
+\input{tex/cronograma_real}
+}
+
+\newpage
+\end{document}

@@ -1,0 +1,11 @@
+\section{Middleware}
+
+El middleware interno que se utiliza, constituye el pilar de la comunicación del sistema "Coffee Shop Analysis", diseñado para orquestar la interacción entre el server y los múltiples nodos de procesamiento. Su arquitectura se basa en un modelo de Middleware Orientado a Mensajes (MOM), implementado con un bróker central (como por ej. RabbitMQ), tal como se visualiza en el Diagrama de Despliegue. 
+
+La función principal de este middleware es abstraer la complejidad de la comunicación en red, permitiendo que los nodos interactúen de forma desacoplada y asincrónica. En lugar de conexiones directas punto a punto, los nodos se comunican a través de colas y tópicos que se definirán en etapas posteriores.
+
+La implementación de la lógica de conexión se centraliza en el componente `MQConnectionHandler` del paquete `shared`, asegurando un manejo consistente de las comunicaciones. 
+
+Sobre esta capa de mensajería, opera un protocolo de aplicación personalizado que definirá la estructura de los mensajes para el envío de datasets, la transmisión de resultados y el manejo de errores. Este diseño no solo cumple con el requisito de abstraer la comunicación mediante grupos, sino que también le agrega al sistema, escalabilidad y flexibilidad, permitiendo añadir o remover nodos de procesamiento dinámicamente sin alterar la lógica central.
+
+Documentación restante en proceso...

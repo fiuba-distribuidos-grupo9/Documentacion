@@ -1,0 +1,104 @@
+\section{Vista de Procesos}
+
+% ================== DIAGRAMAS DE ACTIVIDADES ================== 
+
+\subsection{Diagramas de Actividades}
+
+Los diagramas de actividad describen el flujo de trabajo lógico para cada una de las consultas funcionales. A continuación, se presenta un diagrama para cada consulta, detallando la secuencia de acciones y las decisiones desde el inicio de la solicitud hasta la presentación de los resultados finales.
+
+\subsubsection{Diagrama de Actividades de la primera consulta}
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth, height=.60\textheight, keepaspectratio]{actividad1.png}
+  \caption{Actividad de la primera consulta}
+  \label{fig:actividad1}
+\end{figure}
+
+\subsubsection{Diagrama de Actividades de la segunda consulta}
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth, height=.75\textheight, keepaspectratio]{actividad2.png}
+  \caption{Actividad de la segunda consulta}
+  \label{fig:actividad2}
+\end{figure}
+
+\subsubsection{Diagrama de Actividades de la tercera consulta}
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth, height=.75\textheight, keepaspectratio]{actividad3.png}
+  \caption{Actividad de la tercera consulta}
+  \label{fig:actividad3}
+\end{figure}
+
+\subsubsection{Diagrama de Actividades de la cuarta consulta}
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth, height=.75\textheight, keepaspectratio]{actividad4.png}
+  \caption{Actividad de la cuarta consulta}
+  \label{fig:actividad4}
+\end{figure}
+
+
+% ================== DIAGRAMAS DE SECUENCIA ==================
+
+\newpage
+
+\subsection{Diagramas de Secuencia}
+
+Para ilustrar la interacción temporal y el intercambio de mensajes entre los distintos componentes del sistema, se utilizan los diagramas de secuencia. Cada diagrama modela la ejecución de una consulta, mostrando cómo el Client Process envía lotes de datos al Server, el cual coordina las operaciones distribuidas entre los nodos especializados como Filter, GroupBy y ReduceBy hasta obtener y devolver el reporte final.
+
+\subsubsection{Diagrama de Secuencia de la primera consulta}
+
+\vspace{1cm}
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth, height=.82\textheight, keepaspectratio]{img/Vista de Procesos - Diagrama Secuencia Query 1.drawio.png}
+  \caption{Secuencia de la primera consulta}
+  \label{fig:secuencia1}
+\end{figure}
+
+\subsubsection{Diagrama de Secuencia de la segunda consulta}
+
+\vspace{1cm}
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth, height=.35\textheight, keepaspectratio]{img/Vista de Procesos - Diagrama Secuencia Query 2.drawio.png}
+  \caption{Secuencia de la segunda consulta}
+  \label{fig:secuencia2}
+\end{figure}
+
+\subsubsection{Diagrama de Secuencia de la tercera consulta}
+
+\vspace{1cm}
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth, height=.35\textheight, keepaspectratio]{img/Vista de Procesos - Diagrama Secuencia Query 3.drawio.png}
+  \caption{Secuencia de la tercera consulta}
+  \label{fig:secuencia3}
+\end{figure}
+
+\subsubsection{Diagrama de Secuencia de la cuarta consulta}
+
+\vspace{1cm}
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth, height=.82\textheight, keepaspectratio]{img/Vista de Procesos - Diagrama Secuencia Query 4.drawio.png}
+  \caption{Secuencia de la cuarta consulta}
+  \label{fig:secuencia4}
+\end{figure}

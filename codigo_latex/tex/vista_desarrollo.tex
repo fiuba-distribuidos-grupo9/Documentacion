@@ -1,0 +1,15 @@
+\section{Vista de Desarrollo}
+
+\subsection{Diagrama de Paquetes}
+
+La vista de desarrollo organiza el sistema en un conjunto de paquetes lógicos para promover una alta cohesión y un bajo acoplamiento. El diagrama muestra los componentes clave: el paquete shared contiene la lógica de comunicación común, como el MQConnectionHandler; el paquete controllers agrupa las distintas operaciones distribuidas (filtros, mapeos, etc.); y los paquetes client y server definen los puntos de entrada de la aplicación.
+
+\vspace{1cm}
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth, height=.82\textheight, keepaspectratio]{img/Vista de Desarrollo - Diagrama de Paquetes.drawio.png}
+  \caption{Vista de Desarrollo - Diagrama de Paquetes}
+  \label{fig:diagrama_de_paquetes}
+\end{figure}

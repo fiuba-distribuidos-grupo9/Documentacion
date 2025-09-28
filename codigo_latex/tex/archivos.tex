@@ -1,0 +1,13 @@
+\section{Uso de Archivos Intermedios}
+
+En el diseño del sistema se contempla la generación de archivos intermedios durante 
+el procesamiento de las consultas. Esta decisión se fundamenta en un aspectos clave:
+
+\textbf{Respaldo de información:} Los archivos intermedios actúan como puntos de control que facilitan futuras implementaciones de tolerancia a fallas. 
+En caso de interrupciones, será posible retomar el procesamiento desde un estado parcial previamente almacenado.
+
+El uso de archivos intermedios, si bien introduce un costo adicional de I/O, 
+aumenta la robustez del sistema y habilita mejoras posteriores en términos de 
+recuperación y confiabilidad.
+
+Para esta entrega del sistema todavía no están implementados de manera funcional, pero si se deja esta consideración para luego documentar su funcionamiento cuando corresponda.

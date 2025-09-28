@@ -1,0 +1,33 @@
+\section{Mecanismos de Control}
+
+\subsection{Mecanismos de Control de Sincronización}
+
+En el diseño del sistema distribuido se prevé la incorporación de mecanismos de control 
+de sincronización, con el objetivo de evitar problemas asociados a la concurrencia, tales 
+como \textit{race conditions} o \textit{deadlocks}.  
+Estos mecanismos garantizarán un acceso ordenado a los recursos compartidos y la correcta 
+coordinación entre los procesos en ejecución.  
+
+En futuras versiones del documento se detallarán las técnicas específicas adoptadas, 
+así como las estrategias de coordinación entre procesos y nodos distribuidos.
+
+\subsection{Mecanismos de Control de Señales}
+
+El sistema incorporará un manejo explícito de señales a fin de asegurar una finalización 
+correcta y segura de los procesos. En particular, se controlará la señal \texttt{SIGTERM}, 
+permitiendo un \textit{graceful quit} que libere recursos, cierre archivos abiertos y 
+mantenga la consistencia del sistema.  
+
+La descripción detallada de las rutinas de manejo de señales y los escenarios contemplados 
+se incluirán en próximas iteraciones del documento.
+
+\subsection{Mecanismos de Control de Fallas}
+
+Se contemplará el desarrollo de mecanismos de control de fallas para aumentar la robustez 
+y confiabilidad del sistema. Estos mecanismos estarán orientados a gestionar situaciones 
+adversas como caídas de procesos, pérdida de nodos de cómputo o interrupciones inesperadas 
+durante la ejecución.  
+
+El objetivo es garantizar, en la medida de lo posible, la continuidad del procesamiento 
+y la recuperación parcial de información. En futuras versiones del documento se describirán 
+las estrategias de detección, mitigación y recuperación ante fallas.

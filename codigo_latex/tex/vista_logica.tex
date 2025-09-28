@@ -1,0 +1,65 @@
+\section{Vista Lógica}
+
+\subsection{Diagrama de Clases}
+
+La vista lógica detalla la estructura estática del sistema a través de diagramas de clases. El diseño se basa en la herencia y la abstracción para maximizar la reutilización de código. Como se observa en los siguientes diagramas, se define una clase base abstracta Controller de la cual heredan las distintas operaciones especializadas (Filter, Count, Sum, etc.), permitiendo que el sistema maneje diferentes tipos de tareas de manera uniforme y extensible.
+
+\subsubsection{Diagrama de Clases - DataCleaner}
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth, height=.82\textheight, keepaspectratio]{img/Vista Lógica - Diagrama de Clases-DataCleaner.drawio.png}
+  \caption{Clase DataCleaner}
+  \label{fig:data_cleaner_class}
+\end{figure}
+
+\subsubsection{Diagrama de Clases - Filter}
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth, height=.82\textheight, keepaspectratio]{img/Vista Lógica - Diagrama de Clases-Filter.drawio.png}
+  \caption{Clase Filter}
+  \label{fig:filter_class}
+\end{figure}
+
+\subsubsection{Diagrama de Clases - Count y Sum}
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth, height=.82\textheight, keepaspectratio]{img/Vista Lógica - Diagrama de Clases-Count & Sum.drawio.png}
+  \caption{Clases Count y Sum}
+  \label{fig:count_and_sum_classes}
+\end{figure}
+
+\subsubsection{Diagrama de Clases - SortDesc}
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth, height=.82\textheight, keepaspectratio]{img/Vista Lógica - Diagrama de Clases-SortDesc.drawio.png}
+  \caption{Clase SortDesc}
+  \label{fig:sort_desc_class}
+\end{figure}
+
+\subsubsection{Diagrama de Clases - Join}
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth, height=.82\textheight, keepaspectratio]{img/Vista Lógica - Diagrama de Clases-Join.drawio.png}
+  \caption{Clase Join}
+  \label{fig:join_class}
+\end{figure}
+
+\subsubsection{Diagrama de Clases - OutputBuilder}
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth, height=.82\textheight, keepaspectratio]{img/Vista Lógica - Diagrama de Clases-OutputBuilder.drawio.png}
+  \caption{Clase OutputBuilder}
+  \label{fig:output_builder_class}
+\end{figure}

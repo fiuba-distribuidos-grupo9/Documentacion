@@ -1,0 +1,52 @@
+\section{Definición Técnica del Sistema Distribuido}
+
+El sistema distribuido propuesto permite al usuario interactuar mediante una consola, 
+desde la cual los usuarios envían las instrucciones y datasets necesarios para el procesamiento, y a cambio reciben como salida de la misma el resultado de las consultas realizadas. 
+La infraestructura se implementará sobre contenedores Docker, los cuales emulan 
+múltiples nodos computacionales. Cada nodo se especializa en la ejecución de una operación 
+determinada, tales como filtrado, mapeo, reducción, ordenamiento o combinación de datos.  
+
+El sistema recibe como entrada un conjunto de archivos con la información a procesar:
+
+\begin{itemize}
+    \item \texttt{menu\_items.csv}
+    \item \texttt{payment\_methods.csv}
+    \item \texttt{stores.csv}
+    \item Múltiples archivos \texttt{transaction\_items.csv}
+    \item Múltiples archivos \texttt{transactions.csv}
+    \item Múltiples archivos \texttt{users.csv}
+    \item \texttt{vouchers.csv}
+\end{itemize}
+
+Estos archivos son distribuidos entre los distintos nodos según lo que requiera cada operación. 
+La comunicación entre el nodo coordinador y los nodos de procesamiento se gestiona mediante 
+un \textit{middleware}, el cual se describe en detalle en una sección posterior.
+
+\subsection{Operaciones Distribuidas}
+
+Las operaciones fundamentales soportadas por el sistema son las siguientes:
+
+\begin{enumerate}
+    \item \textbf{Filter}: Permite seleccionar subconjuntos de datos en función de condiciones 
+    específicas. Una misma instancia puede aplicar diferentes filtros según el criterio 
+    definido en la consulta (por ejemplo, filtrar por fechas, montos o rangos horarios).
+    
+    \item \textbf{Map}: Transforma los datos de entrada generando nuevas columnas o 
+    reformateando la información existente. Ejemplo: Agregar un campo con el mes y año a partir 
+    de una fecha, o calcular un contador auxiliar.
+    
+    \item \textbf{Reduce}: Agrupa datos por una clave determinada y aplica una función de 
+    agregación (como sumas, conteos o acumulaciones). Existen múltiples variantes, dependiendo 
+    de qué métrica se busque consolidar.
+    
+    \item \textbf{Join}: Combina registros de diferentes datasets en función de un campo común, 
+    permitiendo enriquecer la información (ejemplo: Unir transacciones con usuarios para obtener 
+    la fecha de nacimiento del cliente).
+    
+    \item \textbf{SortBy}: Ordena los registros de acuerdo con uno o más criterios, ya sea de 
+    manera ascendente o descendente. Es fundamental para identificar los elementos más 
+    significativos en cada consulta (por ejemplo, productos más vendidos).
+\end{enumerate}
+
+Cada nodo de operación está diseñado para ser genérico y flexible: Puede ejecutar cualquier variante de las funciones mencionadas según el rol específico del nodo, siendo el sistema coordinador quien le envía los datos y la 
+configuración necesaria para que realice la tarea solicitada.

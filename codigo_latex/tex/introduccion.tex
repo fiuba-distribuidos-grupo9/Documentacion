@@ -1,0 +1,25 @@
+\section{Introducción}
+
+El presente documento describe el diseño de un sistema distribuido para el análisis de datos de una cadena de cafeterías en Malasia. 
+El objetivo principal es procesar grandes volúmenes de información transaccional, de clientes, de sucursales y de productos, 
+para obtener métricas clave que apoyen la toma de decisiones de negocio.
+
+De acuerdo con los requisitos existentes, el sistema debe permitir responder las siguientes consultas:
+
+\begin{enumerate}
+    \item Listado de transacciones (ID y monto) realizadas entre los años 2024 y 2025, en el rango horario de 06:00 a 23:00, con un monto total mayor o igual a 75.
+    \item Identificación de los productos más vendidos (nombre y cantidad) y los que más ganancias han generado (nombre y monto) para cada mes de 2024 y 2025.
+    \item Cálculo del \textit{Total Payment Value} (TPV) por cada semestre en 2024 y 2025, discriminado por sucursal, considerando sólo transacciones entre 06:00 y 23:00.
+    \item Obtención de la fecha de cumpleaños de los tres clientes con mayor cantidad de compras en 2024 y 2025, para cada sucursal.
+\end{enumerate}
+
+Además de los requerimientos funcionales, el sistema deberá cumplir con los siguientes requisitos no funcionales:
+
+\begin{itemize}
+    \item Optimización para entornos multicomputadoras, asegurando la escalabilidad ante el crecimiento de datos.
+    \item Inclusión de un \textit{middleware} que abstraiga la comunicación entre nodos mediante grupos.
+    \item Ejecución única del procesamiento con capacidad de \textit{graceful quit} frente a señales de terminación (SIGTERM).
+\end{itemize}
+
+El diseño se realizará bajo un enfoque de arquitectura distribuida, 
+buscando flexibilidad, robustez y capacidad de escalar en entornos reales de procesamiento de datos.

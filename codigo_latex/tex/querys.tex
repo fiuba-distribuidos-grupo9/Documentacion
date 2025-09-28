@@ -1,0 +1,93 @@
+\section{Descripción de las Consultas}
+
+El sistema debe ser capaz de responder a las siguientes consultas, de acuerdo con la lógica 
+planteada en el enunciado. A continuación, se detalla el paso a paso de cada una de ellas, 
+indicando las tablas necesarias, las columnas relevantes y la secuencia de operaciones 
+distribuidas.
+
+\subsection{Consulta 1: Transacciones filtradas}
+\textbf{Objetivo:} Obtener las transacciones (ID y monto) realizadas durante 2024 y 2025, 
+entre las 06:00 y las 23:00 horas, con un monto total mayor o igual a 75.
+
+\begin{itemize}
+    \item \textbf{Tablas requeridas:} \texttt{transactions}.
+    \item \textbf{Columnas utilizadas:} \texttt{transaction\_id}, \texttt{created\_at}, \texttt{final\_amount}.
+    \item \textbf{Pasos:}
+    \begin{enumerate}
+        \item Filtrar transacciones entre 2024 y 2025, en el rango horario indicado.
+        \item Filtrar transacciones con monto mayor o igual a 75.
+        \item Generar el reporte y devolverlo al usuario.
+    \end{enumerate}
+\end{itemize}
+
+\subsection{Consulta 2: Productos más vendidos y más rentables}
+\textbf{Objetivo:} Identificar, para cada mes de 2024 y 2025, los productos más vendidos (nombre y cantidad) 
+y los productos que más ganancias generaron (nombre y monto).
+
+\begin{itemize}
+    \item \textbf{Tablas requeridas:} \texttt{transaction\_items}, \texttt{menu\_items}.
+    \item \textbf{Columnas utilizadas:} 
+    \begin{itemize}
+        \item De \texttt{transaction\_items}: \texttt{item\_id}, \texttt{created\_at}, \texttt{quantity}, \texttt{subtotal}.
+        \item De \texttt{menu\_items}: \texttt{item\_id}, \texttt{item\_name}.
+    \end{itemize}
+    \item \textbf{Pasos:}
+    \begin{enumerate}
+        \item Filtrar los \texttt{transaction\_items} de 2024 y 2025.
+        \item Generar una nueva columna \texttt{year\_month} a partir de la fecha.
+        \item Para productos más vendidos:
+        \begin{enumerate}
+            \item Calcular contador de cantidad (\texttt{item\_counter}).
+            \item Reducir por clave \texttt{year\_month, item\_id} sumando las cantidades.
+            \item Ordenar por cantidad descendente.
+        \end{enumerate}
+        \item Para productos más rentables:
+        \begin{enumerate}
+            \item Calcular monto acumulado (\texttt{total\_amount\_counter}).
+            \item Reducir por clave \texttt{year\_month, item\_id} sumando subtotales.
+            \item Ordenar por monto descendente.
+        \end{enumerate}
+        \item Unir con \texttt{menu\_items} para obtener nombres de los productos.
+        \item Generar el reporte y devolverlo al usuario.
+    \end{enumerate}
+\end{itemize}
+
+\subsection{Consulta 3: TPV por semestre y sucursal}
+\textbf{Objetivo:} Calcular el \textit{Total Payment Value} (TPV) por cada semestre de 2024 y 2025, 
+para cada sucursal, considerando únicamente transacciones realizadas entre 06:00 y 23:00.
+
+\begin{itemize}
+    \item \textbf{Tablas requeridas:} \texttt{transactions}.
+    \item \textbf{Columnas utilizadas:} \texttt{store\_id}, \texttt{created\_at}, \texttt{final\_amount}.
+    \item \textbf{Pasos:}
+    \begin{enumerate}
+        \item Filtrar transacciones entre 2024 y 2025, dentro del rango horario.
+        \item Generar nueva columna \texttt{year\_semester} a partir de la fecha.
+        \item Reducir por clave \texttt{year\_semester, store\_id} sumando los montos finales.
+        \item Generar el reporte y devolverlo al usuario.
+    \end{enumerate}
+\end{itemize}
+
+\subsection{Consulta 4: Clientes más frecuentes y cumpleaños}
+\textbf{Objetivo:} Obtener la fecha de cumpleaños de los tres clientes con mayor número de compras 
+durante 2024 y 2025, discriminado por sucursal.
+
+\begin{itemize}
+    \item \textbf{Tablas requeridas:} \texttt{transactions}, \texttt{users}.
+    \item \textbf{Columnas utilizadas:} 
+    \begin{itemize}
+        \item De \texttt{transactions}: \texttt{user\_id}, \texttt{store\_id}, \texttt{created\_at}.
+        \item De \texttt{users}: \texttt{user\_id}, \texttt{birthdate}.
+    \end{itemize}
+    \item \textbf{Pasos:}
+    \begin{enumerate}
+        \item Filtrar transacciones de 2024 y 2025.
+        \item Generar clave combinada \texttt{store\_user} con \texttt{store\_id} y \texttt{user\_id}.
+        \item Calcular contador de compras (\texttt{buys\_counter}).
+        \item Reducir por clave \texttt{store\_user} sumando los contadores.
+        \item Ordenar en forma descendente por número de compras.
+        \item Seleccionar los tres usuarios con más compras por sucursal.
+        \item Unir con \texttt{users} para obtener las fechas de nacimiento.
+        \item Generar el reporte y devolverlo al usuario.
+    \end{enumerate}
+\end{itemize}

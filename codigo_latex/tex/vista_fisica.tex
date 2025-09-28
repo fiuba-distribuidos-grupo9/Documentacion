@@ -1,0 +1,144 @@
+\section{Vista Física}
+
+\subsection{Diagrama de Robustez - Completo}
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \rotatebox{270}{%
+    \includegraphics[
+      width=.85\textheight,
+      keepaspectratio
+    ]{img/robustez.png}%
+  }
+  \caption{Diagrama de Robustez - Completo}
+  \label{fig:robustez}
+\end{figure}
+
+\newpage
+
+\subsection{Diagrama de Robustez - Fragmento superior}
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \rotatebox{270}{%
+    \includegraphics[
+      width=.85\textheight,
+      keepaspectratio
+    ]{img/robustez1.png}%
+  }
+  \caption{Diagrama de Robustez - Fragmento superior}
+  \label{fig:robustez}
+\end{figure}
+
+\newpage
+
+\subsection{Diagrama de Robustez - Fragmento medio}
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \rotatebox{270}{%
+    \includegraphics[
+      width=.85\textheight,
+      keepaspectratio
+    ]{img/robustez2.png}%
+  }
+  \caption{Diagrama de Robustez - Fragmento medio}
+  \label{fig:robustez}
+\end{figure}
+
+\newpage
+
+\subsection{Diagrama de Robustez - Fragmento inferior}
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \rotatebox{270}{%
+    \includegraphics[
+      width=.85\textheight,
+      keepaspectratio
+    ]{img/robustez3.png}%
+  }
+  \caption{Diagrama de Robustez - Fragmento inferior}
+  \label{fig:robustez}
+\end{figure}
+
+\newpage
+
+\subsubsection{Escalabilidad de las Operaciones}
+
+Dentro de las operaciones del sistema distribuido, existen tres que admiten escalabilidad 
+en la cantidad de nodos de procesamiento:
+
+\begin{itemize}
+    \item \textbf{Cleaner}
+    \item \textbf{Filter}
+    \item \textbf{Join}
+\end{itemize}
+
+Como decisión de diseño, se definió que en los casos donde el sistema cuente con una 
+disposición de $N$ nodos de alguno de los tres tipos mencionados, comunicándose con 
+$M$ nodos de la misma categoría, cada uno de los $M$ nodos receptores tendrá su propia cola.  
+Dichas colas recibirán los mensajes enviados por los $N$ nodos anteriores.  
+Cuando un nodo de la segunda capa reciba en su cola un mensaje indicador de finalización, 
+podrá tener la certeza de que no recibirá más información desde esos nodos, 
+y podrá trasladar dicho aviso hacia etapas posteriores en caso de ser necesario.  
+
+Para garantizar este comportamiento, al iniciar la ejecución del sistema todos los nodos 
+conocerán la topología de sus vecinos, lo que permitirá coordinar de forma correcta 
+la comunicación y el flujo de datos durante el procesamiento.
+
+A continuación, se presenta un esquema ilustrativo de la topología entre $N$ nodos 
+\textit{Filter} y $M$ nodos \textit{Join}, junto con sus respectivas $M$ colas:
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \rotatebox{0}{%
+    \includegraphics[
+      width=.60\textheight,
+      keepaspectratio
+    ]{img/nodos_escalabilidad.png}%
+  }
+  \caption{Esquema representativo de la comunicación de 'N' nodos con 'M' colas de otros 'M' nodos}
+  \label{fig:robustez}
+\end{figure}
+
+\bigskip
+
+Asimismo, se adoptó la decisión de diseño de no escalar con múltiples computadoras los 
+\textit{Join} que se realizan con las tablas de \textit{Menú} y de \textit{Tiendas}, 
+ya que ambas son lo suficientemente pequeñas como para cargarse íntegramente en memoria.  
+De esta forma, se mantiene la tabla más pequeña residente en memoria y se la utiliza 
+para realizar \textit{joins} eficientes a medida que llegan las transacciones, 
+maximizando así la performance.
+
+Tampoco se escalaran con múltiples computadoras las operaciones 'Map', 'Count', 'Sort' y 'Output Builder'. Ya que son 'Stateful' y su correcto funcionamiento e implementación se ve muy beneficiado de ejecutarse en una sola instancia de computación, sin perder un rendimiento perceptible.
+
+En contraste, para el caso de los \textit{Join} con la tabla de \textit{Usuarios} 
+sí se habilita la escalabilidad a múltiples nodos, dado que el volumen de datos 
+puede ser significativamente mayor.  
+En este escenario, el listado de usuarios se dividirá entre los $M$ nodos mediante 
+una función de \textit{hash}.  
+Los nodos que depositen la información de transacciones en las colas aplicarán 
+la misma función de \textit{hash} sobre los identificadores de usuario, determinando 
+de manera directa a qué cola (y por ende a qué nodo) deben dirigir cada registro 
+para asegurar que el \textit{join} se realice correctamente.
+
+\subsection{Diagrama de Despliegue}
+
+Dentro de la vista física realizamos el diagrama de despliegue, el cual ilustra la topología del sistema distribuido en términos de sus nodos computacionales. El diagrama muestra los distintos grupos de nodos especializados (Data Cleaners, Filters, Maps, Joins, etc.) y cómo se interconectan a través de un componente central: el MOM Broker. Esta arquitectura facilita la comunicación asincrónica y el desacoplamiento entre los procesos.
+
+\vspace{1cm}
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth, height=.82\textheight, keepaspectratio]{img/Vista Física - Diagrama de Despliegue.drawio.png}
+  \caption{Diagrama de Despliegue}
+  \label{fig:diagrama_de_despliegue}
+\end{figure}
+
