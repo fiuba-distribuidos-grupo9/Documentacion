@@ -1,13 +1,15 @@
 \section{Vista Física}
 
-\subsection{Diagrama de Robustez - Completo}
+\subsection{Diagrama de Robustez}
+
+El diagrama de robustez forma parte de la vista lógica y sirve como puente entre los casos de uso y el diseño detallado. Este diagrama permite identificar y organizar los principales elementos del sistema, diferenciando entre actores externos, límites de la aplicación y las entidades o controladores que gestionan la lógica de negocio. 
 
 \FloatBarrier
 \begin{figure}[H]
   \centering
   \rotatebox{270}{%
     \includegraphics[
-      width=.85\textheight,
+      width=.75\textheight,
       keepaspectratio
     ]{img/robustez.png}%
   }
@@ -17,7 +19,7 @@
 
 \newpage
 
-\subsection{Diagrama de Robustez - Fragmento superior}
+\subsection{Diagrama de Robustez - Primera Consulta}
 
 \FloatBarrier
 \begin{figure}[H]
@@ -28,13 +30,13 @@
       keepaspectratio
     ]{img/robustez1.png}%
   }
-  \caption{Diagrama de Robustez - Fragmento superior}
+  \caption{Diagrama de Robustez - Primera Consulta}
   \label{fig:robustez}
 \end{figure}
 
 \newpage
 
-\subsection{Diagrama de Robustez - Fragmento medio}
+\subsection{Diagrama de Robustez - Segunda Consulta}
 
 \FloatBarrier
 \begin{figure}[H]
@@ -45,13 +47,13 @@
       keepaspectratio
     ]{img/robustez2.png}%
   }
-  \caption{Diagrama de Robustez - Fragmento medio}
+  \caption{Diagrama de Robustez - Segunda Consulta}
   \label{fig:robustez}
 \end{figure}
 
 \newpage
 
-\subsection{Diagrama de Robustez - Fragmento inferior}
+\subsection{Diagrama de Robustez - Tercera Consulta}
 
 \FloatBarrier
 \begin{figure}[H]
@@ -62,13 +64,30 @@
       keepaspectratio
     ]{img/robustez3.png}%
   }
-  \caption{Diagrama de Robustez - Fragmento inferior}
+  \caption{Diagrama de Robustez - Tercera Consulta}
   \label{fig:robustez}
 \end{figure}
 
 \newpage
 
-\subsubsection{Escalabilidad de las Operaciones}
+\subsection{Diagrama de Robustez - Cuarta Consulta}
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \rotatebox{270}{%
+    \includegraphics[
+      width=.85\textheight,
+      keepaspectratio
+    ]{img/robustez4.png}%
+  }
+  \caption{Diagrama de Robustez - Cuarta Consulta}
+  \label{fig:robustez}
+\end{figure}
+
+\newpage
+
+\subsection{Escalabilidad de las Operaciones}
 
 Dentro de las operaciones del sistema distribuido, existen tres que admiten escalabilidad 
 en la cantidad de nodos de procesamiento:
@@ -110,13 +129,13 @@ A continuación, se presenta un esquema ilustrativo de la topología entre $N$ n
 \bigskip
 
 Asimismo, se adoptó la decisión de diseño de no escalar con múltiples computadoras los 
-\textit{Join} que se realizan con las tablas de \textit{Menú} y de \textit{Tiendas}, 
+\textit{Join} que se realizan con las tablas de \textit{Menú} y de \textit{Stores}, 
 ya que ambas son lo suficientemente pequeñas como para cargarse íntegramente en memoria.  
 De esta forma, se mantiene la tabla más pequeña residente en memoria y se la utiliza 
 para realizar \textit{joins} eficientes a medida que llegan las transacciones, 
 maximizando así la performance.
 
-Tampoco se escalaran con múltiples computadoras las operaciones 'Map', 'Count', 'Sort' y 'Output Builder'. Ya que son 'Stateful' y su correcto funcionamiento e implementación se ve muy beneficiado de ejecutarse en una sola instancia de computación, sin perder un rendimiento perceptible.
+Tampoco se escalaran con múltiples computadoras las operaciones 'Map', 'Reduce', 'Sort' y 'Output Builder'. Ya que son 'Stateful' y su correcto funcionamiento e implementación se ve muy beneficiado de ejecutarse en una sola instancia de computación, sin perder un rendimiento perceptible.
 
 En contraste, para el caso de los \textit{Join} con la tabla de \textit{Usuarios} 
 sí se habilita la escalabilidad a múltiples nodos, dado que el volumen de datos 

@@ -1,19 +1,19 @@
 \section{Implementación del Usuario}
 
 La interacción de los usuarios con el sistema distribuido se realizará mediante un esquema 
-multihilo. Para cada usuario que se conecte, se levantarán dos hilos principales:
+secuensial. Para cada usuario que se conecte, se respetera una secuencia específica de ejecución.
 
 \begin{itemize}
-    \item \textbf{Hilo de envío:} Encargado de transmitir al sistema distribuido 
-    todos los archivos necesarios (\texttt{menu\_items.csv}, \texttt{transactions.csv}, 
-    \texttt{users.csv}, entre otros). Este hilo asegura que la consulta planteada 
-    disponga de la información completa para ser resuelta.
+    \item \textbf{Etapa de envío de información:} En esta etapa el usuario envía toda la información en base a la que el
+    sistema debe operar. Esto incluye todos los datasets a procesar para resolver las 4 consultas.
     
-    \item \textbf{Hilo de recepción:} Dedicado a permanecer en escucha, esperando 
-    la respuesta correspondiente a las consultas solicitadas. Una vez que los nodos 
-    de procesamiento finalizan, este hilo recibe los resultados y los entrega al usuario.
+    \item \textbf{Etapa de espera:} El cliente queda a la espera de que el sistema distribuido procese la información y genere las respuestas
+    a las consultas.
+
+    \item \textbf{Etapa de recepción de resultados:} Una vez que el sistema ha procesado la información, el usuario recibe las respuestas a las consultas
+    solicitadas.
 \end{itemize}
 
-De esta manera se logra una interacción no bloqueante y escalable.  
-La arquitectura está diseñada para soportar múltiples usuarios en simultáneo, 
-escalando el número de hilos proporcionalmente a la cantidad de clientes activos.
+De esta manera se logra una interacción segura y escalable.
+
+La arquitectura está diseñada para soportar múltiples usuarios en simultáneo, escalando el número de conexiones establecidas proporcionalmente a la cantidad de clientes activos.

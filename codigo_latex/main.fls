@@ -3,7 +3,7 @@ INPUT /etc/texmf/web2c/texmf.cnf
 INPUT /usr/share/texmf/web2c/texmf.cnf
 INPUT /usr/share/texlive/texmf-dist/web2c/texmf.cnf
 INPUT /var/lib/texmf/web2c/pdftex/pdflatex.fmt
-INPUT main.tex
+INPUT /mnt/c/Users/fascenci/Desktop/TPs/Dise-o/codigo_latex/main.tex
 OUTPUT main.log
 INPUT ./estilo.cls
 INPUT ./estilo.cls
@@ -1448,21 +1448,45 @@ INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmr17.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
 INPUT /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map
+INPUT ./tex/tabla de contenidos.tex
+INPUT ./tex/tabla de contenidos.tex
+INPUT ./tex/tabla de contenidos.tex
+INPUT tex/tabla de contenidos.tex
+INPUT ./tex/tabla de contenidos.tex
+INPUT ./tex/tabla de contenidos.tex
+INPUT tex/tabla de contenidos.tex
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
-INPUT ./tex/tabla de contenidos.tex
-INPUT ./tex/tabla de contenidos.tex
-INPUT ./tex/tabla de contenidos.tex
-INPUT tex/tabla de contenidos.tex
-INPUT ./tex/tabla de contenidos.tex
-INPUT ./tex/tabla de contenidos.tex
-INPUT tex/tabla de contenidos.tex
+INPUT ./main.toc
+INPUT main.toc
+INPUT main.toc
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
+INPUT /usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+INPUT /usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+INPUT /usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+INPUT /usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam7.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam5.tfm
+INPUT /usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+INPUT /usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+INPUT /usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+INPUT /usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm5.tfm
 INPUT ./logo.pdf
 INPUT logo.pdf
 INPUT ./logo.pdf
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmr8.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmcsc10.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmr9.tfm
+OUTPUT main.toc
+INPUT ./logo.pdf
+INPUT logo.pdf
+INPUT ./logo.pdf
 INPUT ./tex/introduccion.tex
 INPUT ./tex/introduccion.tex
 INPUT ./tex/introduccion.tex
@@ -1483,7 +1507,6 @@ INPUT ./tex/operaciones.tex
 INPUT tex/operaciones.tex
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
-INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm
 INPUT ./logo.pdf
 INPUT logo.pdf
 INPUT ./logo.pdf
@@ -1647,22 +1670,14 @@ INPUT ./img/robustez3.png
 INPUT ./logo.pdf
 INPUT logo.pdf
 INPUT ./logo.pdf
-INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
-INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
-INPUT /usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
-INPUT /usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
-INPUT /usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
-INPUT /usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
-INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm
-INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam7.tfm
-INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam5.tfm
-INPUT /usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
-INPUT /usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
-INPUT /usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
-INPUT /usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
-INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
-INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7.tfm
-INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm5.tfm
+INPUT ./img/robustez4.png
+INPUT ./img/robustez4.png
+INPUT img/robustez4.png
+INPUT ./img/robustez4.png
+INPUT ./img/robustez4.png
+INPUT ./logo.pdf
+INPUT logo.pdf
+INPUT ./logo.pdf
 INPUT ./img/nodos_escalabilidad.png
 INPUT ./img/nodos_escalabilidad.png
 INPUT img/nodos_escalabilidad.png
@@ -1791,6 +1806,9 @@ INPUT tex/middleware.tex
 INPUT ./tex/middleware.tex
 INPUT ./tex/middleware.tex
 INPUT tex/middleware.tex
+INPUT ./logo.pdf
+INPUT logo.pdf
+INPUT ./logo.pdf
 INPUT ./tex/protocolo.tex
 INPUT ./tex/protocolo.tex
 INPUT ./tex/protocolo.tex
@@ -1801,6 +1819,9 @@ INPUT tex/protocolo.tex
 INPUT ./logo.pdf
 INPUT logo.pdf
 INPUT ./logo.pdf
+INPUT ./logo.pdf
+INPUT logo.pdf
+INPUT ./logo.pdf
 INPUT ./tex/control.tex
 INPUT ./tex/control.tex
 INPUT ./tex/control.tex
@@ -1808,6 +1829,13 @@ INPUT tex/control.tex
 INPUT ./tex/control.tex
 INPUT ./tex/control.tex
 INPUT tex/control.tex
+INPUT ./tex/rendimiento.tex
+INPUT ./tex/rendimiento.tex
+INPUT ./tex/rendimiento.tex
+INPUT tex/rendimiento.tex
+INPUT ./tex/rendimiento.tex
+INPUT ./tex/rendimiento.tex
+INPUT tex/rendimiento.tex
 INPUT ./logo.pdf
 INPUT logo.pdf
 INPUT ./logo.pdf
@@ -1821,16 +1849,16 @@ INPUT tex/cronograma_teorico.tex
 INPUT ./logo.pdf
 INPUT logo.pdf
 INPUT ./logo.pdf
+INPUT ./tex/cronograma_real.tex
+INPUT ./tex/cronograma_real.tex
+INPUT ./tex/cronograma_real.tex
+INPUT tex/cronograma_real.tex
+INPUT ./tex/cronograma_real.tex
+INPUT ./tex/cronograma_real.tex
+INPUT tex/cronograma_real.tex
 INPUT ./logo.pdf
 INPUT logo.pdf
 INPUT ./logo.pdf
-INPUT ./tex/cronograma_real.tex
-INPUT ./tex/cronograma_real.tex
-INPUT ./tex/cronograma_real.tex
-INPUT tex/cronograma_real.tex
-INPUT ./tex/cronograma_real.tex
-INPUT ./tex/cronograma_real.tex
-INPUT tex/cronograma_real.tex
 INPUT ./logo.pdf
 INPUT logo.pdf
 INPUT ./logo.pdf
@@ -1846,5 +1874,6 @@ INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb
+INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb

@@ -1,11 +1,72 @@
 \section{Middleware}
 
-El middleware interno que se utiliza, constituye el pilar de la comunicación del sistema "Coffee Shop Analysis", diseñado para orquestar la interacción entre el server y los múltiples nodos de procesamiento. Su arquitectura se basa en un modelo de Middleware Orientado a Mensajes (MOM), implementado con un bróker central (como por ej. RabbitMQ), tal como se visualiza en el Diagrama de Despliegue. 
+El middleware interno constituye el pilar fundamental de la comunicación en el sistema \textit{"Coffee Shop Analysis"}, siendo el responsable de orquestar la interacción entre el servidor central y los múltiples nodos de procesamiento. Su arquitectura se basa en un modelo de Middleware Orientado a Mensajes (MOM), implementado mediante la herramienta \textbf{RabbitMQ}, que actúa como bróker central, tal como se visualiza en el Diagrama de Despliegue. 
 
-La función principal de este middleware es abstraer la complejidad de la comunicación en red, permitiendo que los nodos interactúen de forma desacoplada y asincrónica. En lugar de conexiones directas punto a punto, los nodos se comunican a través de colas y tópicos que se definirán en etapas posteriores.
+La principal función de este middleware es abstraer la complejidad de la comunicación en red, garantizando que los nodos puedan interactuar de forma desacoplada y asincrónica. En lugar de conexiones punto a punto, los componentes se comunican a través de colas y tópicos, definidos estratégicamente para cada escenario. Este diseño aporta escalabilidad, flexibilidad y la posibilidad de añadir o remover nodos de procesamiento dinámicamente sin alterar la lógica central.
 
-La implementación de la lógica de conexión se centraliza en el componente `MQConnectionHandler` del paquete `shared`, asegurando un manejo consistente de las comunicaciones. 
+La lógica de conexión se implementa en el componente \texttt{MQConnectionHandler}, ubicado en el paquete \texttt{shared}, asegurando un manejo uniforme de las comunicaciones. Sobre esta capa de mensajería se diseñó un protocolo de aplicación específico que define la estructura de los mensajes para el envío de datasets, la transmisión de resultados y el manejo de errores. 
 
-Sobre esta capa de mensajería, opera un protocolo de aplicación personalizado que definirá la estructura de los mensajes para el envío de datasets, la transmisión de resultados y el manejo de errores. Este diseño no solo cumple con el requisito de abstraer la comunicación mediante grupos, sino que también le agrega al sistema, escalabilidad y flexibilidad, permitiendo añadir o remover nodos de procesamiento dinámicamente sin alterar la lógica central.
+Para interactuar con el Middleware se implementaron las interfaces provistas por la cátedra, y se desarrollaron todos los tests unitarios correspondientes con el fin de validar su correcto funcionamiento. De esta manera, se cumple con el requisito planteado en el enunciado de abstraer la comunicación entre los nodos del sistema distribuido.
 
-Documentación restante en proceso...
+\subsection*{Esquemas de comunicación}
+
+Durante el desarrollo se identificaron distintos patrones de comunicación, y para cada uno se diseñó una solución particular apoyada en las herramientas de RabbitMQ. A continuación, se describen los principales casos implementados:
+
+\subsubsection*{Comunicación mediante colas dedicadas}
+
+En los nodos escalables, se definió una cola por cada instancia de nodo. Esto asegura la ausencia de \textit{race conditions} y permite direccionar la información de forma controlada, garantizando el funcionamiento correcto y balanceado del sistema.
+
+Para decidir a qué cola enviar cada batch de datos se utilizaron dos estrategias:
+\begin{enumerate}
+    \item \textbf{Round Robin:} cada emisor mantiene un contador que se incrementa en cada envío, distribuyendo los lotes de datos de forma equitativa entre las colas disponibles. Una vez alcanzado el último nodo, el contador retorna al primero.  
+    Esta técnica fue utilizada en:
+    \begin{itemize}
+        \item Servidor $\rightarrow$ Cleaners.
+        \item Cleaners $\rightarrow$ Filters.
+        \item Filters $\rightarrow$ Filters.
+    \end{itemize}
+
+    \item \textbf{Hashing por clave (Sharding):} se empleó en los casos en que los datos debían ser dirigidos a un nodo específico según una clave. Por ejemplo, en la comunicación \textit{Cleaners de Usuarios $\rightarrow$ Joins de Usuarios}, la asignación de transacciones a los nodos de Join se resolvió aplicando una función hash sobre el ID de usuario.  
+    Concretamente, se utilizó el resto de la división entera del ID por la cantidad de nodos shardeados, lo que asegura que todas las transacciones de un mismo usuario lleguen al mismo nodo de Join.
+\end{enumerate}
+
+\newpage
+
+\subsubsection*{Comunicación mediante exchanges}
+
+En situaciones donde la misma información debía ser replicada en múltiples colas, se utilizó un \textbf{exchange} de RabbitMQ. Este patrón resultó especialmente útil en la \textbf{Query 2}, donde se debía dividir la información para dos subconsultas distintas: los ítems más vendidos y los que generaron mayor facturación.  
+
+En este caso, el exchange distribuye la información procesada por el nodo \textit{Map Year Month} hacia las colas de:
+\begin{itemize}
+    \item Count Items.
+    \item Sum Items.
+\end{itemize}
+
+\subsubsection*{Comunicación de nodos escalables hacia un nodo no escalable}
+
+En escenarios donde múltiples nodos escalados debían enviar resultados a un nodo único no escalable (generalmente de tipo \textit{Reduce}), se diseñó una cola de recolección centralizada. Dicho nodo recopilaba toda la información y generaba el reporte final una vez recibidos los resultados de todos los emisores.  
+
+Este esquema fue utilizado en:
+\begin{itemize}
+    \item Filters $\rightarrow$ Map Year Month / Map Year Semester.
+    \item Filters $\rightarrow$ Count Purchases.
+    \item Filters $\rightarrow$ Output Builder.
+    \item Join Users $\rightarrow$ Join Stores.
+\end{itemize}
+
+\subsubsection*{Comunicación 1 a 1}
+
+Finalmente, en los casos donde la comunicación era estrictamente secuencial entre nodos no escalables, se implementaron colas directas de 1 a 1. Los principales casos fueron:
+\begin{itemize}
+    \item Count Items $\rightarrow$ Sort Items.
+    \item Count Purchases $\rightarrow$ Sort Purchases.
+    \item Sum Items $\rightarrow$ Sort Items.
+    \item Sort Items $\rightarrow$ Join Items With Menu.
+    \item Join Items With Menu $\rightarrow$ Output Builder.
+    \item Join Stores $\rightarrow$ Output Builder.
+    \item Sum Final Amount $\rightarrow$ Join Stores.
+\end{itemize}
+
+\subsection*{Conclusión}
+
+La combinación de estas estrategias de comunicación permitió cumplir con los requisitos de abstracción y desacoplamiento planteados, al mismo tiempo que se aprovecharon al máximo las capacidades de RabbitMQ. Gracias a esta arquitectura, el sistema puede escalar horizontalmente de manera sencilla y mantener la coherencia en el flujo de datos, asegurando un comportamiento correcto incluso en escenarios de alta concurrencia.

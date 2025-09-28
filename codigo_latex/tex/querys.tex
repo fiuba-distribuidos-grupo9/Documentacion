@@ -57,13 +57,14 @@ y los productos que más ganancias generaron (nombre y monto).
 para cada sucursal, considerando únicamente transacciones realizadas entre 06:00 y 23:00.
 
 \begin{itemize}
-    \item \textbf{Tablas requeridas:} \texttt{transactions}.
+    \item \textbf{Tablas requeridas:} \texttt{transactions} y \texttt{stores}.
     \item \textbf{Columnas utilizadas:} \texttt{store\_id}, \texttt{created\_at}, \texttt{final\_amount}.
     \item \textbf{Pasos:}
     \begin{enumerate}
         \item Filtrar transacciones entre 2024 y 2025, dentro del rango horario.
         \item Generar nueva columna \texttt{year\_semester} a partir de la fecha.
         \item Reducir por clave \texttt{year\_semester, store\_id} sumando los montos finales.
+        \item Unir con \texttt{stores} para obtener nombres de las sucursales.
         \item Generar el reporte y devolverlo al usuario.
     \end{enumerate}
 \end{itemize}
@@ -73,7 +74,7 @@ para cada sucursal, considerando únicamente transacciones realizadas entre 06:0
 durante 2024 y 2025, discriminado por sucursal.
 
 \begin{itemize}
-    \item \textbf{Tablas requeridas:} \texttt{transactions}, \texttt{users}.
+    \item \textbf{Tablas requeridas:} \texttt{transactions}, \texttt{users} y \texttt{stores}.
     \item \textbf{Columnas utilizadas:} 
     \begin{itemize}
         \item De \texttt{transactions}: \texttt{user\_id}, \texttt{store\_id}, \texttt{created\_at}.
@@ -88,6 +89,7 @@ durante 2024 y 2025, discriminado por sucursal.
         \item Ordenar en forma descendente por número de compras.
         \item Seleccionar los tres usuarios con más compras por sucursal.
         \item Unir con \texttt{users} para obtener las fechas de nacimiento.
+        \item Unir con \texttt{stores} para obtener nombres de las sucursales.
         \item Generar el reporte y devolverlo al usuario.
     \end{enumerate}
 \end{itemize}

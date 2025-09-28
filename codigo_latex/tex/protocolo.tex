@@ -3,11 +3,14 @@
 \subsection{Protocolo}
 
 Para la implementación del sistema distribuido se desarrolló un protocolo de 
-comunicación específico, adaptado a las necesidades del presente trabajo.  
+comunicación específico, adaptado a las necesidades del presente trabajo.
+
 Este protocolo define las reglas de interacción entre el nodo coordinador, 
 los nodos de procesamiento y los clientes del sistema.  
 
-Documentación restante en proceso...
+La comunicación se basa en el intercambio de mensajes estructurados, que 
+incluyen información sobre las operaciones a realizar, los datos a procesar y
+los resultados obtenidos.
 
 \subsection{Mensajes}
 
@@ -15,4 +18,8 @@ Como parte del protocolo, se estableció un conjunto de mensajes bien definidos,
 orientados a cubrir las operaciones básicas del sistema: envío de datasets, 
 distribución de tareas, transmisión de resultados y manejo de errores.  
 
-Documentación restante en proceso...
+Cada mensaje tiene su propia estructura, que incluye campos para el tipo de mensaje,
+identificadores únicos, datos relevantes y metadatos necesarios para la correcta
+interpretación del mensaje.
+
+Toda la implementación del protocolo y los mensajes se encuentra definido en el archivo \texttt{src/shared/communication\_protocol.py}

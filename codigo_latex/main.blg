@@ -1,4 +1,4 @@
 [0] Config.pm:307> INFO - This is Biber 2.17
-[2] Config.pm:310> INFO - Logfile is 'main.blg'
-[156] biber:340> INFO - === Sat Sep 27, 2025, 21:45:30
-[240] Biber.pm:418> INFO - Reading 'main.bcf'
+[3] Config.pm:310> INFO - Logfile is 'main.blg'
+[168] biber:340> INFO - === Sun Sep 28, 2025, 00:42:48
+[206] Biber.pm:418> INFO - Reading 'main.bcf'

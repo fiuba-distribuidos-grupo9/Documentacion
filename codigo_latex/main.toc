@@ -1,0 +1,69 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Introducción}{4}{section.1}%
+\contentsline {section}{\numberline {2}Definición Técnica del Sistema Distribuido}{5}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Operaciones Distribuidas}{5}{subsection.2.1}%
+\contentsline {section}{\numberline {3}Implementación del Usuario}{6}{section.3}%
+\contentsline {section}{\numberline {4}Mecanismo de Optimización del Uso de Recursos}{6}{section.4}%
+\contentsline {section}{\numberline {5}Uso de Archivos Intermedios}{6}{section.5}%
+\contentsline {section}{\numberline {6}Descripción de las Consultas}{7}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Consulta 1: Transacciones filtradas}{7}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Consulta 2: Productos más vendidos y más rentables}{7}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Consulta 3: TPV por semestre y sucursal}{8}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}Consulta 4: Clientes más frecuentes y cumpleaños}{8}{subsection.6.4}%
+\contentsline {section}{\numberline {7}Vista de Escenarios}{9}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Casos de uso}{9}{subsection.7.1}%
+\contentsline {section}{\numberline {8}Vista de Procesos}{10}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Diagramas de Actividades}{10}{subsection.8.1}%
+\contentsline {subsubsection}{\numberline {8.1.1}Diagrama de Actividades de la primera consulta}{10}{subsubsection.8.1.1}%
+\contentsline {subsubsection}{\numberline {8.1.2}Diagrama de Actividades de la segunda consulta}{11}{subsubsection.8.1.2}%
+\contentsline {subsubsection}{\numberline {8.1.3}Diagrama de Actividades de la tercera consulta}{12}{subsubsection.8.1.3}%
+\contentsline {subsubsection}{\numberline {8.1.4}Diagrama de Actividades de la cuarta consulta}{13}{subsubsection.8.1.4}%
+\contentsline {subsection}{\numberline {8.2}Diagramas de Secuencia}{14}{subsection.8.2}%
+\contentsline {subsubsection}{\numberline {8.2.1}Diagrama de Secuencia de la primera consulta}{14}{subsubsection.8.2.1}%
+\contentsline {subsubsection}{\numberline {8.2.2}Diagrama de Secuencia de la segunda consulta}{15}{subsubsection.8.2.2}%
+\contentsline {subsubsection}{\numberline {8.2.3}Diagrama de Secuencia de la tercera consulta}{15}{subsubsection.8.2.3}%
+\contentsline {subsubsection}{\numberline {8.2.4}Diagrama de Secuencia de la cuarta consulta}{16}{subsubsection.8.2.4}%
+\contentsline {section}{\numberline {9}Vista Física}{17}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Diagrama de Robustez}{17}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}Diagrama de Robustez - Primera Consulta}{18}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}Diagrama de Robustez - Segunda Consulta}{19}{subsection.9.3}%
+\contentsline {subsection}{\numberline {9.4}Diagrama de Robustez - Tercera Consulta}{20}{subsection.9.4}%
+\contentsline {subsection}{\numberline {9.5}Diagrama de Robustez - Cuarta Consulta}{21}{subsection.9.5}%
+\contentsline {subsection}{\numberline {9.6}Escalabilidad de las Operaciones}{22}{subsection.9.6}%
+\contentsline {subsection}{\numberline {9.7}Diagrama de Despliegue}{23}{subsection.9.7}%
+\contentsline {section}{\numberline {10}Vista de Desarrollo}{24}{section.10}%
+\contentsline {subsection}{\numberline {10.1}Diagrama de Paquetes}{24}{subsection.10.1}%
+\contentsline {section}{\numberline {11}Vista Lógica}{25}{section.11}%
+\contentsline {subsection}{\numberline {11.1}Diagrama de Clases}{25}{subsection.11.1}%
+\contentsline {subsubsection}{\numberline {11.1.1}Diagrama de Clases - DataCleaner}{25}{subsubsection.11.1.1}%
+\contentsline {subsubsection}{\numberline {11.1.2}Diagrama de Clases - Filter}{25}{subsubsection.11.1.2}%
+\contentsline {subsubsection}{\numberline {11.1.3}Diagrama de Clases - Count y Sum}{25}{subsubsection.11.1.3}%
+\contentsline {subsubsection}{\numberline {11.1.4}Diagrama de Clases - SortDesc}{26}{subsubsection.11.1.4}%
+\contentsline {subsubsection}{\numberline {11.1.5}Diagrama de Clases - Join}{26}{subsubsection.11.1.5}%
+\contentsline {subsubsection}{\numberline {11.1.6}Diagrama de Clases - OutputBuilder}{26}{subsubsection.11.1.6}%
+\contentsline {section}{\numberline {12}Diagrama de Grafo Acíclico Dirigido (DAG) - Completo}{27}{section.12}%
+\contentsline {subsection}{\numberline {12.1}Diagrama de Grafo Acíclico Dirigido (DAG) - Completo}{27}{subsection.12.1}%
+\contentsline {subsection}{\numberline {12.2}Diagrama de Grafo Acíclico Dirigido (DAG) - Primera consulta}{28}{subsection.12.2}%
+\contentsline {subsection}{\numberline {12.3}Diagrama de Grafo Acíclico Dirigido (DAG) - Segunda consulta}{29}{subsection.12.3}%
+\contentsline {subsection}{\numberline {12.4}Diagrama de Grafo Acíclico Dirigido (DAG) - Tercera consulta}{30}{subsection.12.4}%
+\contentsline {subsection}{\numberline {12.5}Diagrama de Grafo Acíclico Dirigido (DAG) - Cuarta consulta}{31}{subsection.12.5}%
+\contentsline {section}{\numberline {13}Middleware}{32}{section.13}%
+\contentsline {section}{\numberline {14}Mensajes y Protocolos}{34}{section.14}%
+\contentsline {subsection}{\numberline {14.1}Protocolo}{34}{subsection.14.1}%
+\contentsline {subsection}{\numberline {14.2}Mensajes}{34}{subsection.14.2}%
+\contentsline {section}{\numberline {15}Mecanismos de Control}{35}{section.15}%
+\contentsline {subsection}{\numberline {15.1}Mecanismos de Control de Sincronización}{35}{subsection.15.1}%
+\contentsline {subsection}{\numberline {15.2}Mecanismos de Control de Señales}{35}{subsection.15.2}%
+\contentsline {subsection}{\numberline {15.3}Mecanismos de Control de Fallas}{35}{subsection.15.3}%
+\contentsline {section}{\numberline {16}Mediciones de rendimiento del sistema implementado}{35}{section.16}%
+\contentsline {subsection}{\numberline {16.1}Configuración del entorno de pruebas}{35}{subsection.16.1}%
+\contentsline {subsection}{\numberline {16.2}Tiempos medidos}{35}{subsection.16.2}%
+\contentsline {section}{\numberline {17}Cronograma teórico del desarrollo}{36}{section.17}%
+\contentsline {subsection}{\numberline {17.1}Diseño}{36}{subsection.17.1}%
+\contentsline {subsection}{\numberline {17.2}Escalabilidad}{36}{subsection.17.2}%
+\contentsline {subsection}{\numberline {17.3}Multi-Client}{36}{subsection.17.3}%
+\contentsline {subsection}{\numberline {17.4}Tolerancia}{36}{subsection.17.4}%
+\contentsline {subsection}{\numberline {17.5}Paper}{36}{subsection.17.5}%
+\contentsline {section}{\numberline {18}Cronograma real del desarrollo}{37}{section.18}%
+\contentsline {subsection}{\numberline {18.1}Diseño}{37}{subsection.18.1}%
+\contentsline {subsection}{\numberline {18.2}Middleware y Coordinación de Procesos}{38}{subsection.18.2}%
