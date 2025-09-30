@@ -51,19 +51,19 @@
 \contentsline {section}{\numberline {14}Mensajes y Protocolos}{34}{section.14}%
 \contentsline {subsection}{\numberline {14.1}Protocolo}{34}{subsection.14.1}%
 \contentsline {subsection}{\numberline {14.2}Mensajes}{34}{subsection.14.2}%
-\contentsline {section}{\numberline {15}Mecanismos de Control}{35}{section.15}%
-\contentsline {subsection}{\numberline {15.1}Mecanismos de Control de Sincronización}{35}{subsection.15.1}%
-\contentsline {subsection}{\numberline {15.2}Mecanismos de Control de Señales}{35}{subsection.15.2}%
-\contentsline {subsection}{\numberline {15.3}Mecanismos de Control de Fallas}{35}{subsection.15.3}%
-\contentsline {section}{\numberline {16}Mediciones de rendimiento del sistema implementado}{35}{section.16}%
-\contentsline {subsection}{\numberline {16.1}Configuración del entorno de pruebas}{35}{subsection.16.1}%
-\contentsline {subsection}{\numberline {16.2}Tiempos medidos}{35}{subsection.16.2}%
+\contentsline {section}{\numberline {15}Mediciones de rendimiento del sistema implementado}{34}{section.15}%
+\contentsline {subsection}{\numberline {15.1}Configuración del entorno de pruebas}{34}{subsection.15.1}%
+\contentsline {subsection}{\numberline {15.2}Tiempo de procesamiento total}{34}{subsection.15.2}%
+\contentsline {section}{\numberline {16}Mecanismos de Control}{35}{section.16}%
+\contentsline {subsection}{\numberline {16.1}Mecanismos de Control de Sincronización}{35}{subsection.16.1}%
+\contentsline {subsection}{\numberline {16.2}Mecanismos de Control de Señales}{35}{subsection.16.2}%
+\contentsline {subsection}{\numberline {16.3}Mecanismos de Control de Fallas}{35}{subsection.16.3}%
 \contentsline {section}{\numberline {17}Cronograma teórico del desarrollo}{36}{section.17}%
 \contentsline {subsection}{\numberline {17.1}Diseño}{36}{subsection.17.1}%
 \contentsline {subsection}{\numberline {17.2}Escalabilidad}{36}{subsection.17.2}%
 \contentsline {subsection}{\numberline {17.3}Multi-Client}{36}{subsection.17.3}%
 \contentsline {subsection}{\numberline {17.4}Tolerancia}{36}{subsection.17.4}%
 \contentsline {subsection}{\numberline {17.5}Paper}{36}{subsection.17.5}%
-\contentsline {section}{\numberline {18}Cronograma real del desarrollo}{37}{section.18}%
+\contentsline {section}{\numberline {18}Cronograma real del desarrollo (2 semanas)}{37}{section.18}%
 \contentsline {subsection}{\numberline {18.1}Diseño}{37}{subsection.18.1}%
-\contentsline {subsection}{\numberline {18.2}Middleware y Coordinación de Procesos}{38}{subsection.18.2}%
+\contentsline {subsection}{\numberline {18.2}Middleware y Coordinación de Procesos (2.5 semanas)}{38}{subsection.18.2}%

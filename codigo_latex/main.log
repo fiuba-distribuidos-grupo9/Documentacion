@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.9.19)  28 SEP 2025 00:44
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.9.19)  29 SEP 2025 22:49
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**/mnt/c/Users/fascenci/Desktop/TPs/Dise-o/codigo_latex/main.tex
-(/mnt/c/Users/fascenci/Desktop/TPs/Dise-o/codigo_latex/main.tex
+**/home/felipe/dev/Dise-o/codigo_latex/main.tex
+(/home/felipe/dev/Dise-o/codigo_latex/main.tex
 LaTeX2e <2021-11-15> patch level 1
 L3 programming layer <2022-01-21> (./estilo.cls
 Document Class: estilo 
@@ -1580,11 +1580,11 @@ l.88 \newpage
 <img/nodos_escalabilidad.png, id=597, 553.06625pt x 286.06876pt>
 File: img/nodos_escalabilidad.png Graphic file (type png)
 <use img/nodos_escalabilidad.png>
-Package pdftex.def Info: img/nodos_escalabilidad.png  used on input line 124.
+Package pdftex.def Info: img/nodos_escalabilidad.png  used on input line 126.
 (pdftex.def)             Requested size: 404.6023pt x 209.27368pt.
 File: logo.pdf Graphic file (type pdf)
 <use logo.pdf>
-Package pdftex.def Info: logo.pdf  used on input line 149.
+Package pdftex.def Info: logo.pdf  used on input line 133.
 (pdftex.def)             Requested size: 71.13188pt x 25.89293pt.
 
 
@@ -1597,12 +1597,12 @@ Package fancyhdr Warning: \headheight is too small (27.0pt):
 [22pdfTeX warning (ext4): destination with the same identifier (name{figure.15}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.149 
-       <./img/nodos_escalabilidad.png>]
+l.133 \newpage
+               <./img/nodos_escalabilidad.png>]
 <img/Vista Física - Diagrama de Despliegue.drawio.png, id=605, 1270.7475pt x 1115.16624pt>
 File: img/Vista Física - Diagrama de Despliegue.drawio.png Graphic file (type png)
 <use img/Vista Física - Diagrama de Despliegue.drawio.png>
-Package pdftex.def Info: img/Vista Física - Diagrama de Despliegue.drawio.png  used on input line 159.
+Package pdftex.def Info: img/Vista Física - Diagrama de Despliegue.drawio.png  used on input line 154.
 (pdftex.def)             Requested size: 426.79373pt x 374.54016pt.
 )
 File: logo.pdf Graphic file (type pdf)
@@ -1862,10 +1862,10 @@ Package fancyhdr Warning: \headheight is too small (27.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49297pt}.
 
-[33])
+[33]) (./tex/rendimiento.tex)
 File: logo.pdf Graphic file (type pdf)
 <use logo.pdf>
-Package pdftex.def Info: logo.pdf  used on input line 115.
+Package pdftex.def Info: logo.pdf  used on input line 116.
 (pdftex.def)             Requested size: 71.13188pt x 25.89293pt.
 
 
@@ -1875,7 +1875,7 @@ Package fancyhdr Warning: \headheight is too small (27.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49297pt}.
 
-[34] (./tex/control.tex) (./tex/rendimiento.tex)
+[34] (./tex/control.tex)
 File: logo.pdf Graphic file (type pdf)
 <use logo.pdf>
 Package pdftex.def Info: logo.pdf  used on input line 121.
@@ -1904,7 +1904,7 @@ Package fancyhdr Warning: \headheight is too small (27.0pt):
 [36] (./tex/cronograma_real.tex
 File: logo.pdf Graphic file (type pdf)
 <use logo.pdf>
-Package pdftex.def Info: logo.pdf  used on input line 44.
+Package pdftex.def Info: logo.pdf  used on input line 41.
 (pdftex.def)             Requested size: 71.13188pt x 25.89293pt.
 
 
@@ -1938,21 +1938,21 @@ LaTeX Info: Redefining \% on input line 26.
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: F8F4F3DC9E4DE3356925F9D68D770F4E;15143.
+(rerunfilecheck)             Checksum: D9DD8FE9DDA62A234ACEDF03130EF022;15373.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
  36602 strings out of 479591
- 693603 string characters out of 5877085
- 1485321 words of memory out of 5000000
+ 693552 string characters out of 5877085
+ 1484325 words of memory out of 5000000
  53723 multiletter control sequences out of 15000+600000
  475733 words of font info for 52 fonts, out of 8000000 for 9000
  376 hyphenation exceptions out of 8191
- 103i,16n,105p,791b,2229s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 103i,16n,105p,774b,2229s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/felipe/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on main.pdf (38 pages, 1515890 bytes).
+Output written on main.pdf (38 pages, 1516358 bytes).
 PDF statistics:
  815 PDF objects out of 1000 (max. 8388607)
  660 compressed objects within 7 object streams

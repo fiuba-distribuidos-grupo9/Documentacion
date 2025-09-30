@@ -1,9 +1,6 @@
-\section{Cronograma real del desarrollo}
+\section{Cronograma real del desarrollo (2 semanas)}
 
 \subsection{Diseño}
-
-El desarrollo del diseño se llevó a cabo en un período de dos semanas, 
-conformando un equipo de tres integrantes.  
 
 Durante la \textbf{primera semana}, el grupo se enfocó en interpretar en profundidad 
 los requisitos planteados en el enunciado, analizar la lógica de las consultas y 
@@ -43,32 +40,30 @@ según el siguiente detalle:
 
 \newpage
 
-\subsection{Middleware y Coordinación de Procesos}
+\subsection{Middleware y Coordinación de Procesos (2.5 semanas)}
 
-El desarrollo de la primera versión del sistema distribuido se llevó a cabo en un período de dos semanas y media, 
-conformando un equipo de tres integrantes.  
-
-Durante la \textbf{primera semana}, el grupo se enfocó en interpretar en profundidad 
+\textbf{Primera semana}, el grupo se enfocó en interpretar en profundidad 
 los requisitos planteados en el enunciado, analizar posibles implementaciones para las consultas solicitadas,
-definir el lenguaje de programación a utilizar, pactar protocolos e identificar bibliotecas necesarias para el desarrollo.
+hacer las correcciones de diseño necesarias, pactar protocolos e identificar bibliotecas necesarias para el desarrollo.
 
-Asimismo, en esta etapa se realizó la repartición de tareas entre los integrantes, de manera de optimizar el tiempo de 
-ejecución restante.
-
-En la \textbf{segunda semana}, cada integrante se abocó a las actividades asignadas, 
-según el siguiente detalle:
+\textbf{Segunda semana}, cada integrante se abocó a las actividades asignadas, detalladas a continuación:
 
 \subsection*{Luciano}
 \begin{itemize}
+    \item Diseño funcional integral de colas y exchanges en el sistema para la topología diseñada.
+    \item Investigación y selección de la biblioteca para la comunicación mediante RabbitMQ.
+    \item Investigación y selección de la biblioteca para la serialización/deserialización de mensajes.
     \item Implementación del Middleware.
-    \item Creación de los tests unitarios para validad funcionamiento del Middleware.
-    \item Establecimiento de conexiones entre Cliente y Servidor.
+    \item Creación de los tests unitarios para validar funcionamiento del Middleware.
+    \item Establecimiento de conexiones entre Cliente, Servidor y Middleware.
     \item Redacción de protocolos de comunicación.
     \item Integración del Middleware con los controladores.
+    \item Construcción del ecosistema de nodos de cómputo distribuido mediante a Dockerfiles.
 \end{itemize}
 
 \subsection*{Axel}
 \begin{itemize}
+    \item Diseño funcional integral de colas y exchanges en el sistema para la topología diseñada.
     \item Implementación de los controladores:
     \begin{itemize}
         \item Join.
@@ -83,13 +78,14 @@ según el siguiente detalle:
 
 \subsection*{Felipe}
 \begin{itemize}
+    \item Diseño funcional integral de colas y exchanges en el sistema para la topología diseñada.
     \item Implementación de los controladores:
     \begin{itemize}
         \item Cleaners.
         \item Output Builders.
         \item Reduces.
     \end{itemize}
-    \item Corrección del diseño inicial según las necesidades del desarrollo y las correcciones indicadas por el docente a cargo.
+    \item Integración de los controladores con el Middleware.
     \item Redacción de la nueva documentación del sistema.
-    \item Implementación de los mecanismos de cierre 'graceful' de los nodos de cómputo.
+    \item Relevamiento y control de los mecanismos de cierre 'graceful' de los nodos de cómputo.
 \end{itemize}
