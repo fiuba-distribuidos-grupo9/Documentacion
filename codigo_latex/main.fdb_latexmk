@@ -1,10 +1,10 @@
 # Fdb version 3
-["biber main"] 1759030967 "main.bcf" "main.bbl" "main" 1759196949
-  "main.bcf" 1759196949 106594 d0a4d0e1c136c0a864bb82402f3a8ea5 "pdflatex"
+["biber main"] 1759200378 "main.bcf" "main.bbl" "main" 1759200541
+  "main.bcf" 1759200541 106594 d0a4d0e1c136c0a864bb82402f3a8ea5 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
-["pdflatex"] 1759196941 "/home/felipe/dev/Dise-o/codigo_latex/main.tex" "main.pdf" "main" 1759196949
+["pdflatex"] 1759200538 "/home/felipe/dev/Dise-o/codigo_latex/main.tex" "main.pdf" "main" 1759200541
   "/etc/texmf/web2c/texmf.cnf" 1758257850 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/felipe/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.600pk" 1758259630 11524 fea92a10cf9d1a47f4776eb079406d1e ""
   "/home/felipe/dev/Dise-o/codigo_latex/main.tex" 1759196299 3021 f907e18a24902c961ce5810f3f69e1cc ""
@@ -257,20 +257,20 @@
   "img/robustez3.png" 1759195125 218684 2dc79d6907d9425b33f9b95a04f15f79 ""
   "img/robustez4.png" 1759195125 279180 7b481fd2e71ceb86b13ea44b164715ba ""
   "logo.pdf" 1759195125 23517 55dcbdbcb3a7201e9413943da9c8afa3 ""
-  "main.atfi" 1759196949 23 33e109ecf84d2ac55814cb2442ea01dc "pdflatex"
-  "main.aux" 1759196949 17144 78e0e931f8cfa0899c6780716ab753e1 "pdflatex"
-  "main.bbl" 1759195125 0 d41d8cd98f00b204e9800998ecf8427e "biber main"
-  "main.out" 1759196949 15373 d9dd8fe9dda62a234acedf03130ef022 "pdflatex"
-  "main.run.xml" 1759196949 2274 3c9efbcb7467da793e6933a55675e6bc "pdflatex"
+  "main.atfi" 1759200541 23 33e109ecf84d2ac55814cb2442ea01dc "pdflatex"
+  "main.aux" 1759200541 17144 78e0e931f8cfa0899c6780716ab753e1 "pdflatex"
+  "main.bbl" 1759200378 0 d41d8cd98f00b204e9800998ecf8427e "biber main"
+  "main.out" 1759200541 15373 d9dd8fe9dda62a234acedf03130ef022 "pdflatex"
+  "main.run.xml" 1759200541 2274 3c9efbcb7467da793e6933a55675e6bc "pdflatex"
   "main.tex" 1759196299 3021 f907e18a24902c961ce5810f3f69e1cc ""
-  "main.toc" 1759196949 6754 ae06f6a7f08f11a12e6975171a05d5fe "pdflatex"
+  "main.toc" 1759200541 6754 ae06f6a7f08f11a12e6975171a05d5fe "pdflatex"
   "tex/archivos.tex" 1759195125 852 154f0d1aecc4c4b35654ac54064e002a ""
   "tex/control.tex" 1759195125 1432 633c40f9615df6ba0982c5904b47c1cc ""
   "tex/cronograma_real.tex" 1759196646 3666 eec98978315f321022e6fca8330c09d9 ""
   "tex/cronograma_teorico.tex" 1759195125 2780 69dcbe4ca6da8d73c51d79ebdba2f368 ""
   "tex/dag.tex" 1759195125 2157 f312b4f4dd9690f73030a7b05df1e7e2 ""
   "tex/escenarios.tex" 1759195125 604 f92dd310f56623e79bc9d177787e7585 ""
-  "tex/implementacion_usuarios.tex" 1759195125 1077 58118e9e35abd49a0f2d038a27381068 ""
+  "tex/implementacion_usuarios.tex" 1759200538 1218 f9668b2b906799b12fb019d836eb428e ""
   "tex/introduccion.tex" 1759195125 1812 6595b193fe2570c803ea40ec31c6a2ad ""
   "tex/middleware.tex" 1759195125 5783 228b92614749bac356c51cd37dd6562d ""
   "tex/operaciones.tex" 1759195125 3339 266fd467ce24255d0a7ea8dc439e850b ""

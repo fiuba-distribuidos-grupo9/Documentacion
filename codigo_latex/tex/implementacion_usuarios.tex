@@ -1,7 +1,7 @@
 \section{Implementación del Usuario}
 
 La interacción de los usuarios con el sistema distribuido se realizará mediante un esquema 
-secuensial. Para cada usuario que se conecte, se respetera una secuencia específica de ejecución.
+secuencial. Para cada usuario que se conecte, se respetera una secuencia específica de ejecución.
 
 \begin{itemize}
     \item \textbf{Etapa de envío de información:} En esta etapa el usuario envía toda la información en base a la que el
@@ -11,9 +11,10 @@ secuensial. Para cada usuario que se conecte, se respetera una secuencia especí
     a las consultas.
 
     \item \textbf{Etapa de recepción de resultados:} Una vez que el sistema ha procesado la información, el usuario recibe las respuestas a las consultas
-    solicitadas.
+    solicitadas mediante unos archivos generados en la carpeta \texttt{'.results/query\_results'} en formato '.txt'. Se genera un archivo por cada consulta.
 \end{itemize}
 
 De esta manera se logra una interacción segura y escalable.
 
 La arquitectura está diseñada para soportar múltiples usuarios en simultáneo, escalando el número de conexiones establecidas proporcionalmente a la cantidad de clientes activos.
+
