@@ -28,12 +28,20 @@ Para decidir a qué cola enviar cada batch de datos se utilizaron dos estrategia
         \item Servidor $\rightarrow$ Cleaners.
         \item Cleaners $\rightarrow$ Filters.
         \item Filters $\rightarrow$ Filters.
-        \item \item Filters $\rightarrow$ Output Builder.
+        \item Filters $\rightarrow$ Output Builder.
         \item Join Users $\rightarrow$ Join Stores.
         \item Filters $\rightarrow$ Map Year Month / Map Year Semester.
     \end{itemize}
 
-    \item \textbf{Hashing por clave (Sharding):} Se empleó en los casos en que los datos debían ser dirigidos a un nodo específico según una clave. Por ejemplo, en la comunicación \textit{Cleaners de Usuarios $\rightarrow$ Joins de Usuarios}, la asignación de transacciones a los nodos de Join se resolvió aplicando una función hash sobre el ID de usuario.  
+    \item \textbf{Hashing por clave (Sharding):} Se empleó en los casos en que los datos debían ser dirigidos a un nodo específico según una clave.
+    Por ejemplo, en la comunicación de:
+
+    \begin{itemize}
+        \item Cleaners de Usuarios $\rightarrow$ Joins de Usuarios.
+    \end{itemize}
+    
+    La asignación de transacciones a los nodos de Join se resolvió aplicando una función hash sobre el ID de usuario.
+    
     Concretamente, se utilizó el resto de la división entera del ID por la cantidad de nodos shardeados, lo que asegura que todas las transacciones de un mismo usuario lleguen al mismo nodo de Join.
 \end{enumerate}
 
