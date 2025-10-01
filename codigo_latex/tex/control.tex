@@ -9,14 +9,16 @@ como \textit{race conditions} o \textit{deadlocks}.
 Estos mecanismos garantizan un acceso ordenado a los recursos compartidos y la correcta 
 coordinación entre los procesos en ejecución.  
 
-\subsection{Mecanismos de Control de Señales}
+\subsection{Mecanismos de Control de Señales y Finalización}
 
 El sistema incorpora un manejo explícito de señales a fin de asegurar una finalización 
 correcta y segura de los procesos.
 
 En particular, se controla la señal \texttt{SIGTERM},
-permitiendo un \textit{graceful quit} que libera recursos, cierra archivos abiertos y 
-mantiene la consistencia del sistema.  
+permitiendo un \textit{graceful quit} que libera recursos, cierra todos los archivos abiertos, se asegura de que todos los
+file descriptors sean cerrados de forma correcta, mediante a los métodos de 'Close' y 'Delete' brindados por el Middleware.
+
+Este mecanismo previene pérdidas de datos, mantiene la consistencia del sistema y asegura el correcto uso de los recursos del sistema operativo.
 
 \subsection{Mecanismos de Control de Fallas}
 

@@ -1,25 +1,297 @@
 \section{Mensajes y Protocolos}
+\label{sec:mensajes-y-protocolos}
 
 \subsection{Protocolo}
+\label{subsec:protocolo}
 
-Para la implementación del sistema distribuido se desarrolló un protocolo de 
+Para la implementación del sistema distribuido se desarrolló un protocolo de
 comunicación específico, adaptado a las necesidades del presente trabajo.
 
-Este protocolo define las reglas de interacción entre el nodo coordinador, 
-los nodos de procesamiento y los clientes del sistema.  
+Este protocolo define las reglas de interacción entre el nodo coordinador,
+los nodos de procesamiento y los clientes del sistema. La comunicación se basa
+en el intercambio de mensajes \emph{auto\-contenidos} con un encabezado de tipo fijo
+y un \emph{payload} estructurado. Los mensajes expresan operaciones, datos a
+procesar y resultados obtenidos, y contemplan el envío por lotes (\emph{batch})
+de datasets, el intercambio de \emph{ACKs} y señales de fin de flujo.
 
-La comunicación se basa en el intercambio de mensajes estructurados, que 
-incluyen información sobre las operaciones a realizar, los datos a procesar y
-los resultados obtenidos.
+La implementación completa del protocolo se encuentra en:
+\texttt{src/shared/communication\_protocol.py}.
 
 \subsection{Mensajes}
+\label{subsec:mensajes}
 
-Como parte del protocolo, se estableció un conjunto de mensajes bien definidos, 
-orientados a cubrir las operaciones básicas del sistema: envío de datasets, 
-distribución de tareas, transmisión de resultados y manejo de errores.  
+Como parte del protocolo, se estableció un conjunto de tipos de mensajes de
+longitud fija (3 caracteres), orientados a cubrir las operaciones básicas del
+sistema: envío de datasets por lotes, resultados de queries, reconocimientos
+(\texttt{ACK}) y señalización de fin de flujo (\texttt{EOF}). Cada mensaje posee:
 
-Cada mensaje tiene su propia estructura, que incluye campos para el tipo de mensaje,
-identificadores únicos, datos relevantes y metadatos necesarios para la correcta
-interpretación del mensaje.
+\begin{itemize}
+  \item Un \textbf{tipo} de 3 caracteres (p.ej., \texttt{MIT}, \texttt{TRN}, \texttt{ACK}).
+  \item Un \textbf{delimitador} de inicio de payload \texttt{[} y de fin \texttt{]}.
+  \item Un \textbf{payload} cuyo formato depende del tipo (texto libre o lote estructurado).
+\end{itemize}
 
-Toda la implementación del protocolo y los mensajes se encuentra definido en el archivo \texttt{src/shared/communication\_protocol.py}
+A continuación se detalla el funcionamiento concreto, a partir del código provisto.
+
+\subsection{Formato de los mensajes}
+\label{subsec:formato}
+
+\paragraph{Estructura general.}
+Todo mensaje sigue un formato simple y siempre igual:
+
+\begin{quote}
+\texttt{<TYPE>[<PAYLOAD>]}
+\end{quote}
+
+\noindent Donde:
+\begin{itemize}
+  \item \texttt{<TYPE>} es un prefijo de \textbf{3 caracteres} (\texttt{MESSAGE\_TYPE\_LENGTH = 3}).
+  \item El \textbf{payload} va entre corchetes: \verb|[| \ldots \verb|]|
+        (\texttt{MSG\_START\_DELIMITER} y \texttt{MSG\_END\_DELIMITER}).
+\end{itemize}
+
+\paragraph{Payload por lotes (batch).}
+Para los mensajes que transportan registros, el payload es un \emph{batch}:
+\begin{quote}
+\texttt{\char`\{}\texttt{\textless ROW\textgreater}\texttt{;}\texttt{\textless ROW\textgreater}\texttt{;}\texttt{...}\texttt{;}\texttt{\textless ROW\textgreater}\texttt{\char`\}}
+\end{quote}
+
+\noindent Cada \texttt{<ROW>} es una secuencia de pares clave--valor separados por comas:
+\begin{quote}
+\texttt{<FIELD>,<FIELD>,\ldots}
+\end{quote}
+
+\noindent Un \texttt{<FIELD>} tiene la forma:
+\begin{quote}
+\verb|{'<key>':'<value>'}|
+\end{quote}
+
+\newpage
+
+\noindent Delimitadores usados en el batch:
+\begin{itemize}
+  \item Inicio/fin de batch: \texttt{BATCH\_START\_DELIMITER}=\verb|{|, \texttt{BATCH\_END\_DELIMITER}=\verb|}|
+  \item Separador de filas: \texttt{BATCH\_ROW\_SEPARATOR}=\verb|;|
+  \item Separador de campos: \texttt{ROW\_FIELD\_SEPARATOR}=\verb|,|
+\end{itemize}
+
+\noindent \textbf{Ejemplo de batch con dos filas:}
+\begin{quote}
+\verb|{|'id':'m001','name':'Latte','price':'4.50';'id':'m002','name':'Espresso','price':'3.20'\verb|}|
+\end{quote}
+
+Sin escape de caracteres: Las claves y valores no pueden contener comillas dobles,
+dos puntos \texttt{:}, comas \texttt{,}, punto y coma \texttt{;}, ni llaves o corchetes.
+
+\subsection{Tipos de mensajes y su propósito}
+\label{subsec:tipos}
+
+\begin{center}
+\begin{tabular}{ll}
+\hline
+\textbf{Tipo (3 chars)} & \textbf{Uso} \\
+\hline
+\texttt{QRY} & Mensaje de consulta del cliente al sistema. \\
+\texttt{ACK} & Reconocimiento genérico (éxito/recepción). \\
+\texttt{MIT} & Lote de \emph{menu items}. \\
+\texttt{STR} & Lote de \emph{stores}. \\
+\texttt{TIT} & Lote de \emph{transaction items}. \\
+\texttt{TRN} & Lote de \emph{transactions}. \\
+\texttt{USR} & Lote de \emph{users}. \\
+\texttt{Q1X} & Resultado para Query 1 (\emph{variant X}). \\
+\texttt{Q21} & Resultado para Query 2.1. \\
+\texttt{Q22} & Resultado para Query 2.2. \\
+\texttt{Q3X} & Resultado para Query 3 (\emph{variant X}). \\
+\texttt{Q4X} & Resultado para Query 4 (\emph{variant X}). \\
+\texttt{EOF} & Señal de fin de flujo (payload: el tipo de flujo que finaliza). \\
+\hline
+\end{tabular}
+\end{center}
+
+Los tipos \texttt{MIT}, \texttt{STR}, \texttt{TIT}, \texttt{TRN} y \texttt{USR}
+son \emph{batch messages}. Los tipos \texttt{Q1X}, \texttt{Q21}, \texttt{Q22},
+\texttt{Q3X}, \texttt{Q4X} representan resultados de consultas y pueden usar el
+mismo formato general de mensaje (el payload queda a criterio del productor del
+resultado en este TP). \texttt{QRY} y \texttt{ACK} son mensajes de control
+ligeros (texto breve o vacío).
+
+\subsection{Codificación (\emph{encode})}
+\label{subsec:encode}
+
+\paragraph{Mensajes genéricos.}
+La función privada \texttt{\_\_encode\_message(type, payload)} compone:
+\[
+\texttt{type} \parallel \texttt{[} \parallel \texttt{payload} \parallel \texttt{]}
+\]
+A partir de ella se exponen:
+
+\begin{itemize}
+  \item \texttt{encode\_ack\_message(msg: str) -> str}: Genera \texttt{ACK[msg]}.
+  \item \texttt{encode\_eof\_message(message\_type: str) -> str}:
+        Genera \texttt{EOF[<message\_type>]}, donde el \emph{payload} es el tipo
+        de flujo que se declara finalizado (p.ej., \texttt{EOF[TRN]}).
+\end{itemize}
+
+\paragraph{Mensajes por lotes.}
+\texttt{encode\_batch\_message(batch\_msg\_type, batch)}:
+\begin{enumerate}
+  \item Para cada \texttt{row: dict[str, str]}, codifica campos como
+        \texttt{'key':'value'} unidos con \texttt{','}.
+  \item Une filas con \texttt{';'} y encapsula con \texttt{'\{\}'}.
+  \item Envuelve con el tipo y corchetes de mensaje.
+\end{enumerate}
+Se proveen \emph{helpers} tipados:
+\texttt{encode\_menu\_items\_batch\_message},\texttt{encode\_stores\_batch\_message},
+\texttt{encode\_transaction\_items\_batch\_message},
+\texttt{encode\_transactions\_batch\_message},
+\texttt{encode\_users\_batch\_message}.
+
+\subsection{Decodificación (\emph{decode})}
+\label{subsec:decode}
+
+\paragraph{Acceso al payload y tipo.}
+\begin{itemize}
+  \item \texttt{decode\_message\_type(msg)}: Devuelve los primeros 3 caracteres.
+        Valida largo mínimo; lanza \texttt{ValueError} si el mensaje es demasiado corto.
+  \item \texttt{get\_message\_payload(msg)}: Remueve el prefijo de tipo y
+        \texttt{[\,\,]} exteriores, retornando la cadena interna.
+  \item \texttt{decode\_is\_empty\_message(msg)}: Verdadero si el payload está vacío.
+\end{itemize}
+
+\paragraph{Validación estructural.}
+\texttt{\_\_assert\_message\_format(msg, expected\_type)} verifica:
+\begin{enumerate}
+  \item Que el tipo decodificado sea el esperado.
+  \item Que el mensaje comience con \texttt{<expected>\,[} y termine con \texttt{]}.
+\end{enumerate}
+En caso contrario, lanza \texttt{ValueError}.
+
+\paragraph{Decodificación de lotes.}
+\texttt{decode\_batch\_message(msg)}:
+\begin{enumerate}
+  \item Obtiene el payload (que globalmente está entre \texttt{\{\}}).
+  \item Separa filas por \texttt{;}.
+  \item Para cada fila, \texttt{\_\_decode\_row}:
+        \begin{enumerate}
+          \item Remueve llaves \texttt{\{\}} en extremos (si las hubiera).
+          \item Separa campos por \texttt{,}.
+          \item Divide cada campo por el primer \texttt{:} en \texttt{key:value}.
+          \item Quita comillas dobles exteriores de clave y valor.
+        \end{enumerate}
+  \item Devuelve \texttt{list[dict[str,str]]}.
+\end{enumerate}
+Se incluyen variantes tipadas que además validan el tipo del mensaje:
+\texttt{decode\_menu\_items\_batch\_message}, \texttt{decode\_stores\_batch\_message},
+\texttt{decode\_transaction\_items\_batch\_message},
+\texttt{decode\_transactions\_batch\_message},
+\texttt{decode\_users\_batch\_message}.
+
+\paragraph{Señal de fin de flujo.}
+\texttt{decode\_eof\_message(msg)} valida que el tipo sea \texttt{EOF} y retorna
+el payload: el \emph{identificador de tipo de flujo} que finaliza (p.ej.,
+\texttt{TRN}, \texttt{USR}, etc.).
+
+\subsection{Ciclos de vida típicos de los mensajes}
+\label{subsec:lifecycles}
+
+\paragraph{Ingesta de datasets por lotes.}
+Para cada dataset (p.ej., \texttt{MIT}, \texttt{TRN}):
+\begin{enumerate}
+  \item El productor envía uno o más mensajes \textbf{batch} del tipo correspondiente.
+  \item Opcionalmente, el receptor responde con \texttt{ACK[\ldots]} para marcar recepción/éxito.
+  \item Al finalizar el stream de ese dataset, el productor envía \texttt{EOF[<TIPO>]},
+        por ejemplo \texttt{EOF[TRN]}.
+\end{enumerate}
+
+\paragraph{Consultas y resultados.}
+\begin{enumerate}
+  \item Un cliente emite \texttt{QRY[\ldots]} con parámetros de consulta (formato libre en este TP).
+  \item Los resultados se retornan en mensajes \texttt{Q1X}, \texttt{Q21}, \texttt{Q22},
+        \texttt{Q3X} o \texttt{Q4X}, según el ejercicio, con payload acorde.
+  \item Se puede usar \texttt{ACK[\ldots]} para confirmar recepción o estado (p.ej., \emph{accepted}, \emph{done}).
+\end{enumerate}
+
+\subsection{Ejemplos de mensajes codificados}
+\label{subsec:ejemplos}
+
+\paragraph{ACK sin payload.}
+\begin{verbatim}
+ACK[]
+\end{verbatim}
+
+\paragraph{Batch de menu items (2 filas).}
+\begin{verbatim}
+MIT[{'id':'m001','name':'Latte','price':'4.50';'id':'m002','name':'Espresso','price':'3.20'}]
+\end{verbatim}
+
+\paragraph{Fin de flujo de transacciones.}
+\begin{verbatim}
+EOF[TRN]
+\end{verbatim}
+
+\paragraph{Resultado de Query 2.1 (payload libre en este TP).}
+\begin{verbatim}
+Q21[{'store_id':'s007','metric':'top_seller','value':'m001'}]
+\end{verbatim}
+
+\subsection{Validaciones, errores y robustez}
+\label{subsec:validaciones}
+
+\begin{itemize}
+  \item \textbf{Tipo y formato:} Todo decodificador específico verifica que el
+        tipo de mensaje coincida con el esperado y que existan los corchetes
+        exteriores. Inconsistencias lanzan \texttt{ValueError}.
+  \item \textbf{Longitud mínima:} \texttt{decode\_message\_type} exige al menos
+        3 caracteres (tipo). Mensajes más cortos disparan \texttt{ValueError}.
+  \item \textbf{Payload vacío:} Admitido (\texttt{ACK[]} o keep-alives).
+  \item \textbf{Complejidad:} Las rutinas de encode/decode son lineales en la
+        longitud del mensaje, con operaciones de \texttt{split}/\texttt{join}
+        sobre separadores fijos, facilitando el procesamiento por streaming.
+\end{itemize}
+
+\subsection{Supuestos y limitaciones deliberadas}
+\label{subsec:limitaciones}
+
+\begin{itemize}
+  \item \textbf{Sin escape de caracteres:} Claves y valores no deben contener
+        comillas dobles \texttt{"}, dos puntos \texttt{:}, comas \texttt{,},
+        punto y coma \texttt{;}, ni llaves/corchetes. Esto
+        simplifica y acelera el parser a costa de restringir el dominio de
+        valores posibles (suficiente para este TP).
+  \item \textbf{Tipos de datos:} Todos los valores se tratan como cadenas
+        (\texttt{str}); la tipificación semántica queda a cargo de las capas
+        de negocio.
+  \item \textbf{Orden y entrega:} El protocolo describe \emph{formato} y
+        \emph{semántica de alto nivel} (batches, ACK, EOF). Las garantías de
+        orden, reintentos o \emph{at-least-once/exactly-once} pertenecen a la
+        capa de transporte y orquestación (p.ej., colas), tratadas en otra
+        sección del informe.
+\end{itemize}
+
+\subsection{Extensibilidad}
+\label{subsec:extensibilidad}
+
+El diseño con prefijos de 3 caracteres facilita agregar nuevos tipos de
+mensajes sin afectar a los existentes. Para incorporar uno nuevo basta con:
+
+\begin{enumerate}
+  \item Declarar la constante del tipo (3 letras).
+  \item Implementar, si corresponde, \emph{helpers} de encode/decode análogos a los de batch.
+  \item Documentar el payload asociado (texto libre o esquema de campos del batch).
+\end{enumerate}
+
+\newpage
+
+\subsection{Resumen}
+\label{subsec:resumen}
+
+El protocolo define un \textbf{formato compacto y determinista}:
+\begin{itemize}
+\item encabezado de 3 caracteres para el tipo
+\item delimitadores exteriores \texttt{[\,\,]}
+\item para datasets, un \textbf{batch} con \texttt{\char`\{}\texttt{\char`\}} y separadores simples
+\end{itemize}
+Se proveen \emph{helpers} específicos para codificar/decodificar los distintos
+datasets y una señal \texttt{EOF} que marca el fin de cada flujo lógico. Las
+validaciones estructurales minimizan errores de parseo y el diseño favorece
+procesamiento lineal y extensibilidad controlada para futuras necesidades del TP.

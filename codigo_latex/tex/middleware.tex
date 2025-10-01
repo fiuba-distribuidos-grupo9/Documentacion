@@ -1,16 +1,20 @@
 \section{Middleware}
 
-El middleware interno constituye el pilar fundamental de la comunicación en el sistema \textit{"Coffee Shop Analysis"}, siendo el responsable de orquestar la interacción entre el servidor central y los múltiples nodos de procesamiento. Su arquitectura se basa en un modelo de Middleware Orientado a Mensajes (MOM), implementado mediante la herramienta \textbf{RabbitMQ}, que actúa como bróker central, tal como se visualiza en el Diagrama de Despliegue. 
+El middleware interno constituye el pilar fundamental de la comunicación en el sistema \textit{Coffee Shop Analysis}, siendo el responsable de orquestar la interacción entre el servidor central y los múltiples nodos de procesamiento. Su arquitectura se basa en un modelo de Middleware Orientado a Mensajes (MOM), implementado mediante la herramienta \textbf{RabbitMQ}, que actúa como bróker central y mediador confiable entre los distintos procesos distribuidos, tal como se visualiza en el Diagrama de Despliegue.  
 
-La principal función de este middleware es abstraer la complejidad de la comunicación en red, garantizando que los nodos puedan interactuar de forma desacoplada y asincrónica. En lugar de conexiones punto a punto, los componentes se comunican a través de colas y tópicos, definidos estratégicamente para cada escenario. Este diseño aporta escalabilidad, flexibilidad y la posibilidad de añadir o remover nodos de procesamiento dinámicamente sin alterar la lógica central.
+La adopción de un middleware de este tipo permite abstraer completamente la complejidad de la comunicación en red, ocultando al programador los detalles de bajo nivel relacionados con sockets, serialización de datos o control de concurrencia. En lugar de conexiones rígidas punto a punto, los componentes se comunican a través de colas y \emph{exchanges} definidos estratégicamente para cada escenario. Este enfoque incrementa notablemente la flexibilidad del sistema, ya que la incorporación de un nuevo nodo de procesamiento, o la eliminación de uno existente, no requiere modificar la lógica de negocio del resto de los participantes.  
 
-La lógica de conexión se implementa en el componente \texttt{MQConnectionHandler}, ubicado en el paquete \texttt{shared}, asegurando un manejo uniforme de las comunicaciones. Sobre esta capa de mensajería se diseñó un protocolo de aplicación específico que define la estructura de los mensajes para el envío de datasets, la transmisión de resultados y el manejo de errores. 
+Otro aspecto central es la asincronía. Gracias al middleware, los nodos no dependen de la disponibilidad inmediata de sus contrapartes, sino que pueden depositar mensajes en una cola para que el receptor los procese cuando corresponda. Esto aporta robustez frente a picos de carga y tolerancia a fallos parciales, ya que los datos no se pierden aunque un nodo se encuentre momentáneamente inactivo. Asimismo, las colas actúan como un mecanismo de \textit{buffering}, desacoplando el ritmo de producción y consumo de datos entre los distintos nodos.
 
-Para interactuar con el Middleware se implementaron las interfaces provistas por la cátedra, y se desarrollaron todos los tests unitarios correspondientes con el fin de validar su correcto funcionamiento. De esta manera, se cumple con el requisito planteado en el enunciado de abstraer la comunicación entre los nodos del sistema distribuido.
+La lógica de conexión se implementa en el componente \texttt{MQConnectionHandler}, ubicado en el paquete \texttt{shared}, que centraliza la configuración de colas, \emph{exchanges} y canales de comunicación. De este modo, se asegura un manejo uniforme y estandarizado de las operaciones de envío y recepción de mensajes. Sobre esta capa de mensajería se diseñó además un protocolo de aplicación específico que define la estructura de los mensajes para el envío de datasets, la transmisión de resultados y el manejo de errores, lo que permite garantizar la correcta interpretación de la información en todas las etapas del procesamiento.
+
+Finalmente, para interactuar con el middleware se emplearon las interfaces provistas por la cátedra, complementadas con la implementación de pruebas unitarias exhaustivas que validaron su correcto funcionamiento bajo diferentes escenarios de carga. De esta manera, el middleware cumple con el requisito planteado en el enunciado de abstraer la comunicación entre los nodos del sistema distribuido, aportando una base sólida para la escalabilidad, el desacoplamiento y la mantenibilidad del sistema en su conjunto.
 
 \subsection*{Esquemas de comunicación}
 
 Durante el desarrollo se identificaron distintos patrones de comunicación, y para cada uno se diseñó una solución particular apoyada en las herramientas de RabbitMQ. A continuación, se describen los principales casos implementados:
+
+\newpage
 
 \subsubsection*{Comunicación mediante colas dedicadas}
 
@@ -18,17 +22,26 @@ En los nodos escalables, se definió una cola por cada instancia de nodo. Esto a
 
 Para decidir a qué cola enviar cada batch de datos se utilizaron dos estrategias:
 \begin{enumerate}
-    \item \textbf{Round Robin:} cada emisor mantiene un contador que se incrementa en cada envío, distribuyendo los lotes de datos de forma equitativa entre las colas disponibles. Una vez alcanzado el último nodo, el contador retorna al primero.  
-    Esta técnica fue utilizada en:
+    \item \textbf{Round Robin:} Cada emisor mantiene un contador que se incrementa en cada envío, distribuyendo los lotes de datos de forma equitativa entre las colas disponibles. Una vez alcanzado el último nodo, el contador retorna al primero.  
+    Esta técnica fue utilizada en situaciones como:
     \begin{itemize}
         \item Servidor $\rightarrow$ Cleaners.
         \item Cleaners $\rightarrow$ Filters.
         \item Filters $\rightarrow$ Filters.
+        \item \item Filters $\rightarrow$ Output Builder.
+        \item Join Users $\rightarrow$ Join Stores.
+        \item Filters $\rightarrow$ Map Year Month / Map Year Semester.
     \end{itemize}
 
-    \item \textbf{Hashing por clave (Sharding):} se empleó en los casos en que los datos debían ser dirigidos a un nodo específico según una clave. Por ejemplo, en la comunicación \textit{Cleaners de Usuarios $\rightarrow$ Joins de Usuarios}, la asignación de transacciones a los nodos de Join se resolvió aplicando una función hash sobre el ID de usuario.  
+    \item \textbf{Hashing por clave (Sharding):} Se empleó en los casos en que los datos debían ser dirigidos a un nodo específico según una clave. Por ejemplo, en la comunicación \textit{Cleaners de Usuarios $\rightarrow$ Joins de Usuarios}, la asignación de transacciones a los nodos de Join se resolvió aplicando una función hash sobre el ID de usuario.  
     Concretamente, se utilizó el resto de la división entera del ID por la cantidad de nodos shardeados, lo que asegura que todas las transacciones de un mismo usuario lleguen al mismo nodo de Join.
 \end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{img/comunicacion1.png}
+    \caption{Esquema de comunicación mediante colas dedicadas.}
+\end{figure}
 
 \newpage
 
@@ -42,17 +55,26 @@ En este caso, el exchange distribuye la información procesada por el nodo \text
     \item Sum Items.
 \end{itemize}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\linewidth]{img/comunicacion2.png}
+    \caption{Esquema de comunicación mediante exchanges.}
+\end{figure}
+
 \subsubsection*{Comunicación de nodos escalables hacia un nodo no escalable}
 
 En escenarios donde múltiples nodos escalados debían enviar resultados a un nodo único no escalable (generalmente de tipo \textit{Reduce}), se diseñó una cola de recolección centralizada. Dicho nodo recopilaba toda la información y generaba el reporte final una vez recibidos los resultados de todos los emisores.  
 
-Este esquema fue utilizado en:
+Este esquema fue utilizado en situaciones como:
 \begin{itemize}
-    \item Filters $\rightarrow$ Map Year Month / Map Year Semester.
     \item Filters $\rightarrow$ Count Purchases.
-    \item Filters $\rightarrow$ Output Builder.
-    \item Join Users $\rightarrow$ Join Stores.
 \end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\linewidth]{img/comunicacion3.png}
+    \caption{Esquema de comunicación de nodos escalables hacia un nodo único no escalable.}
+\end{figure}
 
 \subsubsection*{Comunicación 1 a 1}
 
@@ -61,11 +83,31 @@ Finalmente, en los casos donde la comunicación era estrictamente secuencial ent
     \item Count Items $\rightarrow$ Sort Items.
     \item Count Purchases $\rightarrow$ Sort Purchases.
     \item Sum Items $\rightarrow$ Sort Items.
-    \item Sort Items $\rightarrow$ Join Items With Menu.
-    \item Join Items With Menu $\rightarrow$ Output Builder.
-    \item Join Stores $\rightarrow$ Output Builder.
-    \item Sum Final Amount $\rightarrow$ Join Stores.
 \end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\linewidth]{img/comunicacion4.png}
+    \caption{Esquema de comunicación 1 a 1.}
+\end{figure}
+
+\subsection*{Detección y propagación de EOF}
+
+Todos los controladores del sistema conocen tanto los nodos que les preceden como los que les suceden en la cadena de procesamiento. Esta información es fundamental para la correcta propagación de los mensajes de fin de flujo (\texttt{EOF}).
+
+El mecanismo es el siguiente:
+\begin{itemize}
+    \item Cada nodo espera recibir la cantidad exacta de mensajes \texttt{EOF} correspondientes a los emisores que tiene detrás suyo. 
+    \item Una vez que se han recibido todos los \texttt{EOF}, el nodo puede concluir que no habrá más información de entrada.
+    \item En ese momento, genera y propaga su propio \texttt{EOF} hacia todos los nodos que le suceden, ya sea:
+    \begin{itemize}
+        \item Enviando a una cola directa (1 a 1).
+        \item Replicando en un exchange.
+        \item Distribuyendo por Round Robin entre varias colas.
+    \end{itemize}
+\end{itemize}
+
+De esta manera, se garantiza que cada etapa del sistema procese exactamente todos los datos antes de finalizar, manteniendo un estado consistente y evitando pérdidas o confusiones en la comunicación.
 
 \subsection*{Conclusión}
 
