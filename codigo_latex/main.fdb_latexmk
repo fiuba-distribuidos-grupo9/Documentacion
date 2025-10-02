@@ -1,10 +1,10 @@
 # Fdb version 3
-["biber main"] 1759374147 "main.bcf" "main.bbl" "main" 1759378863
-  "main.bcf" 1759378863 106594 d0a4d0e1c136c0a864bb82402f3a8ea5 "pdflatex"
+["biber main"] 1759374147 "main.bcf" "main.bbl" "main" 1759379762
+  "main.bcf" 1759379762 106594 d0a4d0e1c136c0a864bb82402f3a8ea5 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
-["pdflatex"] 1759378860 "/home/felipe/dev/Dise-o/codigo_latex/main.tex" "main.pdf" "main" 1759378863
+["pdflatex"] 1759379759 "/home/felipe/dev/Dise-o/codigo_latex/main.tex" "main.pdf" "main" 1759379762
   "/etc/texmf/web2c/texmf.cnf" 1758257850 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/felipe/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.600pk" 1758259630 11524 fea92a10cf9d1a47f4776eb079406d1e ""
   "/home/felipe/dev/Dise-o/codigo_latex/main.tex" 1759265827 3030 d49c43a1b7bef23afc5fba0162b92c36 ""
@@ -241,7 +241,7 @@
   "img/DAG2.png" 1759195125 108876 82bd3eedb7961bb49f22fc38b93b05cd ""
   "img/DAG3.png" 1759195125 91757 1b14b2b8bddf07ea97c058a43481e7ac ""
   "img/DAG4.png" 1759195125 117373 3a9161855e18dc766e1add8bcc6c58f5 ""
-  "img/Vista Física - Diagrama de Despliegue.drawio.png" 1759278303 186024 9efc40af06ea1c889fa2ef8b5316e4ec ""
+  "img/Vista Física - Diagrama de Despliegue.drawio.png" 1759379618 292024 0449a284d8f41886cc490bf4fec1c75b ""
   "img/Vista Lógica - Diagrama de Clases-Count & Sum.drawio.png" 1759195125 65164 5457db22f83f8b59a3cc95b15d2eac58 ""
   "img/Vista Lógica - Diagrama de Clases-DataCleaner.drawio.png" 1759195125 61630 6b827f91f4277906566b4174640bdf7b ""
   "img/Vista Lógica - Diagrama de Clases-Filter.drawio.png" 1759195125 58910 c9fe08720530b19dc8a046c080c31553 ""
@@ -263,13 +263,13 @@
   "img/robustez3.png" 1759377965 194731 a3781e91de9ae3bc58ac76c5ee740c97 ""
   "img/robustez4.png" 1759378416 232404 1ec07639938d9419d5043003fdda6e9b ""
   "logo.pdf" 1759195125 23517 55dcbdbcb3a7201e9413943da9c8afa3 ""
-  "main.atfi" 1759378863 23 33e109ecf84d2ac55814cb2442ea01dc "pdflatex"
-  "main.aux" 1759378863 20459 44b6ce03f029d6de50230f7b46151fb7 "pdflatex"
+  "main.atfi" 1759379762 23 33e109ecf84d2ac55814cb2442ea01dc "pdflatex"
+  "main.aux" 1759379762 20459 44b6ce03f029d6de50230f7b46151fb7 "pdflatex"
   "main.bbl" 1759374149 0 d41d8cd98f00b204e9800998ecf8427e "biber main"
-  "main.out" 1759378863 17222 49735bbe2a15c374367dd444b1620b4e "pdflatex"
-  "main.run.xml" 1759378863 2274 3c9efbcb7467da793e6933a55675e6bc "pdflatex"
+  "main.out" 1759379762 17222 49735bbe2a15c374367dd444b1620b4e "pdflatex"
+  "main.run.xml" 1759379762 2274 3c9efbcb7467da793e6933a55675e6bc "pdflatex"
   "main.tex" 1759265827 3030 d49c43a1b7bef23afc5fba0162b92c36 ""
-  "main.toc" 1759378863 8650 84f10415084290a8ff4667ab692a8629 "pdflatex"
+  "main.toc" 1759379762 8650 84f10415084290a8ff4667ab692a8629 "pdflatex"
   "tex/archivos.tex" 1759195125 852 154f0d1aecc4c4b35654ac54064e002a ""
   "tex/control.tex" 1759263282 1716 cafc94df49a6ecb8feaf3666b01c21d2 ""
   "tex/cronograma_real.tex" 1759196646 3666 eec98978315f321022e6fca8330c09d9 ""
@@ -283,12 +283,12 @@
   "tex/optimizacion_computadoras.tex" 1759195125 1227 5482cc30070a5530e9f17d3e348c3b4c ""
   "tex/protocolo.tex" 1759265911 12389 98a43b5e5085e064e428db25c56b483e ""
   "tex/querys.tex" 1759195125 4895 af987275d1414a031fac99cbe1b66e3a ""
-  "tex/rendimiento.tex" 1759196941 1613 9f17cf9ed0200c2782d897f52c45546b ""
+  "tex/rendimiento.tex" 1759379758 1615 bc1687abbd21fa871f107997a6131a25 ""
   "tex/tabla de contenidos.tex" 1759195125 16 f84fe46f1a4fbd3ea00e9cc12e2be653 ""
   "tex/vista_desarrollo.tex" 1759195125 810 bdad5818bf8899b771866e2ad09c2e23 ""
   "tex/vista_fisica.tex" 1759378857 2158 bc91071747d7cb617ebc1f13f6993970 ""
   "tex/vista_logica.tex" 1759195125 2344 34f5dfd19058c29981b31fad61b0c035 ""
-  "tex/vista_procesos.tex" 1759195125 3496 4a9dd36056f5f26e09f8311b972be005 ""
+  "tex/vista_procesos.tex" 1759379622 3496 4a9dd36056f5f26e09f8311b972be005 ""
   (generated)
   "main.atfi"
   "main.aux"
