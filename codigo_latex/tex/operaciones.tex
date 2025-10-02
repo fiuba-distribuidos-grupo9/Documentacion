@@ -28,30 +28,30 @@ Las operaciones fundamentales soportadas por el sistema son las siguientes:
 
 \begin{enumerate}
     \item \textbf{Cleaner}: Se encarga de la limpieza de los datos de entrada, eliminando campos que resultan innecesarios
-    para las consultas.
+    para las consultas. Es escalable.
 
     \item \textbf{Filter}: Permite seleccionar subconjuntos de datos en función de condiciones 
     específicas. Una misma instancia puede aplicar diferentes filtros según el criterio 
-    definido en la consulta (por ejemplo, filtrar por fechas, montos o rangos horarios).
+    definido en la consulta (por ejemplo, filtrar por fechas, montos o rangos horarios). Es escalable.
     
     \item \textbf{Map}: Transforma los datos de entrada generando nuevas columnas o 
     reformateando la información existente. Ejemplo: Agregar un campo con el mes y año a partir 
-    de una fecha, o calcular un contador auxiliar.
+    de una fecha, o calcular un contador auxiliar. Es escalable.
     
     \item \textbf{Reduce}: Agrupa datos por una clave determinada y aplica una función de 
     agregación (como sumas, conteos o acumulaciones). Existen múltiples variantes, dependiendo 
-    de qué métrica se busque consolidar.
+    de qué métrica se busque consolidar. No es escalable.
     
     \item \textbf{Join}: Combina registros de diferentes datasets en función de un campo común, 
     permitiendo enriquecer la información (ejemplo: Unir transacciones con usuarios para obtener 
-    la fecha de nacimiento del cliente).
+    la fecha de nacimiento del cliente). Es escalable.
     
     \item \textbf{SortBy}: Ordena los registros de acuerdo con uno o más criterios, ya sea de 
     manera ascendente o descendente. Es fundamental para identificar los elementos más 
-    significativos en cada consulta (por ejemplo, productos más vendidos).
+    significativos en cada consulta (por ejemplo, productos más vendidos). No es escalable.
 
     \item \textbf{OutputBuilder}: Es el último paso en la cadena de operaciones, se encarga de formatear la respuesta que va a ser
-    enviada al usuario.
+    enviada al usuario. Es escalable.
 \end{enumerate}
 
 Cada nodo de operación está diseñado para ser genérico y flexible: Puede ejecutar cualquier variante de las funciones mencionadas según el rol específico del nodo, siendo el sistema coordinador quien le envía los datos y la 

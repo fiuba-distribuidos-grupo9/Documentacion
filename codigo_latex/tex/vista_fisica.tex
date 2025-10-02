@@ -19,196 +19,49 @@ El diagrama de robustez forma parte de la vista lógica y sirve como puente entr
 
 \newpage
 
-\subsection{Diagrama de Robustez - Primera Consulta (Primera mitad)}
+\subsection{Diagrama de Robustez - Primera Consulta}
 
-\FloatBarrier
-\begin{figure}[H]
+\rotatebox{0}{%
   \centering
-  \rotatebox{270}{%
-    \includegraphics[
-      width=.85\textheight,
-      keepaspectratio
-    ]{img/robustez1_1.png}%
-  }
-  \caption{Diagrama de Robustez - Primera Consulta (Primera mitad)}
-  \label{fig:robustez}
-\end{figure}
+  \includegraphics[
+    width=.50\textheight,
+    keepaspectratio
+  ]{img/robustez1.png}%
+}
+
+\subsection{Diagrama de Robustez - Segunda Consulta}
+
+\rotatebox{0}{%
+  \centering
+  \includegraphics[
+    width=.50\textheight,
+    keepaspectratio
+  ]{img/robustez2.png}%
+}
 
 \newpage
 
-\subsection{Diagrama de Robustez - Primera Consulta (Segunda mitad)}
+\subsection{Diagrama de Robustez - Tercera Consulta}
 
-\FloatBarrier
-\begin{figure}[H]
+\rotatebox{0}{%
   \centering
-  \rotatebox{270}{%
-    \includegraphics[
-      width=.85\textheight,
-      keepaspectratio
-    ]{img/robustez1_2.png}%
-  }
-  \caption{Diagrama de Robustez - Primera Consulta (Segunda mitad)}
-  \label{fig:robustez}
-\end{figure}
+  \includegraphics[
+    width=.60\textheight,
+    height=.40\textheight,
+  ]{img/robustez3.png}%
+}
+
+\subsection{Diagrama de Robustez - Cuarta Consulta}
+
+\rotatebox{0}{%
+  \centering
+  \includegraphics[
+    width=.60\textheight,
+    height=.40\textheight,
+  ]{img/robustez4.png}%
+}
 
 \newpage
-
-\subsection{Diagrama de Robustez - Segunda Consulta (Primera mitad)}
-
-\FloatBarrier
-\begin{figure}[H]
-  \centering
-  \rotatebox{270}{%
-    \includegraphics[
-      width=.85\textheight,
-      keepaspectratio
-    ]{img/robustez2_1.png}%
-  }
-  \caption{Diagrama de Robustez - Segunda Consulta (Primera mitad)}
-  \label{fig:robustez}
-\end{figure}
-
-\newpage
-
-\subsection{Diagrama de Robustez - Segunda Consulta (Segunda mitad)}
-
-\FloatBarrier
-\begin{figure}[H]
-  \centering
-  \rotatebox{270}{%
-    \includegraphics[
-      width=.85\textheight,
-      keepaspectratio
-    ]{img/robustez2_2.png}%
-  }
-  \caption{Diagrama de Robustez - Segunda Consulta (Segunda mitad)}
-  \label{fig:robustez}
-\end{figure}
-
-\newpage
-
-\subsection{Diagrama de Robustez - Tercera Consulta (Primera mitad)}
-
-\FloatBarrier
-\begin{figure}[H]
-  \centering
-  \rotatebox{270}{%
-    \includegraphics[
-      width=.85\textheight,
-      keepaspectratio
-    ]{img/robustez3_1.png}%
-  }
-  \caption{Diagrama de Robustez - Tercera Consulta (Primera mitad)}
-  \label{fig:robustez}
-\end{figure}
-
-\newpage
-
-\subsection{Diagrama de Robustez - Tercera Consulta (Segunda mitad)}
-
-\FloatBarrier
-\begin{figure}[H]
-  \centering
-  \rotatebox{270}{%
-    \includegraphics[
-      width=.85\textheight,
-      keepaspectratio
-    ]{img/robustez3_2.png}%
-  }
-  \caption{Diagrama de Robustez - Tercera Consulta (Segunda mitad)}
-  \label{fig:robustez}
-\end{figure}
-
-\newpage
-
-\subsection{Diagrama de Robustez - Cuarta Consulta (Primera mitad)}
-
-\FloatBarrier
-\begin{figure}[H]
-  \centering
-  \rotatebox{270}{%
-    \includegraphics[
-      width=.85\textheight,
-      keepaspectratio
-    ]{img/robustez4_1.png}%
-  }
-  \caption{Diagrama de Robustez - Cuarta Consulta (Primera mitad)}
-  \label{fig:robustez}
-\end{figure}
-
-\newpage
-
-\subsection{Diagrama de Robustez - Cuarta Consulta (Segunda mitad)}
-
-\FloatBarrier
-\begin{figure}[H]
-  \centering
-  \rotatebox{270}{%
-    \includegraphics[
-      width=.85\textheight,
-      keepaspectratio
-    ]{img/robustez4_2.png}%
-  }
-  \caption{Diagrama de Robustez - Cuarta Consulta (Segunda mitad)}
-  \label{fig:robustez}
-\end{figure}
-
-\newpage
-
-\subsection{Escalabilidad de las Operaciones}
-
-Dentro de las operaciones del sistema distribuido, existen cinco que admiten escalabilidad 
-en la cantidad de nodos de procesamiento:
-
-\begin{itemize}
-    \item \textbf{Cleaner}
-    \item \textbf{Filter}
-    \item \textbf{Join}
-    \item \textbf{Map}
-    \item \textbf{Output Builder}
-\end{itemize}
-
-Como decisión de diseño, se definió que en los casos donde el sistema cuente con una 
-disposición de $N$ nodos de alguno de los cinco tipos mencionados, comunicándose con 
-$M$ nodos de la misma categoría, cada uno de los $M$ nodos receptores tendrá su propia cola.  
-Dichas colas recibirán los mensajes enviados por los $N$ nodos anteriores.  
-Cuando un nodo de la segunda capa reciba en su cola un mensaje indicador de finalización, 
-podrá tener la certeza de que no recibirá más información desde esos nodos, 
-y podrá trasladar dicho aviso hacia etapas posteriores en caso de ser necesario.  
-
-Para garantizar este comportamiento, al iniciar la ejecución del sistema todos los nodos 
-conocerán la topología de sus vecinos, lo que permitirá coordinar de forma correcta 
-la comunicación y el flujo de datos durante el procesamiento.
-
-A continuación, se presenta un esquema ilustrativo de la topología entre $N$ nodos 
-\textit{Filter} y $M$ nodos \textit{Join}, junto con sus respectivas $M$ colas:
-
-\FloatBarrier
-\begin{figure}[H]
-  \centering
-  \rotatebox{0}{%
-    \includegraphics[
-      width=.60\textheight,
-      keepaspectratio
-    ]{img/nodos_escalabilidad.png}%
-  }
-  \caption{Esquema representativo de la comunicación de 'N' nodos con 'M' colas de otros 'M' nodos}
-  \label{fig:robustez}
-\end{figure}
-
-Tampoco se escalaran con múltiples computadoras las operaciones 'Reduce' y 'Sort'. Ya que son 'Stateful' y su correcto funcionamiento e implementación se ve muy beneficiado de ejecutarse en una sola instancia de computación, sin perder un rendimiento perceptible.
-
-\newpage
-
-\textbf{Caso particular}: Para el escenario de los \textit{Join} con la tabla de \textit{Usuarios}, 
-se habilita la escalabilidad a múltiples nodos con particiones arbitrarias sobre el total de los usuarios, dado que el volumen de datos 
-puede ser significativamente grande como para entrar en un único nodo.  
-En este escenario, el listado de usuarios se dividirá entre los $M$ nodos mediante 
-una función de \textit{hash}.  
-Los nodos que depositen la información de transacciones en las colas aplicarán 
-la misma función de \textit{hash} sobre los identificadores de usuario, determinando 
-de manera directa a qué cola (y por ende a qué nodo) deben dirigir cada registro 
-para asegurar que el \textit{join} se realice correctamente.
 
 \subsection{Diagrama de Despliegue}
 

@@ -25,73 +25,68 @@
 \contentsline {subsubsection}{\numberline {8.2.4}Diagrama de Secuencia de la cuarta consulta}{17}{subsubsection.8.2.4}%
 \contentsline {section}{\numberline {9}Vista Física}{18}{section.9}%
 \contentsline {subsection}{\numberline {9.1}Diagrama de Robustez}{18}{subsection.9.1}%
-\contentsline {subsection}{\numberline {9.2}Diagrama de Robustez - Primera Consulta (Primera mitad)}{19}{subsection.9.2}%
-\contentsline {subsection}{\numberline {9.3}Diagrama de Robustez - Primera Consulta (Segunda mitad)}{20}{subsection.9.3}%
-\contentsline {subsection}{\numberline {9.4}Diagrama de Robustez - Segunda Consulta (Primera mitad)}{21}{subsection.9.4}%
-\contentsline {subsection}{\numberline {9.5}Diagrama de Robustez - Segunda Consulta (Segunda mitad)}{22}{subsection.9.5}%
-\contentsline {subsection}{\numberline {9.6}Diagrama de Robustez - Tercera Consulta (Primera mitad)}{23}{subsection.9.6}%
-\contentsline {subsection}{\numberline {9.7}Diagrama de Robustez - Tercera Consulta (Segunda mitad)}{24}{subsection.9.7}%
-\contentsline {subsection}{\numberline {9.8}Diagrama de Robustez - Cuarta Consulta (Primera mitad)}{25}{subsection.9.8}%
-\contentsline {subsection}{\numberline {9.9}Diagrama de Robustez - Cuarta Consulta (Segunda mitad)}{26}{subsection.9.9}%
-\contentsline {subsection}{\numberline {9.10}Escalabilidad de las Operaciones}{27}{subsection.9.10}%
-\contentsline {subsection}{\numberline {9.11}Diagrama de Despliegue}{28}{subsection.9.11}%
-\contentsline {section}{\numberline {10}Vista de Desarrollo}{29}{section.10}%
-\contentsline {subsection}{\numberline {10.1}Diagrama de Paquetes}{29}{subsection.10.1}%
-\contentsline {section}{\numberline {11}Vista Lógica}{30}{section.11}%
-\contentsline {subsection}{\numberline {11.1}Diagrama de Clases}{30}{subsection.11.1}%
-\contentsline {subsubsection}{\numberline {11.1.1}Diagrama de Clases - DataCleaner}{30}{subsubsection.11.1.1}%
-\contentsline {subsubsection}{\numberline {11.1.2}Diagrama de Clases - Filter}{30}{subsubsection.11.1.2}%
-\contentsline {subsubsection}{\numberline {11.1.3}Diagrama de Clases - Count y Sum}{30}{subsubsection.11.1.3}%
-\contentsline {subsubsection}{\numberline {11.1.4}Diagrama de Clases - SortDesc}{31}{subsubsection.11.1.4}%
-\contentsline {subsubsection}{\numberline {11.1.5}Diagrama de Clases - Join}{31}{subsubsection.11.1.5}%
-\contentsline {subsubsection}{\numberline {11.1.6}Diagrama de Clases - OutputBuilder}{31}{subsubsection.11.1.6}%
-\contentsline {section}{\numberline {12}Diagrama de Grafo Acíclico Dirigido (DAG) - Completo}{32}{section.12}%
-\contentsline {subsection}{\numberline {12.1}Diagrama de Grafo Acíclico Dirigido (DAG) - Completo}{32}{subsection.12.1}%
-\contentsline {subsection}{\numberline {12.2}Diagrama de Grafo Acíclico Dirigido (DAG) - Primera consulta}{33}{subsection.12.2}%
-\contentsline {subsection}{\numberline {12.3}Diagrama de Grafo Acíclico Dirigido (DAG) - Segunda consulta}{34}{subsection.12.3}%
-\contentsline {subsection}{\numberline {12.4}Diagrama de Grafo Acíclico Dirigido (DAG) - Tercera consulta}{35}{subsection.12.4}%
-\contentsline {subsection}{\numberline {12.5}Diagrama de Grafo Acíclico Dirigido (DAG) - Cuarta consulta}{36}{subsection.12.5}%
-\contentsline {section}{\numberline {13}Middleware}{37}{section.13}%
-\contentsline {section}{\numberline {14}Mensajes y Protocolos}{41}{section.14}%
-\contentsline {subsection}{\numberline {14.1}Protocolo}{41}{subsection.14.1}%
-\contentsline {subsection}{\numberline {14.2}Mensajes}{41}{subsection.14.2}%
-\contentsline {subsection}{\numberline {14.3}Formato de los mensajes}{41}{subsection.14.3}%
-\contentsline {paragraph}{Estructura general.}{41}{section*.9}%
-\contentsline {paragraph}{Payload por lotes (batch).}{41}{section*.10}%
-\contentsline {subsection}{\numberline {14.4}Tipos de mensajes y su propósito}{42}{subsection.14.4}%
-\contentsline {subsection}{\numberline {14.5}Codificación (\emph {encode})}{42}{subsection.14.5}%
-\contentsline {paragraph}{Mensajes genéricos.}{42}{section*.11}%
-\contentsline {paragraph}{Mensajes por lotes.}{42}{section*.12}%
-\contentsline {subsection}{\numberline {14.6}Decodificación (\emph {decode})}{43}{subsection.14.6}%
-\contentsline {paragraph}{Acceso al payload y tipo.}{43}{section*.13}%
-\contentsline {paragraph}{Validación estructural.}{43}{section*.14}%
-\contentsline {paragraph}{Decodificación de lotes.}{43}{section*.15}%
-\contentsline {paragraph}{Señal de fin de flujo.}{43}{section*.16}%
-\contentsline {subsection}{\numberline {14.7}Ciclos de vida típicos de los mensajes}{43}{subsection.14.7}%
-\contentsline {paragraph}{Ingesta de datasets por lotes.}{43}{section*.17}%
-\contentsline {paragraph}{Consultas y resultados.}{43}{section*.18}%
-\contentsline {subsection}{\numberline {14.8}Ejemplos de mensajes codificados}{44}{subsection.14.8}%
-\contentsline {paragraph}{ACK sin payload.}{44}{section*.19}%
-\contentsline {paragraph}{Batch de menu items (2 filas).}{44}{section*.20}%
-\contentsline {paragraph}{Fin de flujo de transacciones.}{44}{section*.21}%
-\contentsline {paragraph}{Resultado de Query 2.1 (payload libre en este TP).}{44}{section*.22}%
-\contentsline {subsection}{\numberline {14.9}Validaciones, errores y robustez}{44}{subsection.14.9}%
-\contentsline {subsection}{\numberline {14.10}Supuestos y limitaciones deliberadas}{44}{subsection.14.10}%
-\contentsline {subsection}{\numberline {14.11}Extensibilidad}{44}{subsection.14.11}%
-\contentsline {subsection}{\numberline {14.12}Resumen}{45}{subsection.14.12}%
-\contentsline {section}{\numberline {15}Mediciones de rendimiento del sistema implementado}{45}{section.15}%
-\contentsline {subsection}{\numberline {15.1}Configuración del entorno de pruebas}{45}{subsection.15.1}%
-\contentsline {subsection}{\numberline {15.2}Tiempo de procesamiento total}{45}{subsection.15.2}%
-\contentsline {section}{\numberline {16}Mecanismos de Control}{46}{section.16}%
-\contentsline {subsection}{\numberline {16.1}Mecanismos de Control de Sincronización}{46}{subsection.16.1}%
-\contentsline {subsection}{\numberline {16.2}Mecanismos de Control de Señales y Finalización}{46}{subsection.16.2}%
-\contentsline {subsection}{\numberline {16.3}Mecanismos de Control de Fallas}{46}{subsection.16.3}%
-\contentsline {section}{\numberline {17}Cronograma teórico del desarrollo}{47}{section.17}%
-\contentsline {subsection}{\numberline {17.1}Diseño}{47}{subsection.17.1}%
-\contentsline {subsection}{\numberline {17.2}Escalabilidad}{47}{subsection.17.2}%
-\contentsline {subsection}{\numberline {17.3}Multi-Client}{47}{subsection.17.3}%
-\contentsline {subsection}{\numberline {17.4}Tolerancia}{47}{subsection.17.4}%
-\contentsline {subsection}{\numberline {17.5}Paper}{47}{subsection.17.5}%
-\contentsline {section}{\numberline {18}Cronograma real del desarrollo (2 semanas)}{48}{section.18}%
-\contentsline {subsection}{\numberline {18.1}Diseño}{48}{subsection.18.1}%
-\contentsline {subsection}{\numberline {18.2}Middleware y Coordinación de Procesos (2.5 semanas)}{49}{subsection.18.2}%
+\contentsline {subsection}{\numberline {9.2}Diagrama de Robustez - Primera Consulta}{19}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}Diagrama de Robustez - Segunda Consulta}{19}{subsection.9.3}%
+\contentsline {subsection}{\numberline {9.4}Diagrama de Robustez - Tercera Consulta}{20}{subsection.9.4}%
+\contentsline {subsection}{\numberline {9.5}Diagrama de Robustez - Cuarta Consulta}{20}{subsection.9.5}%
+\contentsline {subsection}{\numberline {9.6}Diagrama de Despliegue}{21}{subsection.9.6}%
+\contentsline {section}{\numberline {10}Vista de Desarrollo}{22}{section.10}%
+\contentsline {subsection}{\numberline {10.1}Diagrama de Paquetes}{22}{subsection.10.1}%
+\contentsline {section}{\numberline {11}Vista Lógica}{23}{section.11}%
+\contentsline {subsection}{\numberline {11.1}Diagrama de Clases}{23}{subsection.11.1}%
+\contentsline {subsubsection}{\numberline {11.1.1}Diagrama de Clases - DataCleaner}{23}{subsubsection.11.1.1}%
+\contentsline {subsubsection}{\numberline {11.1.2}Diagrama de Clases - Filter}{23}{subsubsection.11.1.2}%
+\contentsline {subsubsection}{\numberline {11.1.3}Diagrama de Clases - Count y Sum}{23}{subsubsection.11.1.3}%
+\contentsline {subsubsection}{\numberline {11.1.4}Diagrama de Clases - SortDesc}{24}{subsubsection.11.1.4}%
+\contentsline {subsubsection}{\numberline {11.1.5}Diagrama de Clases - Join}{24}{subsubsection.11.1.5}%
+\contentsline {subsubsection}{\numberline {11.1.6}Diagrama de Clases - OutputBuilder}{24}{subsubsection.11.1.6}%
+\contentsline {section}{\numberline {12}Diagrama de Grafo Acíclico Dirigido (DAG) - Completo}{25}{section.12}%
+\contentsline {subsection}{\numberline {12.1}Diagrama de Grafo Acíclico Dirigido (DAG) - Completo}{25}{subsection.12.1}%
+\contentsline {subsection}{\numberline {12.2}Diagrama de Grafo Acíclico Dirigido (DAG) - Primera consulta}{26}{subsection.12.2}%
+\contentsline {subsection}{\numberline {12.3}Diagrama de Grafo Acíclico Dirigido (DAG) - Segunda consulta}{27}{subsection.12.3}%
+\contentsline {subsection}{\numberline {12.4}Diagrama de Grafo Acíclico Dirigido (DAG) - Tercera consulta}{28}{subsection.12.4}%
+\contentsline {subsection}{\numberline {12.5}Diagrama de Grafo Acíclico Dirigido (DAG) - Cuarta consulta}{29}{subsection.12.5}%
+\contentsline {section}{\numberline {13}Middleware}{30}{section.13}%
+\contentsline {section}{\numberline {14}Mensajes y Protocolos}{34}{section.14}%
+\contentsline {subsection}{\numberline {14.1}Protocolo}{34}{subsection.14.1}%
+\contentsline {subsection}{\numberline {14.2}Mensajes}{34}{subsection.14.2}%
+\contentsline {subsection}{\numberline {14.3}Formato de los mensajes}{34}{subsection.14.3}%
+\contentsline {paragraph}{Estructura general.}{34}{section*.9}%
+\contentsline {paragraph}{Payload por lotes (batch).}{34}{section*.10}%
+\contentsline {subsection}{\numberline {14.4}Tipos de mensajes y su propósito}{35}{subsection.14.4}%
+\contentsline {subsection}{\numberline {14.5}Codificación (\emph {encode})}{35}{subsection.14.5}%
+\contentsline {paragraph}{Mensajes genéricos.}{35}{section*.11}%
+\contentsline {paragraph}{Mensajes por lotes.}{35}{section*.12}%
+\contentsline {subsection}{\numberline {14.6}Decodificación (\emph {decode})}{36}{subsection.14.6}%
+\contentsline {paragraph}{Acceso al payload y tipo.}{36}{section*.13}%
+\contentsline {paragraph}{Validación estructural.}{36}{section*.14}%
+\contentsline {paragraph}{Decodificación de lotes.}{36}{section*.15}%
+\contentsline {paragraph}{Señal de fin de flujo.}{36}{section*.16}%
+\contentsline {subsection}{\numberline {14.7}Ciclos de vida típicos de los mensajes}{36}{subsection.14.7}%
+\contentsline {paragraph}{Ingesta de datasets por lotes.}{36}{section*.17}%
+\contentsline {paragraph}{Consultas y resultados.}{36}{section*.18}%
+\contentsline {subsection}{\numberline {14.8}Ejemplos de mensajes codificados}{37}{subsection.14.8}%
+\contentsline {paragraph}{ACK sin payload.}{37}{section*.19}%
+\contentsline {paragraph}{Batch de menu items (2 filas).}{37}{section*.20}%
+\contentsline {paragraph}{Fin de flujo de transacciones.}{37}{section*.21}%
+\contentsline {paragraph}{Resultado de Query 2.1 (payload libre en este TP).}{37}{section*.22}%
+\contentsline {subsection}{\numberline {14.9}Validaciones, errores y robustez}{37}{subsection.14.9}%
+\contentsline {subsection}{\numberline {14.10}Supuestos y limitaciones deliberadas}{37}{subsection.14.10}%
+\contentsline {subsection}{\numberline {14.11}Extensibilidad}{37}{subsection.14.11}%
+\contentsline {subsection}{\numberline {14.12}Resumen}{38}{subsection.14.12}%
+\contentsline {section}{\numberline {15}Mediciones de rendimiento del sistema implementado}{38}{section.15}%
+\contentsline {subsection}{\numberline {15.1}Configuración del entorno de pruebas}{38}{subsection.15.1}%
+\contentsline {subsection}{\numberline {15.2}Tiempo de procesamiento total}{38}{subsection.15.2}%
+\contentsline {section}{\numberline {16}Mecanismos de Control}{39}{section.16}%
+\contentsline {subsection}{\numberline {16.1}Mecanismos de Control de Sincronización}{39}{subsection.16.1}%
+\contentsline {subsection}{\numberline {16.2}Mecanismos de Control de Señales y Finalización}{39}{subsection.16.2}%
+\contentsline {subsection}{\numberline {16.3}Mecanismos de Control de Fallas}{39}{subsection.16.3}%
+\contentsline {section}{\numberline {17}Cronograma teórico del desarrollo}{40}{section.17}%
+\contentsline {subsection}{\numberline {17.1}Diseño}{40}{subsection.17.1}%
+\contentsline {subsection}{\numberline {17.2}Escalabilidad}{40}{subsection.17.2}%
+\contentsline {subsection}{\numberline {17.3}Multi-Client}{40}{subsection.17.3}%
+\contentsline {subsection}{\numberline {17.4}Tolerancia}{40}{subsection.17.4}%
+\contentsline {subsection}{\numberline {17.5}Paper}{40}{subsection.17.5}%
+\contentsline {section}{\numberline {18}Cronograma real del desarrollo (2 semanas)}{41}{section.18}%
+\contentsline {subsection}{\numberline {18.1}Diseño}{41}{subsection.18.1}%
+\contentsline {subsection}{\numberline {18.2}Middleware y Coordinación de Procesos (2.5 semanas)}{42}{subsection.18.2}%
