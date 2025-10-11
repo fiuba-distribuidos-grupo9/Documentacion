@@ -1705,46 +1705,47 @@ INPUT tex/vista_logica.tex
 INPUT ./tex/vista_logica.tex
 INPUT ./tex/vista_logica.tex
 INPUT tex/vista_logica.tex
-INPUT ./img/Vista Lógica - Diagrama de Clases-DataCleaner.drawio.png
-INPUT ./img/Vista Lógica - Diagrama de Clases-DataCleaner.drawio.png
-INPUT img/Vista Lógica - Diagrama de Clases-DataCleaner.drawio.png
-INPUT ./img/Vista Lógica - Diagrama de Clases-DataCleaner.drawio.png
-INPUT ./img/Vista Lógica - Diagrama de Clases-DataCleaner.drawio.png
-INPUT ./img/Vista Lógica - Diagrama de Clases-Filter.drawio.png
-INPUT ./img/Vista Lógica - Diagrama de Clases-Filter.drawio.png
-INPUT img/Vista Lógica - Diagrama de Clases-Filter.drawio.png
-INPUT ./img/Vista Lógica - Diagrama de Clases-Filter.drawio.png
-INPUT ./img/Vista Lógica - Diagrama de Clases-Filter.drawio.png
+INPUT ./img/Vista Lógica - Diagrama de Clases - Cleaner.png
+INPUT ./img/Vista Lógica - Diagrama de Clases - Cleaner.png
+INPUT img/Vista Lógica - Diagrama de Clases - Cleaner.png
+INPUT ./img/Vista Lógica - Diagrama de Clases - Cleaner.png
+INPUT ./img/Vista Lógica - Diagrama de Clases - Cleaner.png
+INPUT ./img/Vista Lógica - Diagrama de Clases - Filter.png
+INPUT ./img/Vista Lógica - Diagrama de Clases - Filter.png
+INPUT img/Vista Lógica - Diagrama de Clases - Filter.png
+INPUT ./img/Vista Lógica - Diagrama de Clases - Filter.png
+INPUT ./img/Vista Lógica - Diagrama de Clases - Filter.png
+INPUT ./img/Vista Lógica - Diagrama de Clases - Map.png
+INPUT ./img/Vista Lógica - Diagrama de Clases - Map.png
+INPUT img/Vista Lógica - Diagrama de Clases - Map.png
+INPUT ./img/Vista Lógica - Diagrama de Clases - Map.png
+INPUT ./img/Vista Lógica - Diagrama de Clases - Map.png
 INPUT ./logo.pdf
 INPUT logo.pdf
 INPUT ./logo.pdf
-INPUT ./img/Vista Lógica - Diagrama de Clases-Count & Sum.drawio.png
-INPUT ./img/Vista Lógica - Diagrama de Clases-Count & Sum.drawio.png
-INPUT img/Vista Lógica - Diagrama de Clases-Count & Sum.drawio.png
-INPUT ./img/Vista Lógica - Diagrama de Clases-Count & Sum.drawio.png
-INPUT ./img/Vista Lógica - Diagrama de Clases-Count & Sum.drawio.png
-INPUT ./img/Vista Lógica - Diagrama de Clases-Count & Sum.drawio.png
-INPUT ./img/Vista Lógica - Diagrama de Clases-Count & Sum.drawio.png
-INPUT img/Vista Lógica - Diagrama de Clases-Count & Sum.drawio.png
-INPUT ./img/Vista Lógica - Diagrama de Clases-Count & Sum.drawio.png
-INPUT ./img/Vista Lógica - Diagrama de Clases-SortDesc.drawio.png
-INPUT ./img/Vista Lógica - Diagrama de Clases-SortDesc.drawio.png
-INPUT img/Vista Lógica - Diagrama de Clases-SortDesc.drawio.png
-INPUT ./img/Vista Lógica - Diagrama de Clases-SortDesc.drawio.png
-INPUT ./img/Vista Lógica - Diagrama de Clases-SortDesc.drawio.png
+INPUT ./img/Vista Lógica - Diagrama de Clases - Reducer.png
+INPUT ./img/Vista Lógica - Diagrama de Clases - Reducer.png
+INPUT img/Vista Lógica - Diagrama de Clases - Reducer.png
+INPUT ./img/Vista Lógica - Diagrama de Clases - Reducer.png
+INPUT ./img/Vista Lógica - Diagrama de Clases - Reducer.png
+INPUT ./img/Vista Lógica - Diagrama de Clases - Sort.png
+INPUT ./img/Vista Lógica - Diagrama de Clases - Sort.png
+INPUT img/Vista Lógica - Diagrama de Clases - Sort.png
+INPUT ./img/Vista Lógica - Diagrama de Clases - Sort.png
+INPUT ./img/Vista Lógica - Diagrama de Clases - Sort.png
+INPUT ./img/Vista Lógica - Diagrama de Clases - Join.png
+INPUT ./img/Vista Lógica - Diagrama de Clases - Join.png
+INPUT img/Vista Lógica - Diagrama de Clases - Join.png
+INPUT ./img/Vista Lógica - Diagrama de Clases - Join.png
+INPUT ./img/Vista Lógica - Diagrama de Clases - Join.png
 INPUT ./logo.pdf
 INPUT logo.pdf
 INPUT ./logo.pdf
-INPUT ./img/Vista Lógica - Diagrama de Clases-Join.drawio.png
-INPUT ./img/Vista Lógica - Diagrama de Clases-Join.drawio.png
-INPUT img/Vista Lógica - Diagrama de Clases-Join.drawio.png
-INPUT ./img/Vista Lógica - Diagrama de Clases-Join.drawio.png
-INPUT ./img/Vista Lógica - Diagrama de Clases-Join.drawio.png
-INPUT ./img/Vista Lógica - Diagrama de Clases-OutputBuilder.drawio.png
-INPUT ./img/Vista Lógica - Diagrama de Clases-OutputBuilder.drawio.png
-INPUT img/Vista Lógica - Diagrama de Clases-OutputBuilder.drawio.png
-INPUT ./img/Vista Lógica - Diagrama de Clases-OutputBuilder.drawio.png
-INPUT ./img/Vista Lógica - Diagrama de Clases-OutputBuilder.drawio.png
+INPUT ./img/Vista Lógica - Diagrama de Clases - Output Builder.png
+INPUT ./img/Vista Lógica - Diagrama de Clases - Output Builder.png
+INPUT img/Vista Lógica - Diagrama de Clases - Output Builder.png
+INPUT ./img/Vista Lógica - Diagrama de Clases - Output Builder.png
+INPUT ./img/Vista Lógica - Diagrama de Clases - Output Builder.png
 INPUT ./logo.pdf
 INPUT logo.pdf
 INPUT ./logo.pdf
