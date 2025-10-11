@@ -101,22 +101,23 @@ Finalmente, en los casos donde la comunicación era estrictamente secuencial ent
 
 \subsection*{Detección y propagación de EOF}
 
-Todos los controladores del sistema conocen tanto los nodos que les preceden como los que les suceden en la cadena de procesamiento. Esta información es fundamental para la correcta propagación de los mensajes de fin de flujo (\texttt{EOF}).
+En la nueva versión del sistema, con soporte \textbf{MultiClient}, cada cliente opera dentro de su propio \emph{contexto de sesión}, identificado por un \texttt{session\_id} (UUID).  
+Esto implica que la detección y propagación de los mensajes de fin de flujo (\texttt{EOF}) debe realizarse de forma independiente por sesión, garantizando el cierre correcto de cada flujo de datos asociado a un cliente específico.
 
-El mecanismo es el siguiente:
+El mecanismo general conserva la misma lógica que en la versión de un solo cliente, pero se amplía para manejar múltiples sesiones concurrentes:
+
 \begin{itemize}
-    \item Cada nodo espera recibir la cantidad exacta de mensajes \texttt{EOF} correspondientes a los emisores que tiene detrás suyo. 
-    \item Una vez que se han recibido todos los \texttt{EOF}, el nodo puede concluir que no habrá más información de entrada.
-    \item En ese momento, genera y propaga su propio \texttt{EOF} hacia todos los nodos que le suceden, ya sea:
+    \item Cada nodo mantiene un \textbf{registro por sesión} de los emisores de los que espera recibir \texttt{EOF}. Es decir, no sólo sabe qué nodos le preceden, sino también a qué \emph{session\_id} pertenece cada flujo.
+    \item Por cada \texttt{session\_id}, el nodo espera recibir la cantidad exacta de mensajes \texttt{EOF} correspondientes a sus emisores aguas arriba.
+    \item Cuando un nodo ha recibido todos los \texttt{EOF} esperados para una sesión dada, puede concluir que no habrá más datos de entrada para esa sesión en particular.
+    \item En ese momento, el nodo genera y propaga su propio \texttt{EOF} —incluyendo el mismo \texttt{session\_id}— hacia todos los nodos que le suceden, utilizando el mismo esquema de enrutamiento:
     \begin{itemize}
         \item Enviando a una cola directa (1 a 1).
-        \item Replicando en un exchange.
-        \item Distribuyendo por Round Robin entre varias colas.
+        \item Replicando en un \emph{exchange} compartido.
+        \item Distribuyendo por \emph{Round Robin} entre varias colas consumidoras.
     \end{itemize}
+    \item Este proceso ocurre de forma independiente para cada sesión activa, permitiendo que distintos clientes finalicen sus flujos en momentos diferentes sin interferir entre sí.
 \end{itemize}
 
-De esta manera, se garantiza que cada etapa del sistema procese exactamente todos los datos antes de finalizar, manteniendo un estado consistente y evitando pérdidas o confusiones en la comunicación.
-
-\subsection*{Conclusión}
-
-La combinación de estas estrategias de comunicación permitió cumplir con los requisitos de abstracción y desacoplamiento planteados, al mismo tiempo que se aprovecharon al máximo las capacidades de RabbitMQ. Gracias a esta arquitectura, el sistema puede escalar horizontalmente de manera sencilla y mantener la coherencia en el flujo de datos, asegurando un comportamiento correcto incluso en escenarios de alta concurrencia.
+De esta manera, el sistema logra una \textbf{propagación de EOF por sesión}, garantizando que cada cliente tenga un cierre completo y ordenado de su pipeline de procesamiento.  
+Además, los nodos pueden liberar recursos por sesión una vez propagado el último \texttt{EOF}, mejorando la eficiencia y evitando bloqueos globales entre flujos concurrentes.

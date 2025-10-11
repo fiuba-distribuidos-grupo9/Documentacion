@@ -4,31 +4,34 @@
 \subsection{Protocolo}
 \label{subsec:protocolo}
 
-Para la implementación del sistema distribuido se desarrolló un protocolo de
-comunicación específico, adaptado a las necesidades del presente trabajo.
+Para la implementación del sistema distribuido se actualizó el protocolo de
+comunicación a un esquema \textbf{MultiClient}, que permite multiplexar
+múltiples clientes concurrentes sobre el mismo backend mediante un
+\emph{identificador de sesión} embebido en cada mensaje.
 
 Este protocolo define las reglas de interacción entre el nodo coordinador,
 los nodos de procesamiento y los clientes del sistema. La comunicación se basa
-en el intercambio de mensajes \emph{auto\-contenidos} con un encabezado de tipo fijo
-y un \emph{payload} estructurado. Los mensajes expresan operaciones, datos a
-procesar y resultados obtenidos, y contemplan el envío por lotes (\emph{batch})
-de datasets, el intercambio de \emph{ACKs} y señales de fin de flujo.
-
-La implementación completa del protocolo se encuentra en:
-\texttt{src/shared/communication\_protocol.py}.
+en el intercambio de mensajes \emph{auto-contenidos} con un encabezado de tipo fijo,
+un \emph{identificador de sesión} y un \emph{payload} estructurado. Los mensajes
+expresan operaciones, datos a procesar y resultados obtenidos, y contemplan el
+envío por lotes (\emph{batch}) de datasets, una negociación inicial de sesión
+(\texttt{HSK}) y señales de fin de flujo por tipo (\texttt{EOF}).
 
 \subsection{Mensajes}
 \label{subsec:mensajes}
 
-Como parte del protocolo, se estableció un conjunto de tipos de mensajes de
+Como parte del protocolo, se mantiene un conjunto de tipos de mensajes de
 longitud fija (3 caracteres), orientados a cubrir las operaciones básicas del
-sistema: envío de datasets por lotes, resultados de queries, reconocimientos
-(\texttt{ACK}) y señalización de fin de flujo (\texttt{EOF}). Cada mensaje posee:
+sistema: envío de datasets por lotes y resultados de queries. Con MultiClient,
+\textbf{todo} mensaje lleva además un \emph{session id} entre el tipo y el payload.
+Cada mensaje posee:
 
 \begin{itemize}
-  \item Un \textbf{tipo} de 3 caracteres (p.ej., \texttt{MIT}, \texttt{TRN}, \texttt{ACK}).
-  \item Un \textbf{delimitador} de inicio de payload \texttt{[} y de fin \texttt{]}.
-  \item Un \textbf{payload} cuyo formato depende del tipo (texto libre o lote estructurado).
+\item Un \textbf{tipo} de 3 caracteres (p.ej., \texttt{HSK}, \texttt{MIT}, \texttt{TRN}).
+\item Un \textbf{delimitador} de sesión \texttt{|} que separa tipo y \emph{session id}.
+\item Un \textbf{identificador de sesión} (\emph{session id}) opaco, provisto por el cliente.
+\item Un \textbf{delimitador} de inicio de payload \texttt{[} y de fin \texttt{]}.
+\item Un \textbf{payload} cuyo formato depende del tipo (texto libre o lote estructurado).
 \end{itemize}
 
 A continuación se detalla el funcionamiento concreto, a partir del código provisto.
@@ -37,51 +40,56 @@ A continuación se detalla el funcionamiento concreto, a partir del código prov
 \label{subsec:formato}
 
 \paragraph{Estructura general.}
-Todo mensaje sigue un formato simple y siempre igual:
+Todo mensaje sigue ahora el formato:
 
 \begin{quote}
-\texttt{<TYPE>[<PAYLOAD>]}
+\texttt{<TYPE>|\!<SESSION\_ID>[<PAYLOAD>]}
 \end{quote}
 
 \noindent Donde:
 \begin{itemize}
   \item \texttt{<TYPE>} es un prefijo de \textbf{3 caracteres} (\texttt{MESSAGE\_TYPE\_LENGTH = 3}).
+  \item \texttt{<SESSION\_ID>} es una cadena opaca definida por el cliente.
+        El separador entre tipo y sesión es \texttt{SESSION\_ID\_DELIMITER}=\verb||.
   \item El \textbf{payload} va entre corchetes: \verb|[| \ldots \verb|]|
         (\texttt{MSG\_START\_DELIMITER} y \texttt{MSG\_END\_DELIMITER}).
 \end{itemize}
 
+\newpage
+
 \paragraph{Payload por lotes (batch).}
-Para los mensajes que transportan registros, el payload es un \emph{batch}:
+Para los mensajes que transportan registros, el payload es una
+\textbf{secuencia de filas}, cada una \textbf{encapsulada en llaves} y separada por punto y coma:
 \begin{quote}
-\texttt{\char`\{}\texttt{\textless ROW\textgreater}\texttt{;}\texttt{\textless ROW\textgreater}\texttt{;}\texttt{...}\texttt{;}\texttt{\textless ROW\textgreater}\texttt{\char`\}}
+\verb|{<FIELDS>};{<FIELDS>};...|
 \end{quote}
 
-\noindent Cada \texttt{<ROW>} es una secuencia de pares clave--valor separados por comas:
+\noindent Cada \texttt{<FIELDS>} es una secuencia de pares clave--valor separados por comas:
 \begin{quote}
 \texttt{<FIELD>,<FIELD>,\ldots}
 \end{quote}
 
-\noindent Un \texttt{<FIELD>} tiene la forma:
+\noindent Un \texttt{<FIELD>} tiene la forma (comillas \textbf{dobles}):
 \begin{quote}
-\verb|{'<key>':'<value>'}|
+\verb|"key":"value"|
 \end{quote}
-
-\newpage
 
 \noindent Delimitadores usados en el batch:
 \begin{itemize}
-  \item Inicio/fin de batch: \texttt{BATCH\_START\_DELIMITER}=\verb|{|, \texttt{BATCH\_END\_DELIMITER}=\verb|}|
-  \item Separador de filas: \texttt{BATCH\_ROW\_SEPARATOR}=\verb|;|
-  \item Separador de campos: \texttt{ROW\_FIELD\_SEPARATOR}=\verb|,|
+  \item Inicio/fin de \textbf{cada fila}: \verb|BATCH_START_DELIMITER={|, \verb|BATCH_END_DELIMITER=}|
+  \item Separador de filas: \verb|BATCH_ROW_SEPARATOR=;|
+  \item Separador de campos: \verb|ROW_FIELD_SEPARATOR=,|
 \end{itemize}
 
-\noindent \textbf{Ejemplo de batch con dos filas:}
+\noindent \textbf{Ejemplo de batch con dos filas (dentro del payload):}
 \begin{quote}
-\verb|{|'id':'m001','name':'Latte','price':'4.50';'id':'m002','name':'Espresso','price':'3.20'\verb|}|
+\verb|{"id":"m001","name":"Latte","price":"4.50"};{"id":"m002","name":"Espresso","price":"3.20"}|
 \end{quote}
 
-Sin escape de caracteres: Las claves y valores no pueden contener comillas dobles,
-dos puntos \texttt{:}, comas \texttt{,}, punto y coma \texttt{;}, ni llaves o corchetes.
+\paragraph{Sin escape de caracteres.}
+No se realiza \emph{escaping}; por lo tanto, las claves y valores no pueden contener
+comillas dobles \texttt{"}, dos puntos \texttt{:}, comas \texttt{,}, punto y coma \texttt{;},
+llaves \texttt{{} \texttt{}}, corchetes \texttt{[} \texttt{]} ni el delimitador de sesión \texttt{\textbar}.
 
 \subsection{Tipos de mensajes y su propósito}
 \label{subsec:tipos}
@@ -91,8 +99,7 @@ dos puntos \texttt{:}, comas \texttt{,}, punto y coma \texttt{;}, ni llaves o co
 \hline
 \textbf{Tipo (3 chars)} & \textbf{Uso} \\
 \hline
-\texttt{QRY} & Mensaje de consulta del cliente al sistema. \\
-\texttt{ACK} & Reconocimiento genérico (éxito/recepción). \\
+\texttt{HSK} & \emph{Handshake} de inicio de sesión MultiClient (negociación). \\
 \texttt{MIT} & Lote de \emph{menu items}. \\
 \texttt{STR} & Lote de \emph{stores}. \\
 \texttt{TIT} & Lote de \emph{transaction items}. \\
@@ -108,130 +115,140 @@ dos puntos \texttt{:}, comas \texttt{,}, punto y coma \texttt{;}, ni llaves o co
 \end{tabular}
 \end{center}
 
-Los tipos \texttt{MIT}, \texttt{STR}, \texttt{TIT}, \texttt{TRN} y \texttt{USR}
-son \emph{batch messages}. Los tipos \texttt{Q1X}, \texttt{Q21}, \texttt{Q22},
-\texttt{Q3X}, \texttt{Q4X} representan resultados de consultas y pueden usar el
-mismo formato general de mensaje (el payload queda a criterio del productor del
-resultado en este TP). \texttt{QRY} y \texttt{ACK} son mensajes de control
-ligeros (texto breve o vacío).
+\noindent Nota: en esta versión, \texttt{ACK} y \texttt{QRY} no forman parte del
+\emph{wire protocol}. La coordinación se realiza con \texttt{HSK} y flujos por sesión.
+Se expone además el \emph{alias} \texttt{ALL\_QUERIES = "Q1X;Q21;Q22;Q3X;Q4X"}
+para expresar capacidades o intereses en el \emph{handshake}.
+
+\newpage
 
 \subsection{Codificación (\emph{encode})}
 \label{subsec:encode}
 
-\paragraph{Mensajes genéricos.}
-La función privada \texttt{\_\_encode\_message(type, payload)} compone:
-\[
-\texttt{type} \parallel \texttt{[} \parallel \texttt{payload} \parallel \texttt{]}
-\]
+\paragraph{Mensajes genéricos con sesión.}
+La función privada \texttt{\_encode\_message(type, session\_id, payload)} compone:
+
+\begin{verbatim}
+type
+|
+session_id
+[
+payload
+]
+type|session_id[payload]
+\end{verbatim}
+
 A partir de ella se exponen:
 
 \begin{itemize}
-  \item \texttt{encode\_ack\_message(msg: str) -> str}: Genera \texttt{ACK[msg]}.
-  \item \texttt{encode\_eof\_message(message\_type: str) -> str}:
-        Genera \texttt{EOF[<message\_type>]}, donde el \emph{payload} es el tipo
-        de flujo que se declara finalizado (p.ej., \texttt{EOF[TRN]}).
+  \item \verb|encode_handshake_message(id: str, payload: str) -> str|:\\
+Genera \verb|HSK|id[<payload>]| .
+  \item \verb|encode_eof_message(session_id: str, message_type: str) -> str|:\\
+Genera \verb+EOF\textbar session_id[<message_type>]+, donde el \emph{payload}
+es el tipo de flujo que se declara finalizado (p.ej., \verb+EOF\textbar s1[TRN]+).
 \end{itemize}
 
 \paragraph{Mensajes por lotes.}
-\texttt{encode\_batch\_message(batch\_msg\_type, batch)}:
+\verb|encode_batch_message(batch_msg_type, session_id, batch)|:
 \begin{enumerate}
-  \item Para cada \texttt{row: dict[str, str]}, codifica campos como
-        \texttt{'key':'value'} unidos con \texttt{','}.
-  \item Une filas con \texttt{';'} y encapsula con \texttt{'\{\}'}.
-  \item Envuelve con el tipo y corchetes de mensaje.
+  \item Para cada \verb|row: dict[str, str]|, codifica campos como
+\verb|"key":"value"| unidos con \verb|,| y los envuelve con \verb|{}|.
+  \item Une las \textbf{filas codificadas} con \verb|;| \emph{(no hay llaves globales del batch)}.
+  \item Envuelve con el tipo, \verb+|session_id+ y corchetes de mensaje.
 \end{enumerate}
-Se proveen \emph{helpers} tipados:
-\texttt{encode\_menu\_items\_batch\_message},\texttt{encode\_stores\_batch\_message},
-\texttt{encode\_transaction\_items\_batch\_message},
-\texttt{encode\_transactions\_batch\_message},
-\texttt{encode\_users\_batch\_message}.
 
 \subsection{Decodificación (\emph{decode})}
 \label{subsec:decode}
 
-\paragraph{Acceso al payload y tipo.}
+\paragraph{Acceso a tipo, sesión y payload.}
 \begin{itemize}
-  \item \texttt{decode\_message\_type(msg)}: Devuelve los primeros 3 caracteres.
-        Valida largo mínimo; lanza \texttt{ValueError} si el mensaje es demasiado corto.
-  \item \texttt{get\_message\_payload(msg)}: Remueve el prefijo de tipo y
-        \texttt{[\,\,]} exteriores, retornando la cadena interna.
-  \item \texttt{decode\_is\_empty\_message(msg)}: Verdadero si el payload está vacío.
+  \item \texttt{get\_message\_type(msg)}: Devuelve los primeros 3 caracteres. Valida largo mínimo; lanza \texttt{ValueError} si el mensaje es demasiado corto.
+  \item \texttt{get\_message\_session\_id(msg)}: Extrae el \emph{session id} entre \verb+|+ y \verb|[|.
+  \item \texttt{get\_message\_payload(msg)}: Remueve tipo, \verb+|session\_id+ y \verb|[]| exteriores, retornando la cadena interna.
+  \item \texttt{message\_without\_payload(msg)}: Verdadero si el payload está vacío.
 \end{itemize}
 
 \paragraph{Validación estructural.}
-\texttt{\_\_assert\_message\_format(msg, expected\_type)} verifica:
+\verb|_assert_message_format(expected_type, msg)| verifica:
 \begin{enumerate}
   \item Que el tipo decodificado sea el esperado.
-  \item Que el mensaje comience con \texttt{<expected>\,[} y termine con \texttt{]}.
+  \item Que exista el delimitador de sesión \verb+|+ y los corchetes \verb|[|, \verb|]| exteriores.
 \end{enumerate}
 En caso contrario, lanza \texttt{ValueError}.
 
 \paragraph{Decodificación de lotes.}
-\texttt{decode\_batch\_message(msg)}:
+\verb|decode_batch_message(msg)|:
 \begin{enumerate}
-  \item Obtiene el payload (que globalmente está entre \texttt{\{\}}).
-  \item Separa filas por \texttt{;}.
-  \item Para cada fila, \texttt{\_\_decode\_row}:
-        \begin{enumerate}
-          \item Remueve llaves \texttt{\{\}} en extremos (si las hubiera).
-          \item Separa campos por \texttt{,}.
-          \item Divide cada campo por el primer \texttt{:} en \texttt{key:value}.
-          \item Quita comillas dobles exteriores de clave y valor.
-        \end{enumerate}
-  \item Devuelve \texttt{list[dict[str,str]]}.
+  \item Obtiene el payload.
+  \item Separa \textbf{filas} por \verb|;|.
+  \item Para cada fila, aplica \verb|_decode_row|, que:
+    \begin{itemize}
+      \item Remueve llaves \verb|{}| en extremos.
+      \item Separa campos por \verb|,|.
+      \item Divide cada campo por el primer \verb|:| en clave y valor.
+      \item Quita comillas dobles exteriores de clave y valor.
+    \end{itemize}
+  \item Devuelve \verb|list[dict[str,str]]|.
 \end{enumerate}
-Se incluyen variantes tipadas que además validan el tipo del mensaje:
-\texttt{decode\_menu\_items\_batch\_message}, \texttt{decode\_stores\_batch\_message},
-\texttt{decode\_transaction\_items\_batch\_message},
-\texttt{decode\_transactions\_batch\_message},
-\texttt{decode\_users\_batch\_message}.
 
-\paragraph{Señal de fin de flujo.}
-\texttt{decode\_eof\_message(msg)} valida que el tipo sea \texttt{EOF} y retorna
-el payload: el \emph{identificador de tipo de flujo} que finaliza (p.ej.,
-\texttt{TRN}, \texttt{USR}, etc.).
+\paragraph{Handshake y fin de flujo.}
+\begin{itemize}
+  \item \texttt{decode\_handshake\_message(msg)} valida \texttt{HSK} y retorna \verb|(session_id, payload)|. El payload puede expresar capacidades, p.ej. \texttt{ALL\_QUERIES}.
+  \item \texttt{decode\_eof\_message(msg)} valida \texttt{EOF} y retorna el payload (el \emph{identificador de tipo de flujo} que finaliza; p.ej., \texttt{TRN}, \texttt{USR}, etc.).
+\end{itemize}
 
 \subsection{Ciclos de vida típicos de los mensajes}
 \label{subsec:lifecycles}
 
+\paragraph{Establecimiento de sesión (MultiClient).}
+\begin{enumerate}
+  \item El cliente genera un \textbf{session id} (p.ej., \texttt{s007}) y emite
+\texttt{HSK\textbar s007[\ldots]} con parámetros de negociación
+(p.ej., \texttt{ALL\_QUERIES}).
+  \item El backend asocia la sesión y, a partir de entonces, \textbf{todo} mensaje
+de/para ese cliente incluirá \verb|s007[,,]| .
+\end{enumerate}
+
 \paragraph{Ingesta de datasets por lotes.}
 Para cada dataset (p.ej., \texttt{MIT}, \texttt{TRN}):
 \begin{enumerate}
-  \item El productor envía uno o más mensajes \textbf{batch} del tipo correspondiente.
-  \item Opcionalmente, el receptor responde con \texttt{ACK[\ldots]} para marcar recepción/éxito.
-  \item Al finalizar el stream de ese dataset, el productor envía \texttt{EOF[<TIPO>]},
-        por ejemplo \texttt{EOF[TRN]}.
+  \item El productor envía uno o más mensajes \textbf{batch} del tipo correspondiente,
+incluyendo su \emph{session id} (p.ej., \texttt{MIT\textbar s007[\ldots]}).
+  \item Al finalizar el stream de ese dataset, el productor envía
+\texttt{EOF\textbar s007[<TIPO>]}, por ejemplo \texttt{EOF\textbar s007[TRN]}.
 \end{enumerate}
 
 \paragraph{Consultas y resultados.}
 \begin{enumerate}
-  \item Un cliente emite \texttt{QRY[\ldots]} con parámetros de consulta (formato libre en este TP).
-  \item Los resultados se retornan en mensajes \texttt{Q1X}, \texttt{Q21}, \texttt{Q22},
-        \texttt{Q3X} o \texttt{Q4X}, según el ejercicio, con payload acorde.
-  \item Se puede usar \texttt{ACK[\ldots]} para confirmar recepción o estado (p.ej., \emph{accepted}, \emph{done}).
+  \item Un cliente puede declarar interés/capacidades en \texttt{HSK} (p.ej., \texttt{ALL\_QUERIES}).
+  \item Los resultados se retornan \emph{por sesión} en mensajes \texttt{Q1X}, \texttt{Q21},
+    \texttt{Q22}, \texttt{Q3X} o \texttt{Q4X}, con payload acorde, por ejemplo
+    \texttt{Q21\textbar s007[\ldots]}.
 \end{enumerate}
+
+\newpage
 
 \subsection{Ejemplos de mensajes codificados}
 \label{subsec:ejemplos}
 
-\paragraph{ACK sin payload.}
+\paragraph{Handshake con capacidades.}
 \begin{verbatim}
-ACK[]
+HSK|s007[Q1X;Q21;Q22;Q3X;Q4X]
 \end{verbatim}
 
 \paragraph{Batch de menu items (2 filas).}
 \begin{verbatim}
-MIT[{'id':'m001','name':'Latte','price':'4.50';'id':'m002','name':'Espresso','price':'3.20'}]
+MIT|s007[{"id":"m01","name":"Latte","price":"4.50"};{"id":"m002","name":"Doble","price":"3.20"}]
 \end{verbatim}
 
 \paragraph{Fin de flujo de transacciones.}
 \begin{verbatim}
-EOF[TRN]
+EOF|s007[TRN]
 \end{verbatim}
 
 \paragraph{Resultado de Query 2.1 (payload libre en este TP).}
 \begin{verbatim}
-Q21[{'store_id':'s007','metric':'top_seller','value':'m001'}]
+Q21|s007[{"store_id":"s007","metric":"top_seller","value":"m001"}]
 \end{verbatim}
 
 \subsection{Validaciones, errores y robustez}
@@ -239,14 +256,14 @@ Q21[{'store_id':'s007','metric':'top_seller','value':'m001'}]
 
 \begin{itemize}
   \item \textbf{Tipo y formato:} Todo decodificador específico verifica que el
-        tipo de mensaje coincida con el esperado y que existan los corchetes
-        exteriores. Inconsistencias lanzan \texttt{ValueError}.
-  \item \textbf{Longitud mínima:} \texttt{decode\_message\_type} exige al menos
-        3 caracteres (tipo). Mensajes más cortos disparan \texttt{ValueError}.
-  \item \textbf{Payload vacío:} Admitido (\texttt{ACK[]} o keep-alives).
+tipo de mensaje coincida con el esperado, que exista el delimitador de sesión
+\texttt{\textbar} y que el payload esté entre \texttt{[,,]}. Inconsistencias lanzan \texttt{ValueError}.
+  \item \textbf{Longitud mínima:} \texttt{\detokenize{get_message_type}} exige al menos
+3 caracteres (tipo). Mensajes más cortos disparan \texttt{ValueError}.
+  \item \textbf{Payload vacío:} Admitido (\texttt{\detokenize{message_without_payload}}).
   \item \textbf{Complejidad:} Las rutinas de encode/decode son lineales en la
-        longitud del mensaje, con operaciones de \texttt{split}/\texttt{join}
-        sobre separadores fijos, facilitando el procesamiento por streaming.
+longitud del mensaje, con operaciones de \texttt{split}/\texttt{join}
+sobre separadores fijos, facilitando el procesamiento por streaming.
 \end{itemize}
 
 \subsection{Supuestos y limitaciones deliberadas}
@@ -254,25 +271,28 @@ Q21[{'store_id':'s007','metric':'top_seller','value':'m001'}]
 
 \begin{itemize}
   \item \textbf{Sin escape de caracteres:} Claves y valores no deben contener
-        comillas dobles \texttt{"}, dos puntos \texttt{:}, comas \texttt{,},
-        punto y coma \texttt{;}, ni llaves/corchetes. Esto
-        simplifica y acelera el parser a costa de restringir el dominio de
-        valores posibles (suficiente para este TP).
+comillas dobles \texttt{"}, dos puntos \texttt{:}, comas \texttt{,},
+punto y coma \texttt{;}, llaves/corchetes, ni el delimitador de sesión \texttt{\textbar}.
+Esto simplifica y acelera el parser a costa de restringir el dominio de
+valores posibles (suficiente para este TP).
   \item \textbf{Tipos de datos:} Todos los valores se tratan como cadenas
-        (\texttt{str}); la tipificación semántica queda a cargo de las capas
-        de negocio.
+(\texttt{str}); la tipificación semántica queda a cargo de las capas
+de negocio.
   \item \textbf{Orden y entrega:} El protocolo describe \emph{formato} y
-        \emph{semántica de alto nivel} (batches, ACK, EOF). Las garantías de
-        orden, reintentos o \emph{at-least-once/exactly-once} pertenecen a la
-        capa de transporte y orquestación (p.ej., colas), tratadas en otra
-        sección del informe.
+\emph{semántica de alto nivel} (handshake, batches, EOF) y la
+multiplexación por sesión. Las garantías de orden, reintentos o
+\emph{at-least-once/exactly-once} pertenecen a la capa de transporte y
+orquestación (p.ej., colas), tratadas en otra sección del informe.
 \end{itemize}
+
+\newpage
 
 \subsection{Extensibilidad}
 \label{subsec:extensibilidad}
 
-El diseño con prefijos de 3 caracteres facilita agregar nuevos tipos de
-mensajes sin afectar a los existentes. Para incorporar uno nuevo basta con:
+El diseño con prefijos de 3 caracteres y \emph{session id} explícito facilita
+agregar nuevos tipos de mensajes sin afectar a los existentes. Para incorporar
+uno nuevo basta con:
 
 \begin{enumerate}
   \item Declarar la constante del tipo (3 letras).
@@ -280,18 +300,19 @@ mensajes sin afectar a los existentes. Para incorporar uno nuevo basta con:
   \item Documentar el payload asociado (texto libre o esquema de campos del batch).
 \end{enumerate}
 
-\newpage
-
 \subsection{Resumen}
 \label{subsec:resumen}
 
-El protocolo define un \textbf{formato compacto y determinista}:
+El protocolo MultiClient define un \textbf{formato compacto, determinista y con multiplexación}:
 \begin{itemize}
-\item encabezado de 3 caracteres para el tipo
-\item delimitadores exteriores \texttt{[\,\,]}
-\item para datasets, un \textbf{batch} con \texttt{\char`\{}\texttt{\char`\}} y separadores simples
+  \item encabezado de 3 caracteres para el tipo
+  \item separador \texttt{\textbar} y \emph{session id} obligatorio
+  \item delimitadores exteriores \texttt{[,,]}
+  \item para datasets, un \textbf{batch} como secuencia \emph{fila-a-fila}:
+\texttt{\{}\texttt{\}}\texttt{;} con separadores simples
 \end{itemize}
 Se proveen \emph{helpers} específicos para codificar/decodificar los distintos
-datasets y una señal \texttt{EOF} que marca el fin de cada flujo lógico. Las
-validaciones estructurales minimizan errores de parseo y el diseño favorece
-procesamiento lineal y extensibilidad controlada para futuras necesidades del TP.
+datasets, un \texttt{HSK} para iniciar la sesión y una señal \texttt{EOF} que
+marca el fin de cada flujo lógico por sesión. Las validaciones estructurales
+minimizan errores de parseo y el diseño favorece procesamiento lineal,
+multi-cliente y extensibilidad controlada para futuras necesidades del TP.

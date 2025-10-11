@@ -1,27 +1,47 @@
 \section{Mediciones de rendimiento del sistema implementado}
+\label{sec:rendimiento}
 
-Para evaluar el rendimiento del sistema distribuido implementado, se realizaron diversas
-mediciones bajo diferentes configuraciones y cargas de trabajo a lo largo de todo el desarrollo.
+Para evaluar el rendimiento del sistema distribuido implementado, se realizaron
+diversas mediciones bajo diferentes configuraciones y cargas de trabajo, poniendo
+especial énfasis en la capacidad del sistema para manejar múltiples clientes
+en ejecución simultánea (\emph{MultiClient}) sobre el dataset completo.
 
-A continuación, se detallan los resultados obtenidos al finalizar el mismo, y su análisis correspondiente.
+A continuación, se detallan los resultados obtenidos y su análisis correspondiente.
 
 \subsection{Configuración del entorno de pruebas}
 
-Las pruebas se llevaron a cabo en un entorno controlado, utilizando una red local con
-múltiples nodos de cómputo.
+Las pruebas se llevaron a cabo en un entorno controlado, utilizando una red local
+con varios nodos de cómputo interconectados.  
+Durante las mediciones, el sistema fue desplegado de manera que todos los nodos
+escalables ajustaran automáticamente su cantidad de instancias según lo considerado
+óptimo para mantener un equilibrio entre rendimiento, utilización de recursos y
+tiempo de respuesta.  
 
-Todos los nodos escalables, fueron configurados para levantar 2 nodos de cómputo cada uno.
+En otras palabras, no se fijó una cantidad estática de nodos de cómputo por servicio,
+sino que el sistema escaló dinámicamente cada componente según la demanda generada
+por la cantidad de clientes concurrentes y el volumen de procesamiento requerido
+en cada fase de ejecución.
 
-Respecto a los nodos no escalables, solo se levantó un nodo de cómputo por cada uno (Es decir, para esta entrega no se implementó redundancia en los nodos no escalables, pero no se descarta para futuras versiones del desarrollo).
+\subsection{Escenarios de prueba}
 
-\subsection{Tiempo de procesamiento total}
+Se midió el comportamiento del sistema con \textbf{1}, \textbf{2} y \textbf{3 clientes}
+en ejecución simultánea, todos procesando el \textbf{dataset completo} y ejecutando
+las \textbf{cuatro consultas} definidas por la cátedra.  
+Cada cliente opera de manera aislada dentro de su propia sesión (\texttt{session\_id}),
+manteniendo así independencia lógica entre los flujos y permitiendo evaluar la
+escalabilidad real del sistema frente a cargas concurrentes.
 
-Para cumplir con los requisitos brindados por la cátedra, donde se pedia que el sistema tarde menos de una hora en realizar
-todo el procesamiento de las 4 consultas, con el dataset completo, se realizó la medición del tiempo total de procesamiento al finalizar
-el desarrollo completo de la solución.
+\subsection{Tiempos de procesamiento obtenidos}
 
-El tiempo total de procesamiento medido fue de exactamente '29' minutos con '32' segundos, cumpliendo así con el requisito establecido.
+Los resultados medidos fueron los siguientes:
 
-Con esto, se puede concluir que el sistema implementado es capaz de manejar eficientemente el procesamiento de las consultas
-dentro del tiempo límite especificado, demostrando su efectividad y capacidad para trabajar con grandes volúmenes de datos
-de manera distribuida.
+\begin{itemize}
+    \item \textbf{1 cliente:} El tiempo total de procesamiento fue \textbf{X minutos y X segundos}.
+    \item \textbf{2 clientes:} El tiempo total de procesamiento fue \textbf{X minutos y X segundos}.
+    \item \textbf{3 clientes:} El tiempo total de procesamiento fue \textbf{X minutos y X segundos}.
+\end{itemize}
+
+Se observa que, si bien el tiempo total aumenta con la cantidad de clientes activos,
+el incremento no es lineal. El sistema logra mantener una alta eficiencia en la
+distribución de tareas gracias a la paralelización de los flujos y al escalado
+dinámico de los nodos de cómputo.

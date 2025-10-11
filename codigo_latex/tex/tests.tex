@@ -1,0 +1,115 @@
+\section{Tests}
+\label{sec:tests}
+
+Con el objetivo de garantizar la correcta operación, consistencia y determinismo del
+sistema distribuido desarrollado, se implementó un conjunto integral de pruebas
+(\emph{tests}) que abordan distintos niveles de validación funcional y estructural.
+
+En total, el sistema cuenta con \textbf{tres grandes grupos de tests}:
+
+\begin{itemize}
+    \item \textbf{Tests de Middleware}
+    \item \textbf{Tests de Comparación de Outputs}
+    \item \textbf{Tests de Propagación de EOF}
+\end{itemize}
+
+A continuación, se describen los objetivos, el alcance y los criterios de validación
+de cada grupo de pruebas.
+
+\subsection{Tests de Middleware}
+
+Estos tests se encargan de verificar la \textbf{correcta implementación y funcionamiento
+del Middleware} desarrollado sobre la biblioteca de comunicación \texttt{RabbitMQ},
+siguiendo la interfaz y las especificaciones brindadas por la cátedra.
+
+El objetivo principal de este conjunto de pruebas es asegurar que la capa de comunicación
+entre nodos funcione de manera estable, confiable y conforme al protocolo definido,
+tanto para el envío como para la recepción de mensajes.  
+Entre los aspectos validados se incluyen:
+
+\begin{itemize}
+    \item Correcta creación y vinculación de colas y \emph{exchanges}.
+    \item Enrutamiento adecuado de mensajes según el tipo de flujo o dataset.
+    \item Manejo de \emph{acknowledgements} y confirmaciones de entrega.
+    \item Comportamiento esperado del middleware bajo condiciones de carga y escalado.
+    \item Gestión de excepciones.
+\end{itemize}
+
+Estos tests fueron desarrollados originalmente para la entrega
+\textbf{``Escalabilidad, Middleware y Coordinación de Procesos''}, y sirvieron de base
+para validar la estabilidad de la infraestructura de mensajería del sistema.
+
+\subsection{Tests de Comparación de Outputs}
+
+El segundo conjunto de pruebas está orientado a la \textbf{validación funcional de los resultados}
+obtenidos por el sistema distribuido, comparando las salidas producidas por las consultas
+con los resultados esperados.
+
+Dado que en un entorno distribuido las tareas se dividen entre nodos escalables sin
+garantizar un orden específico en la entrega de resultados, fue necesario diseñar
+técnicas de comparación \textbf{insensibles al orden} para validar el correcto
+comportamiento determinístico del sistema.  
+De esta forma, las pruebas se centran en comprobar la equivalencia semántica
+de los resultados más allá del orden particular de las filas.
+
+\newpage
+
+\paragraph{Validación por consulta.}
+
+\begin{itemize}
+    \item \textbf{Query 1:}  
+    Verifica que la cantidad de líneas generadas sea exactamente la misma que la esperada,
+    confirmando que el volumen de resultados es correcto.
+
+    \item \textbf{Query 2:}  
+    Compara tanto la cantidad de filas como el contenido de cada una,
+    sin considerar el orden en que fueron entregadas.  
+    De este modo, se valida que los resultados sean completos y correctos, independientemente
+    del orden de procesamiento distribuido.
+
+    \item \textbf{Query 3:}  
+    Aplica los mismos criterios que en la Query 2, validando que las filas generadas
+    contengan la misma información y que no haya pérdidas ni duplicados,
+    aún cuando el orden de emisión varíe entre ejecuciones.
+
+    \item \textbf{Query 4:}  
+    Verifica que:
+    \begin{itemize}
+        \item La cantidad total de filas coincida con la esperada.
+        \item Exista la misma cantidad de respuestas por cada tienda.
+        \item Los clientes identificados como los más compradores por tienda
+              coincidan en cantidad de compras.
+    \end{itemize}
+    No se consideran las diferencias en nombres o fechas de nacimiento, ya que
+    en caso de empates el orden de los tres máximos puede variar entre ejecuciones.
+    Lo relevante es que los valores reportados correspondan a los tres mayores por tienda,
+    garantizando así la corrección lógica de la consulta.
+\end{itemize}
+
+Estos tests fueron desarrollados inicialmente para la entrega
+\textbf{``Escalabilidad, Middleware y Coordinación de Procesos''} y luego
+\textbf{mejorados para la entrega ``MultiClient''}.
+
+\subsection{Tests de Propagación de EOF}
+
+Finalmente, se implementó un conjunto de pruebas específicas para validar el
+\textbf{mecanismo de propagación de mensajes \texttt{EOF}} dentro del sistema
+\emph{MultiClient}.
+
+El objetivo de estos tests es comprobar que:
+\begin{itemize}
+    \item Cada controlador reciba correctamente los \texttt{EOF} asociados a los flujos
+          que le corresponden, diferenciados por \texttt{session\_id}.
+    \item La propagación de \texttt{EOF} se realice de forma completa y ordenada hacia
+          los nodos sucesores en la cadena de procesamiento.
+    \item No existan pérdidas, duplicados ni propagaciones cruzadas entre sesiones.
+\end{itemize}
+
+De esta manera, se valida que el mecanismo de cierre de flujos por sesión funcione
+correctamente y que el sistema distribuido finalice el procesamiento de cada cliente
+de forma independiente y controlada, sin afectar el estado de los demás flujos activos.
+
+Estos tests fueron desarrollados como parte de la entrega
+\textbf{``MultiClient''}, a pedido de la cátedra, para asegurar la correcta
+implementación del sistema de detección y propagación de fin de flujo dentro del
+entorno multiusuario.

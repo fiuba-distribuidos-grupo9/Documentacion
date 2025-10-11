@@ -1,6 +1,6 @@
-\section{Cronograma real del desarrollo (2 semanas)}
+\section{Cronograma real del desarrollo}
 
-\subsection{Diseño}
+\subsection{Diseño (2 semanas)}
 
 Durante la \textbf{primera semana}, el grupo se enfocó en interpretar en profundidad 
 los requisitos planteados en el enunciado, analizar la lógica de las consultas y 
@@ -42,11 +42,11 @@ según el siguiente detalle:
 
 \subsection{Middleware y Coordinación de Procesos (2.5 semanas)}
 
-\textbf{Primera semana}, el grupo se enfocó en interpretar en profundidad 
+Durante la \textbf{primera semana}, el grupo se enfocó en interpretar en profundidad 
 los requisitos planteados en el enunciado, analizar posibles implementaciones para las consultas solicitadas,
 hacer las correcciones de diseño necesarias, pactar protocolos e identificar bibliotecas necesarias para el desarrollo.
 
-\textbf{Segunda semana}, cada integrante se abocó a las actividades asignadas, detalladas a continuación:
+En la \textbf{segunda semana}, cada integrante se abocó a las actividades asignadas, detalladas a continuación:
 
 \subsection*{Luciano}
 \begin{itemize}
@@ -88,4 +88,42 @@ hacer las correcciones de diseño necesarias, pactar protocolos e identificar bi
     \item Integración de los controladores con el Middleware.
     \item Redacción de la nueva documentación del sistema.
     \item Relevamiento y control de los mecanismos de cierre 'graceful' de los nodos de cómputo.
+\end{itemize}
+
+\subsection{Multi Client (2 semanas)}
+
+Durante la \textbf{primera semana}, repitiendo la operativa realizada en entregas previas, el grupo se enfocó en interpretar en profundidad 
+los requisitos planteados en el enunciado, analizar posibles implementaciones para las consultas solicitadas,
+hacer las correcciones de diseño necesarias, pactar protocolos e identificar bibliotecas necesarias para el desarrollo.
+
+En la \textbf{segunda semana}, cada integrante se abocó a las actividades asignadas, detalladas a continuación:
+
+\subsection*{Luciano}
+\begin{itemize}
+    \item Planificación y diseño de la arquitectura multi cliente.
+    \item Implementación de la lógica multi cliente adaptada al Servidor.
+    \item Implementación de la lógica multi cliente adaptada a los Controladores Statefull.
+    \item Redacción del nuevo protocolo de comunicación multi cliente.
+    \item Refactorización de los controladores para soportar múltiples sesiones concurrentes.
+    \item Adaptación del sistema para configurar la escalabilidad en base al archivo '.env'.
+\end{itemize}
+
+\subsection*{Axel}
+\begin{itemize}
+    \item Planificación y diseño de la arquitectura multi cliente.
+    \item Implementación de la lógica multi cliente adaptada al Cliente.
+    \item Implementación de la lógica multi cliente adaptada a los Controladores Stateless.
+    \item Refactorización de los controladores para soportar múltiples sesiones concurrentes.
+    \item Mediciones de rendimiento para múltiples clientes concurrentes.
+    \item Redacción de datasets reducidos para la demostración del sistema en la defensa.
+\end{itemize}
+
+\subsection*{Felipe}
+\begin{itemize}
+    \item Planificación y diseño de la arquitectura multi cliente.
+    \item Análisis de puntos escalables para optimización del rendimiento.
+    \item Redaccion de la nueva documentación del sistema.
+    \item Redacción de los nuevos tests de validación funcional de outputs y propagación de EOF.
+    \item Redacción de la presentación para la defensa de la entrega.
+    \item Relevamiento y control de cumplimiento de los criterios de aceptación.
 \end{itemize}

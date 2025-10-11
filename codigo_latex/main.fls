@@ -1715,10 +1715,17 @@ INPUT ./img/Vista Lógica - Diagrama de Clases-Filter.drawio.png
 INPUT img/Vista Lógica - Diagrama de Clases-Filter.drawio.png
 INPUT ./img/Vista Lógica - Diagrama de Clases-Filter.drawio.png
 INPUT ./img/Vista Lógica - Diagrama de Clases-Filter.drawio.png
+INPUT ./logo.pdf
+INPUT logo.pdf
+INPUT ./logo.pdf
 INPUT ./img/Vista Lógica - Diagrama de Clases-Count & Sum.drawio.png
 INPUT ./img/Vista Lógica - Diagrama de Clases-Count & Sum.drawio.png
 INPUT img/Vista Lógica - Diagrama de Clases-Count & Sum.drawio.png
 INPUT ./img/Vista Lógica - Diagrama de Clases-Count & Sum.drawio.png
+INPUT ./img/Vista Lógica - Diagrama de Clases-Count & Sum.drawio.png
+INPUT ./img/Vista Lógica - Diagrama de Clases-Count & Sum.drawio.png
+INPUT ./img/Vista Lógica - Diagrama de Clases-Count & Sum.drawio.png
+INPUT img/Vista Lógica - Diagrama de Clases-Count & Sum.drawio.png
 INPUT ./img/Vista Lógica - Diagrama de Clases-Count & Sum.drawio.png
 INPUT ./img/Vista Lógica - Diagrama de Clases-SortDesc.drawio.png
 INPUT ./img/Vista Lógica - Diagrama de Clases-SortDesc.drawio.png
@@ -1837,9 +1844,13 @@ INPUT tex/protocolo.tex
 INPUT ./logo.pdf
 INPUT logo.pdf
 INPUT ./logo.pdf
+INPUT ./logo.pdf
+INPUT logo.pdf
+INPUT ./logo.pdf
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbxti10.tfm
-INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmtt8.tfm
-INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmtt8.tfm
+INPUT ./logo.pdf
+INPUT logo.pdf
+INPUT ./logo.pdf
 INPUT ./logo.pdf
 INPUT logo.pdf
 INPUT ./logo.pdf
@@ -1869,6 +1880,19 @@ INPUT tex/control.tex
 INPUT ./logo.pdf
 INPUT logo.pdf
 INPUT ./logo.pdf
+INPUT ./tex/tests.tex
+INPUT ./tex/tests.tex
+INPUT ./tex/tests.tex
+INPUT tex/tests.tex
+INPUT ./tex/tests.tex
+INPUT ./tex/tests.tex
+INPUT tex/tests.tex
+INPUT ./logo.pdf
+INPUT logo.pdf
+INPUT ./logo.pdf
+INPUT ./logo.pdf
+INPUT logo.pdf
+INPUT ./logo.pdf
 INPUT ./tex/cronograma_teorico.tex
 INPUT ./tex/cronograma_teorico.tex
 INPUT ./tex/cronograma_teorico.tex
@@ -1886,6 +1910,9 @@ INPUT tex/cronograma_real.tex
 INPUT ./tex/cronograma_real.tex
 INPUT ./tex/cronograma_real.tex
 INPUT tex/cronograma_real.tex
+INPUT ./logo.pdf
+INPUT logo.pdf
+INPUT ./logo.pdf
 INPUT ./logo.pdf
 INPUT logo.pdf
 INPUT ./logo.pdf
@@ -1902,7 +1929,6 @@ INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb
-INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb

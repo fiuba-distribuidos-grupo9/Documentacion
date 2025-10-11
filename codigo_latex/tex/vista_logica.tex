@@ -4,13 +4,13 @@
 
 La vista lógica detalla la estructura estática del sistema a través de diagramas de clases. El diseño se basa en la herencia y la abstracción para maximizar la reutilización de código. Como se observa en los siguientes diagramas, se define una clase base abstracta Controller de la cual heredan las distintas operaciones especializadas (Filter, Count, Sum, etc.), permitiendo que el sistema maneje diferentes tipos de tareas de manera uniforme y extensible.
 
-\subsubsection{Diagrama de Clases - DataCleaner}
+\subsubsection{Diagrama de Clases - Cleaner}
 
 \FloatBarrier
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth, height=.82\textheight, keepaspectratio]{img/Vista Lógica - Diagrama de Clases-DataCleaner.drawio.png}
-  \caption{Clase DataCleaner}
+  \includegraphics[width=\linewidth, height=0.25\textheight]{img/Vista Lógica - Diagrama de Clases-DataCleaner.drawio.png}
+  \caption{Clase Cleaner}
   \label{fig:data_cleaner_class}
 \end{figure}
 
@@ -19,37 +19,51 @@ La vista lógica detalla la estructura estática del sistema a través de diagra
 \FloatBarrier
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth, height=.82\textheight, keepaspectratio]{img/Vista Lógica - Diagrama de Clases-Filter.drawio.png}
+  \includegraphics[width=\linewidth, height=0.25\textheight]{img/Vista Lógica - Diagrama de Clases-Filter.drawio.png}
   \caption{Clase Filter}
   \label{fig:filter_class}
 \end{figure}
 
-\subsubsection{Diagrama de Clases - Count y Sum}
+\newpage
+
+\subsubsection{Diagrama de Clases - Map}
 
 \FloatBarrier
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth, height=.82\textheight, keepaspectratio]{img/Vista Lógica - Diagrama de Clases-Count & Sum.drawio.png}
-  \caption{Clases Count y Sum}
+  \includegraphics[width=\linewidth, height=0.22\textheight]{img/Vista Lógica - Diagrama de Clases-Count & Sum.drawio.png}
+  \caption{Clase Map}
   \label{fig:count_and_sum_classes}
 \end{figure}
 
-\subsubsection{Diagrama de Clases - SortDesc}
+\subsubsection{Diagrama de Clases - Reduce: Count y Sum}
 
 \FloatBarrier
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth, height=.82\textheight, keepaspectratio]{img/Vista Lógica - Diagrama de Clases-SortDesc.drawio.png}
-  \caption{Clase SortDesc}
+  \includegraphics[width=\linewidth, height=0.22\textheight]{img/Vista Lógica - Diagrama de Clases-Count & Sum.drawio.png}
+  \caption{Clases Reduce: Count y Sum}
+  \label{fig:count_and_sum_classes}
+\end{figure}
+
+\subsubsection{Diagrama de Clases - Sort}
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth, height=0.22\textheight]{img/Vista Lógica - Diagrama de Clases-SortDesc.drawio.png}
+  \caption{Clase Sort}
   \label{fig:sort_desc_class}
 \end{figure}
+
+\newpage
 
 \subsubsection{Diagrama de Clases - Join}
 
 \FloatBarrier
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth, height=.82\textheight, keepaspectratio]{img/Vista Lógica - Diagrama de Clases-Join.drawio.png}
+  \includegraphics[width=\linewidth, height=0.25\textheight]{img/Vista Lógica - Diagrama de Clases-Join.drawio.png}
   \caption{Clase Join}
   \label{fig:join_class}
 \end{figure}
@@ -59,7 +73,7 @@ La vista lógica detalla la estructura estática del sistema a través de diagra
 \FloatBarrier
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth, height=.82\textheight, keepaspectratio]{img/Vista Lógica - Diagrama de Clases-OutputBuilder.drawio.png}
+  \includegraphics[width=\linewidth, height=0.25\textheight]{img/Vista Lógica - Diagrama de Clases-OutputBuilder.drawio.png}
   \caption{Clase OutputBuilder}
   \label{fig:output_builder_class}
 \end{figure}
