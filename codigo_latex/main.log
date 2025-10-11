@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.9.19)  11 OCT 2025 00:43
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.9.19)  11 OCT 2025 01:32
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1503,16 +1503,16 @@ Package fancyhdr Warning: \headheight is too small (27.0pt):
                                                   \__shipout_drop_firstpage_...
 l.20 \newpage
               <./img/robustez.png>]
-<img/robustez1.png, id=653, 976.64874pt x 848.16875pt>
+<img/robustez1.png, id=653, 976.64874pt x 852.18375pt>
 File: img/robustez1.png Graphic file (type png)
 <use img/robustez1.png>
 Package pdftex.def Info: img/robustez1.png  used on input line 30.
-(pdftex.def)             Requested size: 337.16516pt x 292.81265pt.
-<img/robustez2.png, id=654, 1414.28375pt x 1128.215pt>
+(pdftex.def)             Requested size: 337.16516pt x 294.19875pt.
+<img/robustez2.png, id=654, 1415.2875pt x 1128.215pt>
 File: img/robustez2.png Graphic file (type png)
 <use img/robustez2.png>
 Package pdftex.def Info: img/robustez2.png  used on input line 40.
-(pdftex.def)             Requested size: 337.16516pt x 268.96954pt.
+(pdftex.def)             Requested size: 337.16516pt x 268.76295pt.
 File: logo.pdf Graphic file (type pdf)
 <use logo.pdf>
 Package pdftex.def Info: logo.pdf  used on input line 42.
@@ -1526,16 +1526,16 @@ Package fancyhdr Warning: \headheight is too small (27.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49297pt}.
 
 [19 <./img/robustez1.png> <./img/robustez2.png>]
-<img/robustez3.png, id=662, 1534.73375pt x 676.5275pt>
+<img/robustez3.png, id=662, 1535.7375pt x 676.5275pt>
 File: img/robustez3.png Graphic file (type png)
 <use img/robustez3.png>
 Package pdftex.def Info: img/robustez3.png  used on input line 52.
-(pdftex.def)             Requested size: 404.59488pt x 269.72874pt.
-<img/robustez4.png, id=663, 2236.355pt x 686.565pt>
+(pdftex.def)             Requested size: 404.60173pt x 269.72874pt.
+<img/robustez4.png, id=663, 2236.355pt x 699.61375pt>
 File: img/robustez4.png Graphic file (type png)
 <use img/robustez4.png>
 Package pdftex.def Info: img/robustez4.png  used on input line 62.
-(pdftex.def)             Requested size: 404.57397pt x 269.7183pt.
+(pdftex.def)             Requested size: 404.57397pt x 269.7311pt.
 File: logo.pdf Graphic file (type pdf)
 <use logo.pdf>
 Package pdftex.def Info: logo.pdf  used on input line 64.
@@ -2121,13 +2121,13 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 Here is how much of TeX's memory you used:
  36766 strings out of 479591
  695888 string characters out of 5877085
- 1487110 words of memory out of 5000000
+ 1487111 words of memory out of 5000000
  53813 multiletter control sequences out of 15000+600000
  476092 words of font info for 53 fonts, out of 8000000 for 9000
  376 hyphenation exceptions out of 8191
  103i,16n,105p,774b,2229s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/felipe/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on main.pdf (48 pages, 1629807 bytes).
+Output written on main.pdf (48 pages, 1683023 bytes).
 PDF statistics:
  999 PDF objects out of 1000 (max. 8388607)
  824 compressed objects within 9 object streams
