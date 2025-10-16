@@ -12,8 +12,7 @@ A continuación, se detallan los resultados obtenidos y su análisis correspondi
 
 Las pruebas se llevaron a cabo en un entorno controlado, utilizando una red local
 con varios nodos de cómputo interconectados.  
-Durante las mediciones, el sistema fue desplegado de manera que todos los nodos
-escalables ajustaran automáticamente su cantidad de instancias según lo considerado
+Durante las mediciones, el sistema fue desplegado de manera que todos los nodos ajustaran automáticamente su cantidad de instancias según lo considerado
 óptimo para mantener un equilibrio entre rendimiento, utilización de recursos y
 tiempo de respuesta.  
 
@@ -25,23 +24,59 @@ en cada fase de ejecución.
 \subsection{Escenarios de prueba}
 
 Se midió el comportamiento del sistema con \textbf{1}, \textbf{2} y \textbf{3 clientes}
-en ejecución simultánea, todos procesando el \textbf{dataset completo} y ejecutando
-las \textbf{cuatro consultas} definidas por la cátedra.  
+en ejecución simultánea, todos procesando el \textbf{dataset reducido} y ejecutando
+las \textbf{cuatro consultas} definidas por la cátedra.
+
 Cada cliente opera de manera aislada dentro de su propia sesión (\texttt{session\_id}),
 manteniendo así independencia lógica entre los flujos y permitiendo evaluar la
 escalabilidad real del sistema frente a cargas concurrentes.
 
-\subsection{Tiempos de procesamiento obtenidos}
+Además se hizo la medición del tiempo total de procesamiento para un único cliente
+ejecutando las cuatro consultas sobre el \textbf{dataset completo}.
 
-Los resultados medidos fueron los siguientes:
+\subsection{Dataset completo (100\%) - Único cliente}
+
+El tiempo medido para la ejecución de las cuatro consultas sobre el dataset completo
+con un único cliente fue de \textbf{12 minutos y 33 segundos}.
+
+\newpage
+
+\subsection{Dataset reducido (30\%) - Múltiples clientes}
+
+El tiempo medido para la ejecución de las cuatro consultas sobre el dataset reducido para múltiples clientes fue el siguiente:
 
 \begin{itemize}
-    \item \textbf{1 cliente:} El tiempo total de procesamiento fue \textbf{X minutos y X segundos}.
-    \item \textbf{2 clientes:} El tiempo total de procesamiento fue \textbf{X minutos y X segundos}.
-    \item \textbf{3 clientes:} El tiempo total de procesamiento fue \textbf{X minutos y X segundos}.
+    \item \textbf{1 cliente:} El tiempo total de procesamiento fue \textbf{3 minutos y 2 segundos}.
+    \item \textbf{2 clientes:} El tiempo total de procesamiento fue \textbf{8 minutos y 17 segundos}.
+    \item \textbf{3 clientes:} El tiempo total de procesamiento fue \textbf{10 minutos y 57 segundos}.
 \end{itemize}
 
-Se observa que, si bien el tiempo total aumenta con la cantidad de clientes activos,
-el incremento no es lineal. El sistema logra mantener una alta eficiencia en la
-distribución de tareas gracias a la paralelización de los flujos y al escalado
-dinámico de los nodos de cómputo.
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \rotatebox{0}{%
+    \includegraphics[
+      width=.45\textheight,
+      keepaspectratio
+    ]{img/grafico_clientes.png}%
+  }
+  \caption{Diagrama de Rendimiento}
+  \label{fig:robustez}
+\end{figure}
+
+\textbf{Podemos notar lo siguiente:}
+
+\begin{itemize}
+    \item \textbf{Crecimiento no lineal:} \\
+    El tiempo total no aumenta de forma proporcional al número de clientes. Pasar de 1 a 2 clientes incrementa el tiempo en un \textbf{173\%}, mientras que pasar de 2 a 3 clientes incrementa en \textbf{32\%}. \\
+    Esto indica que los recursos del sistema no escalan linealmente con la carga.
+
+    \item \textbf{Efectos de concurrencia y contención:} \\
+    A medida que más clientes ejecutan consultas en paralelo, el sistema debe compartir recursos. En nuestro sistema distribuido esto genera \textbf{sobrecarga de sincronización, bloqueos o esperas en colas de ejecución}, lo que degrada el rendimiento.
+
+    \item \textbf{Tendencia de saturación:} \\
+    El salto entre 1 y 2 clientes es muy pronunciado, pero entre 2 y 3 el aumento es menor. Esto puede sugerir que el sistema llegó a un \textbf{punto de uso máximo de recursos}, donde agregar más clientes solo incrementa marginalmente el tiempo de respuesta total (todos esperan en cola).
+\end{itemize}
+
+\textbf{Conclusión general:} A pesar del incremento en el tiempo con más clientes, el sistema muestra un \textbf{buen rendimiento general} y mantiene tiempos de respuesta aceptables bajo concurrencia. Esto sugiere que la arquitectura utilizada maneja adecuadamente la carga y ofrece un desempeño estable en escenarios con múltiples clientes.
+

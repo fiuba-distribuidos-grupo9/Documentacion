@@ -1,0 +1,29 @@
+\section{Desafíos al escalar el sistema distribuido}
+
+Durante el proceso de escalabilidad del sistema distribuido, se identificaron diversos desafíos técnicos, particularmente en algunos nodos del flujo de procesamiento de datos. Las mayores dificultades se presentaron en los nodos \textit{reducers} (encargados de operaciones de agregación como \textit{sums} y \textit{counts}), en los nodos de ordenamiento (\textit{sorts}) y en los nodos de unión (\textit{joiners}).  
+A continuación se detallan los principales aspectos abordados en cada caso.
+
+\subsection{Reducers (Sums y Counts) y Sorts}
+
+Los nodos \textit{reducers} y \textit{sorts} representan componentes \textbf{stateful}, es decir, mantienen un estado interno durante su ejecución. Este tipo de nodos plantea una mayor complejidad a la hora de diseñar estrategias de escalabilidad, ya que los datos no pueden simplemente distribuirse sin una política clara de particionado que preserve la coherencia del resultado.
+
+A partir de la implementación de la entrega \textbf{MultiClient}, se logró una estrategia de escalabilidad efectiva basada en el \textbf{shardeo de los nodos} según una clave de partición lógica que permite dividir el cómputo sin afectar la consistencia de los resultados.
+
+Por ejemplo, al calcular el \textit{Total Payment Value (TPV)} de una tienda específica, se puede aplicar un esquema de particionado por \texttt{store\_id}. De este modo, cada nodo \textit{reducer} procesa únicamente los datos correspondientes a un grupo de tiendas determinado, evitando interferencias y mejorando el rendimiento general del sistema.  
+Esta metodología permitió escalar horizontalmente los nodos \textit{reducers} y \textit{sorts}, manteniendo la integridad de los datos y reduciendo el tiempo total de procesamiento en escenarios de alta concurrencia.
+
+\subsection{Joiners}
+
+Los nodos \textit{joiners} presentaron un desafío particular al trabajar en entornos con múltiples clientes, especialmente debido a la naturaleza dinámica del flujo de datos en \textit{streaming}. En este contexto, los nodos debían manejar simultáneamente tanto los datos que llegan en tiempo real como la información de nuevas fuentes o clientes que pueden incorporarse durante la ejecución.
+
+Para resolver este problema, se diseñó una arquitectura basada en \textbf{hilos concurrentes} dentro del controlador principal, distribuidos de la siguiente manera:
+
+\begin{enumerate}
+    \item Un hilo dedicado a escuchar de forma continua el \textit{stream} de datos entrante, gestionando la transmisión y ejecutando las operaciones de \textit{join} cuando la información requerida está disponible.
+    \item Un segundo hilo encargado de monitorear la llegada de nuevos conjuntos de datos provenientes de otras tablas o clientes, incorporándolos al flujo de unión en tiempo real.
+    \item Un tercer hilo que actúa como \textbf{coordinador}, responsable de iniciar, supervisar y finalizar los otros dos hilos, garantizando una ejecución ordenada y un cierre seguro del sistema.
+\end{enumerate}
+
+Adicionalmente, se implementaron mecanismos de \textbf{bufferización y almacenamiento temporal} para retener los datos del \textit{stream} que aún no pueden ser procesados. Esto asegura que, cuando la información complementaria esté disponible, los datos pendientes puedan ser correctamente integrados en el \textit{join} correspondiente sin pérdida ni inconsistencia.
+
+Esta arquitectura permitió alcanzar una ejecución más robusta y eficiente, garantizando la correcta sincronización de los flujos y la consistencia de los resultados, incluso bajo escenarios de concurrencia elevada y múltiples clientes activos.

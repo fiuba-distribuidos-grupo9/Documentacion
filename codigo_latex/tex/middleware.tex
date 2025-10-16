@@ -10,15 +10,15 @@ La lógica de conexión se implementa en el componente \texttt{MQConnectionHandl
 
 Finalmente, para interactuar con el middleware se emplearon las interfaces provistas por la cátedra, complementadas con la implementación de pruebas unitarias exhaustivas que validaron su correcto funcionamiento bajo diferentes escenarios de carga. De esta manera, el middleware cumple con el requisito planteado en el enunciado de abstraer la comunicación entre los nodos del sistema distribuido, aportando una base sólida para la escalabilidad, el desacoplamiento y la mantenibilidad del sistema en su conjunto.
 
+\newpage
+
 \subsection*{Esquemas de comunicación}
 
-Durante el desarrollo se identificaron distintos patrones de comunicación, y para cada uno se diseñó una solución particular apoyada en las herramientas de RabbitMQ. A continuación, se describen los principales casos implementados:
-
-\newpage
+Durante el desarrollo se identificaron distintos patrones de comunicación, y para cada uno se diseñó una solución particular apoyada en las herramientas de RabbitMQ. A continuación, se describen los principales casos implementados
 
 \subsubsection*{Comunicación mediante colas dedicadas}
 
-En los nodos escalables, se definió una cola por cada instancia de nodo. Esto asegura la ausencia de \textit{race conditions} y permite direccionar la información de forma controlada, garantizando el funcionamiento correcto y balanceado del sistema.
+En los nodos escalables (Para esta versión todos los nodos de nuestro Sistema Distribuido son escalables), se definió una cola por cada instancia de nodo. Esto asegura la ausencia de \textit{race conditions} y permite direccionar la información de forma controlada, garantizando el funcionamiento correcto y balanceado del sistema.
 
 Para decidir a qué cola enviar cada batch de datos se utilizaron dos estrategias:
 \begin{enumerate}
@@ -67,36 +67,6 @@ En este caso, el exchange distribuye la información procesada por el nodo \text
     \centering
     \includegraphics[width=0.4\linewidth]{img/comunicacion2.png}
     \caption{Esquema de comunicación mediante exchanges.}
-\end{figure}
-
-\subsubsection*{Comunicación de nodos escalables hacia un nodo no escalable}
-
-En escenarios donde múltiples nodos escalados debían enviar resultados a un nodo único no escalable (generalmente de tipo \textit{Reduce}), se diseñó una cola de recolección centralizada. Dicho nodo recopilaba toda la información y generaba el reporte final una vez recibidos los resultados de todos los emisores.  
-
-Este esquema fue utilizado en situaciones como:
-\begin{itemize}
-    \item Filters $\rightarrow$ Count Purchases.
-\end{itemize}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.4\linewidth]{img/comunicacion3.png}
-    \caption{Esquema de comunicación de nodos escalables hacia un nodo único no escalable.}
-\end{figure}
-
-\subsubsection*{Comunicación 1 a 1}
-
-Finalmente, en los casos donde la comunicación era estrictamente secuencial entre nodos no escalables, se implementaron colas directas de 1 a 1. Los principales casos fueron:
-\begin{itemize}
-    \item Count Items $\rightarrow$ Sort Items.
-    \item Count Purchases $\rightarrow$ Sort Purchases.
-    \item Sum Items $\rightarrow$ Sort Items.
-\end{itemize}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.4\linewidth]{img/comunicacion4.png}
-    \caption{Esquema de comunicación 1 a 1.}
 \end{figure}
 
 \subsection*{Detección y propagación de EOF}

@@ -48,55 +48,59 @@
 \contentsline {subsection}{\numberline {12.4}Diagrama de Grafo Acíclico Dirigido (DAG) - Tercera consulta}{29}{subsection.12.4}%
 \contentsline {subsection}{\numberline {12.5}Diagrama de Grafo Acíclico Dirigido (DAG) - Cuarta consulta}{30}{subsection.12.5}%
 \contentsline {section}{\numberline {13}Middleware}{31}{section.13}%
-\contentsline {section}{\numberline {14}Mensajes y Protocolos}{35}{section.14}%
-\contentsline {subsection}{\numberline {14.1}Protocolo}{35}{subsection.14.1}%
-\contentsline {subsection}{\numberline {14.2}Mensajes}{35}{subsection.14.2}%
-\contentsline {subsection}{\numberline {14.3}Formato de los mensajes}{35}{subsection.14.3}%
-\contentsline {paragraph}{Estructura general.}{35}{section*.8}%
-\contentsline {paragraph}{Payload por lotes (batch).}{36}{section*.9}%
-\contentsline {paragraph}{Sin escape de caracteres.}{36}{section*.10}%
-\contentsline {subsection}{\numberline {14.4}Tipos de mensajes y su propósito}{36}{subsection.14.4}%
-\contentsline {subsection}{\numberline {14.5}Codificación (\emph {encode})}{37}{subsection.14.5}%
-\contentsline {paragraph}{Mensajes genéricos con sesión.}{37}{section*.11}%
-\contentsline {paragraph}{Mensajes por lotes.}{37}{section*.12}%
-\contentsline {subsection}{\numberline {14.6}Decodificación (\emph {decode})}{37}{subsection.14.6}%
-\contentsline {paragraph}{Acceso a tipo, sesión y payload.}{37}{section*.13}%
-\contentsline {paragraph}{Validación estructural.}{37}{section*.14}%
-\contentsline {paragraph}{Decodificación de lotes.}{38}{section*.15}%
-\contentsline {paragraph}{Handshake y fin de flujo.}{38}{section*.16}%
-\contentsline {subsection}{\numberline {14.7}Ciclos de vida típicos de los mensajes}{38}{subsection.14.7}%
-\contentsline {paragraph}{Establecimiento de sesión (MultiClient).}{38}{section*.17}%
-\contentsline {paragraph}{Ingesta de datasets por lotes.}{38}{section*.18}%
-\contentsline {paragraph}{Consultas y resultados.}{38}{section*.19}%
-\contentsline {subsection}{\numberline {14.8}Ejemplos de mensajes codificados}{39}{subsection.14.8}%
-\contentsline {paragraph}{Handshake con capacidades.}{39}{section*.20}%
-\contentsline {paragraph}{Batch de menu items (2 filas).}{39}{section*.21}%
-\contentsline {paragraph}{Fin de flujo de transacciones.}{39}{section*.22}%
-\contentsline {paragraph}{Resultado de Query 2.1 (payload libre en este TP).}{39}{section*.23}%
-\contentsline {subsection}{\numberline {14.9}Validaciones, errores y robustez}{39}{subsection.14.9}%
-\contentsline {subsection}{\numberline {14.10}Supuestos y limitaciones deliberadas}{39}{subsection.14.10}%
-\contentsline {subsection}{\numberline {14.11}Extensibilidad}{40}{subsection.14.11}%
-\contentsline {subsection}{\numberline {14.12}Resumen}{40}{subsection.14.12}%
-\contentsline {section}{\numberline {15}Mediciones de rendimiento del sistema implementado}{41}{section.15}%
-\contentsline {subsection}{\numberline {15.1}Configuración del entorno de pruebas}{41}{subsection.15.1}%
-\contentsline {subsection}{\numberline {15.2}Escenarios de prueba}{41}{subsection.15.2}%
-\contentsline {subsection}{\numberline {15.3}Tiempos de procesamiento obtenidos}{41}{subsection.15.3}%
+\contentsline {section}{\numberline {14}Mensajes y Protocolos}{34}{section.14}%
+\contentsline {subsection}{\numberline {14.1}Protocolo}{34}{subsection.14.1}%
+\contentsline {subsection}{\numberline {14.2}Mensajes}{34}{subsection.14.2}%
+\contentsline {subsection}{\numberline {14.3}Formato de los mensajes}{34}{subsection.14.3}%
+\contentsline {paragraph}{Estructura general.}{34}{section*.6}%
+\contentsline {paragraph}{Payload por lotes (batch).}{35}{section*.7}%
+\contentsline {paragraph}{Sin escape de caracteres.}{35}{section*.8}%
+\contentsline {subsection}{\numberline {14.4}Tipos de mensajes y su propósito}{35}{subsection.14.4}%
+\contentsline {subsection}{\numberline {14.5}Codificación (\emph {encode})}{36}{subsection.14.5}%
+\contentsline {paragraph}{Mensajes genéricos con sesión.}{36}{section*.9}%
+\contentsline {paragraph}{Mensajes por lotes.}{36}{section*.10}%
+\contentsline {subsection}{\numberline {14.6}Decodificación (\emph {decode})}{36}{subsection.14.6}%
+\contentsline {paragraph}{Acceso a tipo, sesión y payload.}{36}{section*.11}%
+\contentsline {paragraph}{Validación estructural.}{36}{section*.12}%
+\contentsline {paragraph}{Decodificación de lotes.}{37}{section*.13}%
+\contentsline {paragraph}{Handshake y fin de flujo.}{37}{section*.14}%
+\contentsline {subsection}{\numberline {14.7}Ciclos de vida típicos de los mensajes}{37}{subsection.14.7}%
+\contentsline {paragraph}{Establecimiento de sesión (MultiClient).}{37}{section*.15}%
+\contentsline {paragraph}{Ingesta de datasets por lotes.}{37}{section*.16}%
+\contentsline {paragraph}{Consultas y resultados.}{37}{section*.17}%
+\contentsline {subsection}{\numberline {14.8}Ejemplos de mensajes codificados}{38}{subsection.14.8}%
+\contentsline {paragraph}{Handshake con capacidades.}{38}{section*.18}%
+\contentsline {paragraph}{Batch de menu items (2 filas).}{38}{section*.19}%
+\contentsline {paragraph}{Fin de flujo de transacciones.}{38}{section*.20}%
+\contentsline {paragraph}{Resultado de Query 2.1 (payload libre en este TP).}{38}{section*.21}%
+\contentsline {subsection}{\numberline {14.9}Validaciones, errores y robustez}{38}{subsection.14.9}%
+\contentsline {subsection}{\numberline {14.10}Supuestos y limitaciones deliberadas}{38}{subsection.14.10}%
+\contentsline {subsection}{\numberline {14.11}Extensibilidad}{39}{subsection.14.11}%
+\contentsline {subsection}{\numberline {14.12}Resumen}{39}{subsection.14.12}%
+\contentsline {section}{\numberline {15}Mediciones de rendimiento del sistema implementado}{40}{section.15}%
+\contentsline {subsection}{\numberline {15.1}Configuración del entorno de pruebas}{40}{subsection.15.1}%
+\contentsline {subsection}{\numberline {15.2}Escenarios de prueba}{40}{subsection.15.2}%
+\contentsline {subsection}{\numberline {15.3}Dataset completo (100\%) - Único cliente}{40}{subsection.15.3}%
+\contentsline {subsection}{\numberline {15.4}Dataset reducido (30\%) - Múltiples clientes}{41}{subsection.15.4}%
 \contentsline {section}{\numberline {16}Mecanismos de Control}{42}{section.16}%
 \contentsline {subsection}{\numberline {16.1}Mecanismos de Control de Sincronización}{42}{subsection.16.1}%
 \contentsline {subsection}{\numberline {16.2}Mecanismos de Control de Señales y Finalización}{42}{subsection.16.2}%
 \contentsline {subsection}{\numberline {16.3}Mecanismos de Control de Fallas}{42}{subsection.16.3}%
-\contentsline {section}{\numberline {17}Tests}{43}{section.17}%
-\contentsline {subsection}{\numberline {17.1}Tests de Middleware}{43}{subsection.17.1}%
-\contentsline {subsection}{\numberline {17.2}Tests de Comparación de Outputs}{43}{subsection.17.2}%
-\contentsline {paragraph}{Validación por consulta.}{44}{section*.24}%
-\contentsline {subsection}{\numberline {17.3}Tests de Propagación de EOF}{44}{subsection.17.3}%
-\contentsline {section}{\numberline {18}Cronograma teórico del desarrollo}{45}{section.18}%
-\contentsline {subsection}{\numberline {18.1}Diseño}{45}{subsection.18.1}%
-\contentsline {subsection}{\numberline {18.2}Escalabilidad}{45}{subsection.18.2}%
-\contentsline {subsection}{\numberline {18.3}Multi-Client}{45}{subsection.18.3}%
-\contentsline {subsection}{\numberline {18.4}Tolerancia}{45}{subsection.18.4}%
-\contentsline {subsection}{\numberline {18.5}Paper}{45}{subsection.18.5}%
-\contentsline {section}{\numberline {19}Cronograma real del desarrollo}{46}{section.19}%
-\contentsline {subsection}{\numberline {19.1}Diseño (2 semanas)}{46}{subsection.19.1}%
-\contentsline {subsection}{\numberline {19.2}Middleware y Coordinación de Procesos (2.5 semanas)}{47}{subsection.19.2}%
-\contentsline {subsection}{\numberline {19.3}Multi Client (2 semanas)}{48}{subsection.19.3}%
+\contentsline {section}{\numberline {17}Desafíos al escalar el sistema distribuido}{43}{section.17}%
+\contentsline {subsection}{\numberline {17.1}Reducers (Sums y Counts) y Sorts}{43}{subsection.17.1}%
+\contentsline {subsection}{\numberline {17.2}Joiners}{43}{subsection.17.2}%
+\contentsline {section}{\numberline {18}Tests}{44}{section.18}%
+\contentsline {subsection}{\numberline {18.1}Tests de Middleware}{44}{subsection.18.1}%
+\contentsline {subsection}{\numberline {18.2}Tests de Comparación de Outputs}{44}{subsection.18.2}%
+\contentsline {paragraph}{Validación por consulta.}{45}{section*.22}%
+\contentsline {subsection}{\numberline {18.3}Tests de Propagación de EOF}{45}{subsection.18.3}%
+\contentsline {section}{\numberline {19}Cronograma teórico del desarrollo}{46}{section.19}%
+\contentsline {subsection}{\numberline {19.1}Diseño}{46}{subsection.19.1}%
+\contentsline {subsection}{\numberline {19.2}Escalabilidad}{46}{subsection.19.2}%
+\contentsline {subsection}{\numberline {19.3}Multi-Client}{46}{subsection.19.3}%
+\contentsline {subsection}{\numberline {19.4}Tolerancia}{46}{subsection.19.4}%
+\contentsline {subsection}{\numberline {19.5}Paper}{46}{subsection.19.5}%
+\contentsline {section}{\numberline {20}Cronograma real del desarrollo}{47}{section.20}%
+\contentsline {subsection}{\numberline {20.1}Diseño (2 semanas)}{47}{subsection.20.1}%
+\contentsline {subsection}{\numberline {20.2}Middleware y Coordinación de Procesos (2.5 semanas)}{48}{subsection.20.2}%
+\contentsline {subsection}{\numberline {20.3}Multi Client (2 semanas)}{49}{subsection.20.3}%
