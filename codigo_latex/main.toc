@@ -77,7 +77,7 @@
 \contentsline {subsection}{\numberline {14.10}Supuestos y limitaciones deliberadas}{38}{subsection.14.10}%
 \contentsline {subsection}{\numberline {14.11}Extensibilidad}{39}{subsection.14.11}%
 \contentsline {subsection}{\numberline {14.12}Resumen}{39}{subsection.14.12}%
-\contentsline {section}{\numberline {15}Mediciones de rendimiento del sistema implementado}{40}{section.15}%
+\contentsline {section}{\numberline {15}Mediciones de rendimiento (Sin fallas)}{40}{section.15}%
 \contentsline {subsection}{\numberline {15.1}Configuración del entorno de pruebas}{40}{subsection.15.1}%
 \contentsline {subsection}{\numberline {15.2}Escenarios de prueba}{40}{subsection.15.2}%
 \contentsline {subsection}{\numberline {15.3}Dataset completo (100\%) - Único cliente}{40}{subsection.15.3}%
@@ -94,13 +94,16 @@
 \contentsline {subsection}{\numberline {18.2}Tests de Comparación de Outputs}{44}{subsection.18.2}%
 \contentsline {paragraph}{Validación por consulta.}{45}{section*.22}%
 \contentsline {subsection}{\numberline {18.3}Tests de Propagación de EOF}{45}{subsection.18.3}%
-\contentsline {section}{\numberline {19}Cronograma teórico del desarrollo}{46}{section.19}%
-\contentsline {subsection}{\numberline {19.1}Diseño}{46}{subsection.19.1}%
-\contentsline {subsection}{\numberline {19.2}Escalabilidad}{46}{subsection.19.2}%
-\contentsline {subsection}{\numberline {19.3}Multi-Client}{46}{subsection.19.3}%
-\contentsline {subsection}{\numberline {19.4}Tolerancia}{46}{subsection.19.4}%
-\contentsline {subsection}{\numberline {19.5}Paper}{46}{subsection.19.5}%
-\contentsline {section}{\numberline {20}Cronograma real del desarrollo}{47}{section.20}%
-\contentsline {subsection}{\numberline {20.1}Diseño (2 semanas)}{47}{subsection.20.1}%
-\contentsline {subsection}{\numberline {20.2}Middleware y Coordinación de Procesos (2.5 semanas)}{48}{subsection.20.2}%
-\contentsline {subsection}{\numberline {20.3}Multi Client (2 semanas)}{49}{subsection.20.3}%
+\contentsline {section}{\numberline {19}Tolerancia a fallas}{46}{section.19}%
+\contentsline {section}{\numberline {20}Cronograma teórico del desarrollo}{47}{section.20}%
+\contentsline {subsection}{\numberline {20.1}Diseño}{47}{subsection.20.1}%
+\contentsline {subsection}{\numberline {20.2}Escalabilidad}{47}{subsection.20.2}%
+\contentsline {subsection}{\numberline {20.3}Multi-Client}{47}{subsection.20.3}%
+\contentsline {subsection}{\numberline {20.4}Paper}{47}{subsection.20.4}%
+\contentsline {subsection}{\numberline {20.5}Tolerancia}{47}{subsection.20.5}%
+\contentsline {section}{\numberline {21}Cronograma real del desarrollo}{48}{section.21}%
+\contentsline {subsection}{\numberline {21.1}Diseño (2 semanas)}{48}{subsection.21.1}%
+\contentsline {subsection}{\numberline {21.2}Middleware y Coordinación de Procesos (2.5 semanas)}{49}{subsection.21.2}%
+\contentsline {subsection}{\numberline {21.3}Multi Client (2 semanas)}{50}{subsection.21.3}%
+\contentsline {subsection}{\numberline {21.4}Paper (1.5 semanas)}{51}{subsection.21.4}%
+\contentsline {subsection}{\numberline {21.5}Tolerancia a fallas (3.5 semanas)}{52}{subsection.21.5}%

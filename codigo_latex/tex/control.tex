@@ -22,11 +22,14 @@ Este mecanismo previene pérdidas de datos, mantiene la consistencia del sistema
 
 \subsection{Mecanismos de Control de Fallas}
 
-Se contemplará el desarrollo de mecanismos de control de fallas para aumentar la robustez 
-y confiabilidad del sistema. Estos mecanismos estarán orientados a gestionar situaciones 
-adversas como caídas de procesos, pérdida de nodos de cómputo o interrupciones inesperadas 
-durante la ejecución.  
+Para que el sistema sea robusto, se realizó el desarrollo de diversos mecanismos de control de fallas, los cuales
+garantizan el determinismo y la confiabilidad del sistema.
 
-El objetivo es garantizar, en la medida de lo posible, la continuidad del procesamiento 
-y la recuperación parcial de información. En futuras versiones del documento se describirán 
-las estrategias de detección, mitigación y recuperación ante fallas.
+En dicha implementación se busca optimizar al máximo estos 2 atributos de calidad, dejando de lado optimizaciones
+de rendimiento.
+
+Esta decisión de diseño fue tomada para poder controlar la mayor cantidad de escenarios de falla posible,
+de forma segura y cumpliento con todos los criterios definidos por la cátedra.
+
+Un poco mas adelante en el documento, se encuentra el apartado 'Tolerancia a Fallas', donde se detalla en profundidad
+todas las implementaciones realizadas.
