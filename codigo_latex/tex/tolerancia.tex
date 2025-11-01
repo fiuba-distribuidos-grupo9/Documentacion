@@ -1,3 +1,255 @@
-\section{Tolerancia a fallas}
+\section{Tolerancia a Fallas}
 
-X.
+\subsection{Introducción}
+
+En esta sección se detallan los mecanismos implementados en el Sistema Distribuido para tolerar distintos escenarios de falla.  
+El objetivo principal de estas implementaciones es garantizar la \textbf{consistencia} y la \textbf{robustez} del sistema, priorizando estos atributos por sobre la eficiencia en términos de rendimiento.
+
+En cuanto a la arquitectura general, no se presentan modificaciones en la topología previamente documentada.  
+El único agregado corresponde a la incorporación de un conjunto de nodos denominados \textit{Health Checkers}, encargados de consultar de forma recurrente el estado de cada nodo del sistema, con el fin de validar su correcto funcionamiento o, en caso de detectar fallas, iniciar procesos de recuperación para restablecer las instancias caídas.
+
+\subsection{Health Checkers}
+
+Los nodos \textit{Health Checkers} se encargan de monitorear continuamente que todos los nodos encargados del procesamiento para la generación de resultados se encuentren activos.  
+Este mecanismo está implementado mediante múltiples instancias dispuestas en una topología en anillo, con el fin de garantizar la tolerancia a fallas y la alta disponibilidad del propio sistema de monitoreo.
+
+Uno de los nodos cumple el rol de \textbf{Líder}, siendo el responsable de coordinar las validaciones periódicas.  
+En caso de que el líder falle, se ejecuta automáticamente un algoritmo de elección que designa un nuevo líder, el cual retoma las tareas del anterior.
+
+El proceso de verificación consiste en el envío periódico de mensajes de tipo \textit{Ping} a cada nodo del sistema.  
+Si el nodo responde con un \textit{ACK}, se considera activo; en caso contrario, el líder inicia el proceso de recuperación de esa instancia.
+
+\subsubsection{Topología del Sistema de Health Checkers}
+
+A continuación se deja un diagrama que representa la topología del \textbf{Sistema de Health Checkers}, donde se representa tanto la lógica de
+topología de anillo, como la función del \textbf{Líder} y un ejemplo de funcionamiento al hacer \textit{Ping} a diversos \textit{Cleaners}.
+
+\vspace{0.5cm}
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.22, keepaspectratio]{health.png}
+  \caption{Topología del Sistema de Health Checkers}
+  \label{fig:secuencia1}
+\end{figure}
+
+\newpage
+
+\subsection{Cambio de comportamiento en los nodos}
+
+Se realizaron modificaciones en el funcionamiento de todos los nodos del sistema que consumen mensajes desde las colas de \textit{RabbitMQ}.  
+El objetivo de estos cambios es garantizar la consistencia del sistema ante eventuales fallas.
+
+Cada nodo, al recibir (``popear'') un mensaje de una cola, lo escribe inmediatamente en un archivo local antes de procesarlo.  
+Luego ejecuta la operación correspondiente y envía el resultado al siguiente nodo de la secuencia.  
+Gracias a la semántica de confirmación de \textit{RabbitMQ}, si un mensaje es consumido pero no se envía el \textit{ACK} correspondiente, dicho mensaje se reencola automáticamente al inicio de la cola.
+
+Esta funcionalidad resulta de gran utilidad: si un nodo falla, al reiniciarse recuperará el mensaje que estaba procesando y podrá continuar desde el último estado registrado.
+
+\textbf{Observación:} Los archivos se almacenan en volúmenes persistentes dentro de los contenedores de cada nodo.  
+Por lo tanto, ante una caída y posterior recuperación, la información registrada no se pierde, permitiendo restaurar el estado previo.
+
+\subsubsection{Nodos Stateful}
+
+Los nodos \textit{Stateful} presentan dos comportamientos distintos, según el tipo de operación que realicen:
+
+\begin{itemize}
+    \item \textbf{Sorts y Reducers:}  
+    Estos nodos, al recibir un mensaje desde la cola y registrarlo en su archivo correspondiente, continúan procesando los siguientes mensajes hasta recibir todos los datos necesarios.  
+    Una vez completada la recepción, realizan el cómputo correspondiente y, al finalizar, envían el resultado al siguiente nodo de la secuencia.
+
+    \item \textbf{Joins:}  
+    Estos nodos, al recibir un mensaje, ejecutan inmediatamente la operación de \textit{join} y envían el resultado al nodo siguiente.  
+    Dado que no requieren disponer de todos los datos simultáneamente, su procesamiento es incremental.
+\end{itemize}
+
+\subsubsection{Nodos Stateless}
+
+Los nodos \textit{Stateless} únicamente incorporan la funcionalidad de registrar en un archivo cada mensaje recibido.  
+Su lógica de procesamiento no se ve afectada en ningún otro aspecto.
+
+\subsubsection{Comparativa de comportamiento: Nodos Stateful vs Join/Stateless}
+
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.37, keepaspectratio]{comp-tol.png}
+  \caption{Nodos Stateful vs Join/Stateless}
+  \label{fig:secuencia1}
+\end{figure}
+
+\subsection{Escenarios de Falla}
+
+A continuación se detallan los distintos escenarios de falla analizados durante el diseño de los mecanismos de robustez del sistema, junto con las estrategias adoptadas para cada caso.  
+En todos los escenarios, se garantiza tanto la continuidad operativa del sistema ante la caída de cualquier nodo bajo control, como la consistencia y correctitud de los resultados producidos.
+
+\subsubsection{Falla en los Health Checkers}
+
+Ante la caída de algún nodo del sistema de \textit{Health Checkers}, pueden presentarse dos situaciones:
+
+\begin{itemize}
+    \item \textbf{Falla del líder:}  
+    Se ejecuta un proceso de elección para designar un nuevo líder, el cual se reconecta con los nodos activos del sistema y retoma las tareas pendientes.
+
+    \item \textbf{Falla de un nodo no líder:}  
+    La instancia se remueve temporalmente del anillo para mantener la coherencia de la topología.
+\end{itemize}
+
+En ambos casos, se intenta levantar nuevamente la instancia caída para restablecer el nivel de redundancia definido y mantener la alta disponibilidad del sistema.
+
+\newpage
+
+\subsubsection{Falla en los Nodos Stateful}
+
+Según el tipo de nodo, los posibles escenarios son los siguientes:
+
+\begin{itemize}
+    \item \textbf{Nodos que requieren todos los datos para operar (Sorts y Reducers):}
+    \begin{itemize}
+        \item El nodo falla antes de consumir el mensaje:  
+        El mensaje es reencolado automáticamente por \textit{RabbitMQ}.  
+        Al reiniciarse, el nodo vuelve a consumir dicho mensaje, lo registra en el archivo y continúa con el procedimiento normal.
+
+        \item El nodo falla después de escribir el mensaje, pero antes de enviar el \textit{ACK}:  
+        Al reiniciarse, el mensaje se reencola y es consumido nuevamente; al detectar que el mensaje ya fue procesado (comparando con el registro en el archivo), se descarta y se continúa con el siguiente.
+
+        \item El nodo falla luego de recibir todos los mensajes:  
+        Al reiniciarse, detecta en su archivo que ya recibió todos los \textit{EOF} correspondientes y ejecuta el cómputo pendiente.  
+        Una vez finalizado, envía el resultado y marca en el archivo que el procesamiento del cliente ha sido completado.
+    \end{itemize}
+
+    \item \textbf{Nodos que procesan datos de manera incremental (Joins):}
+    \begin{itemize}
+        \item Falla antes de consumir el mensaje:  
+        El mensaje se reencola, y al reiniciarse, el nodo lo vuelve a procesar normalmente.
+
+        \item Falla después de escribir el mensaje pero antes del \textit{ACK}:  
+        El mensaje se reencola; al recuperarse, el nodo detecta que ya fue procesado y continúa con el siguiente.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Falla en los Nodos Stateless}
+
+El comportamiento ante fallas es análogo al de los nodos \textit{Joins}:
+
+\begin{itemize}
+    \item Falla antes de consumir el mensaje:  
+    \textit{RabbitMQ} reencola el mensaje, y al reiniciarse el nodo, lo vuelve a procesar desde el punto anterior.
+
+    \item Falla después de escribir el mensaje pero antes del \textit{ACK}:  
+    El mensaje se reencola; al recuperarse, el nodo detecta la duplicación y continúa con el procesamiento siguiente.
+\end{itemize}
+
+\subsubsection{Fallas Desestimadas}
+
+Durante el análisis se identificaron otros posibles tipos de falla:
+
+\begin{itemize}
+    \item Falla en el \textbf{Servidor Central}.
+    \item Falla en los \textbf{Clientes}.
+    \item Falla en el \textbf{Middleware RabbitMQ}.
+\end{itemize}
+
+El manejo de estos escenarios fue desestimado en esta versión del sistema, dado que implicaría definir contratos adicionales con los clientes y un nivel de complejidad que excede los requerimientos del presente enunciado.  
+
+Sin embargo, se documentan estos casos para su consideración en futuras versiones del sistema.
+
+\newpage
+
+\subsection{Sistema de Generación de Errores}
+
+Con el objetivo de validar los mecanismos de tolerancia a fallas implementados en el sistema, se desarrolló un \textbf{Sistema de Generación de Errores}, diseñado para simular distintos escenarios de falla de manera controlada o aleatoria.
+
+Este sistema cuenta con dos funcionalidades principales:
+
+\begin{itemize}
+    \item \textbf{Inyección manual de fallas en instancias específicas:}  
+    Esta herramienta permite provocar la caída de instancias puntuales del sistema de forma controlada.  
+    Su propósito principal es facilitar las pruebas durante el desarrollo, permitiendo analizar el comportamiento del sistema ante la falla y posterior recuperación de nodos concretos, así como verificar la consistencia de los datos y estados luego de cada reinicio.
+
+    \item \textbf{Módulo de fallas aleatorias tipo \textit{Chaos Monkey}:}  
+    Inspirado en las prácticas de ingeniería del caos, este módulo genera caídas y perturbaciones de manera aleatoria en distintas partes del sistema.  
+    De esta forma, se evalúa el comportamiento integral del sistema distribuido bajo condiciones de falla no determinísticas, más cercanas a un entorno real de producción.  
+    Este enfoque permite demostrar la robustez global y la correcta recuperación de los componentes frente a fallas imprevistas.
+\end{itemize}
+
+En conjunto, ambas funcionalidades permiten validar tanto el funcionamiento individual de los mecanismos de tolerancia a fallas como su efectividad a nivel global, asegurando la resiliencia y estabilidad del sistema frente a distintos tipos de incidentes.
+
+\newpage
+
+\subsection{Mediciones de Rendimiento (Con Fallas)}
+
+Con el objetivo de evaluar el comportamiento y la eficiencia del sistema distribuido, se realizaron diversas mediciones de rendimiento bajo distintos escenarios y volúmenes de datos.  
+El propósito de este análisis es determinar la capacidad del sistema para mantener la consistencia de los resultados y la estabilidad de los tiempos de respuesta ante la presencia de fallas controladas o aleatorias.
+
+Las pruebas se dividen en dos grupos principales: aquellas realizadas sobre un \textbf{dataset reducido}, orientadas a validar la consistencia frente a fallas aleatorias, y aquellas efectuadas sobre el \textbf{dataset completo}, destinadas a medir la performance global del sistema con y sin eventos de falla.
+
+\subsubsection{Dataset Reducido: Consistencia frente a caídas aleatorias}
+
+En este conjunto de pruebas se busca demostrar que el sistema mantiene resultados consistentes ante la ocurrencia de fallas aleatorias, validando así la efectividad de los mecanismos de tolerancia a fallas implementados.
+
+\paragraph{Herramienta de evaluación}
+Para la ejecución de estas pruebas se empleará el \textbf{Sistema de Generación de Errores} previamente descripto, en su modo de funcionamiento aleatorio tipo \textit{Chaos Monkey}.  
+Esta herramienta permitirá simular caídas no determinísticas de distintas instancias del sistema, abarcando tanto nodos \textit{stateless} como \textit{stateful} y componentes del anillo de \textit{Health Checkers}.
+
+\paragraph{Parámetros de prueba}
+Los principales parámetros de configuración de las pruebas son los siguientes (valores a definir en futuras iteraciones):
+
+\begin{itemize}
+    \item Frecuencia de generación de fallas: \texttt{X segundos}.
+    \item Duración total de la prueba: \texttt{X minutos}.
+    \item Cantidad de nodos involucrados: \texttt{X}.
+    \item Tipos de nodos afectados: \texttt{Stateful / Stateless / Health Checker}.
+    \item Volumen de datos procesado: \texttt{X Gb}.
+\end{itemize}
+
+\paragraph{Criterios de evaluación}
+Los criterios utilizados para validar la consistencia y estabilidad del sistema serán:
+
+\begin{itemize}
+    \item Coincidencia de los resultados obtenidos con los esperados (control de consistencia).
+    \item Tiempo promedio de recuperación ante fallas.
+    \item Número de tareas reintentadas correctamente.
+    \item Impacto en la latencia promedio del sistema.
+\end{itemize}
+
+\paragraph{Resultados esperados}
+Se espera observar resultados consistentes en la salida final, independientemente de las caídas aleatorias introducidas, y una recuperación rápida de las instancias afectadas.  
+Los valores numéricos y métricas específicas serán completados una vez finalizada la ejecución de las pruebas.
+
+\newpage
+
+\subsubsection{Dataset Completo: Monitoreo de performance con y sin fallas}
+
+Este conjunto de pruebas se orienta a analizar el rendimiento del sistema distribuido bajo carga completa, tanto en condiciones estables (sin fallas) como durante la inyección de fallas aleatorias, con el fin de evaluar la degradación del desempeño.
+
+\paragraph{Herramienta y entorno de medición}
+Las mediciones se realizarán utilizando herramientas de monitoreo de recursos y trazabilidad, tales como \texttt{Prometheus}, \texttt{Grafana} o equivalentes (a definir).  
+Estas permitirán recolectar métricas en tiempo real sobre el consumo de CPU, memoria, tráfico de red y latencia promedio de las consultas distribuidas.
+
+\paragraph{Parámetros de prueba}
+Los principales parámetros definidos para este escenario son los siguientes (valores a completar):
+
+\begin{itemize}
+    \item Tamaño del dataset completo: \texttt{X Gb}.
+    \item Cantidad total de nodos en ejecución: \texttt{X}.
+    \item Cantidad de consultas simultáneas: \texttt{X}.
+    \item Duración de la medición: \texttt{X minutos}.
+    \item Inyección de fallas aleatorias: \texttt{Sí / No}.
+\end{itemize}
+
+\paragraph{Criterios de evaluación}
+Las métricas principales a analizar serán:
+
+\begin{itemize}
+    \item Tiempo promedio de procesamiento por consulta.
+    \item Throughput del sistema (consultas por segundo).
+    \item Utilización promedio de recursos (CPU, memoria, red).
+    \item Variación del rendimiento ante la presencia de fallas.
+\end{itemize}
+
+\paragraph{Resultados esperados}
+Se espera observar un desempeño estable del sistema bajo carga completa en condiciones normales, con una degradación controlada durante las pruebas con fallas aleatorias.  
+Los resultados cuantitativos y gráficos comparativos serán incorporados una vez completadas las mediciones experimentales.

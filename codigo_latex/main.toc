@@ -94,16 +94,40 @@
 \contentsline {subsection}{\numberline {18.2}Tests de Comparación de Outputs}{44}{subsection.18.2}%
 \contentsline {paragraph}{Validación por consulta.}{45}{section*.22}%
 \contentsline {subsection}{\numberline {18.3}Tests de Propagación de EOF}{45}{subsection.18.3}%
-\contentsline {section}{\numberline {19}Tolerancia a fallas}{46}{section.19}%
-\contentsline {section}{\numberline {20}Cronograma teórico del desarrollo}{47}{section.20}%
-\contentsline {subsection}{\numberline {20.1}Diseño}{47}{subsection.20.1}%
-\contentsline {subsection}{\numberline {20.2}Escalabilidad}{47}{subsection.20.2}%
-\contentsline {subsection}{\numberline {20.3}Multi-Client}{47}{subsection.20.3}%
-\contentsline {subsection}{\numberline {20.4}Paper}{47}{subsection.20.4}%
-\contentsline {subsection}{\numberline {20.5}Tolerancia}{47}{subsection.20.5}%
-\contentsline {section}{\numberline {21}Cronograma real del desarrollo}{48}{section.21}%
-\contentsline {subsection}{\numberline {21.1}Diseño (2 semanas)}{48}{subsection.21.1}%
-\contentsline {subsection}{\numberline {21.2}Middleware y Coordinación de Procesos (2.5 semanas)}{49}{subsection.21.2}%
-\contentsline {subsection}{\numberline {21.3}Multi Client (2 semanas)}{50}{subsection.21.3}%
-\contentsline {subsection}{\numberline {21.4}Paper (1.5 semanas)}{51}{subsection.21.4}%
-\contentsline {subsection}{\numberline {21.5}Tolerancia a fallas (3.5 semanas)}{52}{subsection.21.5}%
+\contentsline {section}{\numberline {19}Tolerancia a Fallas}{46}{section.19}%
+\contentsline {subsection}{\numberline {19.1}Introducción}{46}{subsection.19.1}%
+\contentsline {subsection}{\numberline {19.2}Health Checkers}{46}{subsection.19.2}%
+\contentsline {subsubsection}{\numberline {19.2.1}Topología del Sistema de Health Checkers}{46}{subsubsection.19.2.1}%
+\contentsline {subsection}{\numberline {19.3}Cambio de comportamiento en los nodos}{47}{subsection.19.3}%
+\contentsline {subsubsection}{\numberline {19.3.1}Nodos Stateful}{47}{subsubsection.19.3.1}%
+\contentsline {subsubsection}{\numberline {19.3.2}Nodos Stateless}{47}{subsubsection.19.3.2}%
+\contentsline {subsubsection}{\numberline {19.3.3}Comparativa de comportamiento: Nodos Stateful vs Join/Stateless}{48}{subsubsection.19.3.3}%
+\contentsline {subsection}{\numberline {19.4}Escenarios de Falla}{48}{subsection.19.4}%
+\contentsline {subsubsection}{\numberline {19.4.1}Falla en los Health Checkers}{48}{subsubsection.19.4.1}%
+\contentsline {subsubsection}{\numberline {19.4.2}Falla en los Nodos Stateful}{49}{subsubsection.19.4.2}%
+\contentsline {subsubsection}{\numberline {19.4.3}Falla en los Nodos Stateless}{49}{subsubsection.19.4.3}%
+\contentsline {subsubsection}{\numberline {19.4.4}Fallas Desestimadas}{49}{subsubsection.19.4.4}%
+\contentsline {subsection}{\numberline {19.5}Sistema de Generación de Errores}{50}{subsection.19.5}%
+\contentsline {subsection}{\numberline {19.6}Mediciones de Rendimiento (Con Fallas)}{51}{subsection.19.6}%
+\contentsline {subsubsection}{\numberline {19.6.1}Dataset Reducido: Consistencia frente a caídas aleatorias}{51}{subsubsection.19.6.1}%
+\contentsline {paragraph}{Herramienta de evaluación}{51}{section*.23}%
+\contentsline {paragraph}{Parámetros de prueba}{51}{section*.24}%
+\contentsline {paragraph}{Criterios de evaluación}{51}{section*.25}%
+\contentsline {paragraph}{Resultados esperados}{51}{section*.26}%
+\contentsline {subsubsection}{\numberline {19.6.2}Dataset Completo: Monitoreo de performance con y sin fallas}{52}{subsubsection.19.6.2}%
+\contentsline {paragraph}{Herramienta y entorno de medición}{52}{section*.27}%
+\contentsline {paragraph}{Parámetros de prueba}{52}{section*.28}%
+\contentsline {paragraph}{Criterios de evaluación}{52}{section*.29}%
+\contentsline {paragraph}{Resultados esperados}{52}{section*.30}%
+\contentsline {section}{\numberline {20}Cronograma teórico del desarrollo}{53}{section.20}%
+\contentsline {subsection}{\numberline {20.1}Diseño}{53}{subsection.20.1}%
+\contentsline {subsection}{\numberline {20.2}Escalabilidad}{53}{subsection.20.2}%
+\contentsline {subsection}{\numberline {20.3}Multi-Client}{53}{subsection.20.3}%
+\contentsline {subsection}{\numberline {20.4}Paper}{53}{subsection.20.4}%
+\contentsline {subsection}{\numberline {20.5}Tolerancia}{53}{subsection.20.5}%
+\contentsline {section}{\numberline {21}Cronograma real del desarrollo}{54}{section.21}%
+\contentsline {subsection}{\numberline {21.1}Diseño (2 semanas)}{54}{subsection.21.1}%
+\contentsline {subsection}{\numberline {21.2}Middleware y Coordinación de Procesos (2.5 semanas)}{55}{subsection.21.2}%
+\contentsline {subsection}{\numberline {21.3}Multi Client (2 semanas)}{56}{subsection.21.3}%
+\contentsline {subsection}{\numberline {21.4}Paper (1.5 semanas)}{57}{subsection.21.4}%
+\contentsline {subsection}{\numberline {21.5}Tolerancia a fallas (6.5 semanas)}{58}{subsection.21.5}%
