@@ -1,3 +1,8 @@
+<br>
+<p align="center">
+  <img src="https://huergo.edu.ar/images/convenios/fiuba.jpg" width="100%" style="background-color:white"/>
+</p>
+
 # ☕ Coffee Shop Analysis
 
 ## 📚 Materia: Sistemas Distribuidos 1 (Roca)
