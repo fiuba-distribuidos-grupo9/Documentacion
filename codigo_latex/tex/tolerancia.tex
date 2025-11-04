@@ -31,59 +31,130 @@ topología de anillo, como la función del \textbf{Líder} y un ejemplo de funci
   \centering
   \includegraphics[scale=0.22, keepaspectratio]{health.png}
   \caption{Topología del Sistema de Health Checkers}
-  \label{fig:secuencia1}
+  \label{fig:healthcheckers}
 \end{figure}
 
 \newpage
 
 \subsection{Cambio de comportamiento en los nodos}
 
-Se realizaron modificaciones en el funcionamiento de todos los nodos del sistema que consumen mensajes desde las colas de \textit{RabbitMQ}.  
-El objetivo de estos cambios es garantizar la consistencia del sistema ante eventuales fallas.
+Se introdujeron modificaciones significativas en el funcionamiento de todos los nodos del sistema que consumen mensajes desde las colas de \textit{RabbitMQ}.  
+El objetivo de estos cambios es fortalecer la robustez del sistema ante fallas parciales y garantizar la consistencia de los datos en todo momento.
 
-Cada nodo, al recibir (``popear'') un mensaje de una cola, lo escribe inmediatamente en un archivo local antes de procesarlo.  
-Luego ejecuta la operación correspondiente y envía el resultado al siguiente nodo de la secuencia.  
-Gracias a la semántica de confirmación de \textit{RabbitMQ}, si un mensaje es consumido pero no se envía el \textit{ACK} correspondiente, dicho mensaje se reencola automáticamente al inicio de la cola.
+Cada nodo, al recibir (``popear'') un mensaje desde la cola correspondiente, ejecuta su lógica de procesamiento, le envía el mensaje a la siguiente cola de el próximo nodo, escribe el mensaje o el estado actualizado en su volumen persistente, y finalmente envía el \textit{ACK} a \textit{RabbitMQ}.  
+Este orden de operaciones —procesamiento, envío, persistencia y confirmación— es esencial para evitar duplicaciones o pérdidas de mensajes ante fallas inesperadas.  
 
-Esta funcionalidad resulta de gran utilidad: si un nodo falla, al reiniciarse recuperará el mensaje que estaba procesando y podrá continuar desde el último estado registrado.
+Gracias a la semántica de confirmación de \textit{RabbitMQ}, si un mensaje es consumido pero no se envía el \textit{ACK}, dicho mensaje se reencola automáticamente al inicio de la cola.  
+De esta forma, ante una caída, el nodo podrá retomar su ejecución desde el último estado persistido o reprocesar el mensaje que quedó pendiente, garantizando así la consistencia del flujo.
 
-\textbf{Observación:} Los archivos se almacenan en volúmenes persistentes dentro de los contenedores de cada nodo.  
-Por lo tanto, ante una caída y posterior recuperación, la información registrada no se pierde, permitiendo restaurar el estado previo.
-
-\subsubsection{Nodos Stateful}
-
-Los nodos \textit{Stateful} presentan dos comportamientos distintos, según el tipo de operación que realicen:
-
-\begin{itemize}
-    \item \textbf{Sorts y Reducers:}  
-    Estos nodos, al recibir un mensaje desde la cola y registrarlo en su archivo correspondiente, continúan procesando los siguientes mensajes hasta recibir todos los datos necesarios.  
-    Una vez completada la recepción, realizan el cómputo correspondiente y, al finalizar, envían el resultado al siguiente nodo de la secuencia.
-
-    \item \textbf{Joins:}  
-    Estos nodos, al recibir un mensaje, ejecutan inmediatamente la operación de \textit{join} y envían el resultado al nodo siguiente.  
-    Dado que no requieren disponer de todos los datos simultáneamente, su procesamiento es incremental.
-\end{itemize}
+\textbf{Observación:}  
+Todos los archivos generados se almacenan en volúmenes persistentes asociados a los contenedores de cada nodo.  
+Esto permite que, incluso tras una caída o reinicio, el nodo conserve su información y pueda recuperar su estado previo sin pérdida de datos.
 
 \subsubsection{Nodos Stateless}
 
-Los nodos \textit{Stateless} únicamente incorporan la funcionalidad de registrar en un archivo cada mensaje recibido.  
-Su lógica de procesamiento no se ve afectada en ningún otro aspecto.
+Los nodos \textit{Stateless} procesan mensajes de manera independiente, sin mantener un estado acumulativo entre ellos.  
+Su flujo de ejecución se compone de las siguientes etapas:
 
-\subsubsection{Comparativa de comportamiento: Nodos Stateful vs Join/Stateless}
+\begin{enumerate}
+    \item Recepción del mensaje desde la cola de entrada.
+    \item Procesamiento del mensaje (limpieza, filtrado u otra operación específica).
+    \item Envío del resultado al siguiente nodo.
+    \item Escritura del mensaje procesado en un archivo local del volumen persistente, para disponer de una copia de respaldo.
+    \item Envío del \textit{ACK} a \textit{RabbitMQ}.
+\end{enumerate}
 
+La escritura en disco se realiza \textbf{únicamente al final del proceso}, luego de haber enviado el mensaje.  
+Este orden es crítico, ya que evita que un mensaje pueda ser reenviado o computado más de una vez, garantizando la consistencia global del sistema.
+
+\subsubsection{Nodos Stateful (Joins)}
+
+Los nodos \textit{Joins} presentan un comportamiento intermedio entre los nodos con y sin estado.  
+Durante su ejecución inicial, reciben información de configuración proveniente del servidor, la cual se almacena en su volumen local y se utiliza de manera incremental al procesar los siguientes mensajes.
+
+Una vez recibida toda la información del servidor, el nodo pasa a comportarse de forma análoga a un nodo \textit{Stateless}:  
+procesa, envía, registra y confirma cada mensaje de manera independiente.
+
+Para facilitar la recuperación ante fallas, una vez completada la fase de inicialización, el nodo \textit{Join} registra un indicador distintivo (por ejemplo, una marca de finalización) en su archivo local.  
+De esta forma, si el nodo se reinicia, puede detectar fácilmente si ya recibió todos los datos del servidor o si aún resta información por almacenar.
+
+\newpage
+
+\subsubsection{Nodos Stateful con estado acumulativo (Sorts, Sums, Counts)}
+
+\textbf{Funcionamiento inicial del nodo}
+
+Los nodos con estado acumulativo —como \textit{Sorts}, \textit{Sums} y \textit{Counts}— mantienen información agregada entre mensajes.  
+Su comportamiento fue rediseñado para maximizar la confiabilidad y optimizar la recuperación ante fallas.
+
+Cada nodo sigue el siguiente flujo:
+
+\begin{enumerate}
+    \item Recibe un mensaje desde la cola correspondiente.
+    \item Actualiza su estado interno con la información del mensaje (operación de cómputo o agregación).
+    \item Escribe el mensaje procesado en su archivo local (uno por cada nodo antecesor).
+    \item Envía el \textit{ACK} a \textit{RabbitMQ}.
+    \item Continúa con el siguiente mensaje.
+\end{enumerate}
+
+Cada cierto número de mensajes $n$, configurable según la carga del nodo o la probabilidad de falla estimada, se realiza un \textbf{backup o checkpoint} del estado actual.  
+Este se guarda en un archivo separado dentro del mismo volumen, y actúa como punto de restauración ante fallas.
+
+\textbf{Envío del reporte generado hacia el próximo nodo}
+
+Finalmente, una vez completado el procesamiento de todos los mensajes correspondientes a una consulta o cliente, el nodo realiza el cálculo del estado final acumulado.  
+Antes de enviarlo al siguiente nodo de la secuencia, dicho estado se escribe en el archivo de \textbf{backup/checkpoint}, garantizando la persistencia del resultado más reciente.
+
+Posteriormente, se procede al envío del estado al nodo siguiente.  
+Una vez completado este envío, el nodo registra en su volumen una marca o indicador que señala que el estado correspondiente a esa consulta o cliente ya fue transmitido correctamente.  
+Esto permite que, en caso de una caída y posterior recuperación, el nodo identifique que el resultado ya fue enviado y evite duplicaciones o recomputaciones innecesarias.
+
+En los casos en que el envío del estado final requiera dividir la información en múltiples mensajes, se aplica la misma lógica de procesamiento y persistencia que para el resto de los mensajes:  
+cada fragmento enviado se escribe previamente en un volumen dedicado al manejo de dichos estados parciales, asegurando un control preciso de la consistencia y la trazabilidad del proceso completo.
+
+\textbf{Consideraciones}
+
+Para mantener el uso eficiente del almacenamiento, tras cada backup se eliminan o marcan los registros previos como \textit{COMMIT}, indicando que los mensajes anteriores ya fueron computados y persistidos en el estado actual.
+
+Cada nodo mantiene archivos separados por cada uno de sus antecesores.  
+Esto permite acceder de manera directa al último mensaje procesado por cada fuente, manteniendo la trazabilidad y la consistencia del flujo completo.  
+Se asume además que todas las escrituras en disco son \textbf{atómicas}, garantizando que sólo existen dos posibles resultados: escritura completa o ausencia total de la misma, eliminando la posibilidad de estados intermedios inconsistentes.
+
+\newpage
+
+\subsection{Cambios en el protocolo}
+
+La nueva implementación introduce un encabezado (\textit{header}) ligero que se agrega sobre el paquete existente, siguiendo un enfoque análogo al apilado de cabeceras entre capas de enlace y red en redes tradicionales. Este encabezado incorpora dos campos adicionales:
+
+\begin{itemize}
+  \item \textbf{UUID del mensaje} (\texttt{msg\_uuid}): Generado por el servidor emisor inicial y \textit{consistente durante toda la vida del mensaje} a través de la tubería de procesamiento. En los nodos que generan reportes/outputs finales, se genera un \textit{nuevo} UUID para el artefacto resultante, el cual se usa a partir de ahí para su trazabilidad.
+  \item \textbf{Identificador del nodo origen} (\texttt{src\_node\_id}): Indica el nodo que produjo el mensaje. Se utiliza en el receptor para dirigir la persistencia al volumen/archivo correspondiente a ese origen, preservando trazabilidad y consistencia.
+\end{itemize}
 
 \FloatBarrier
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=0.37, keepaspectratio]{comp-tol.png}
-  \caption{Nodos Stateful vs Join/Stateless}
-  \label{fig:secuencia1}
+  \includegraphics[scale=0.18, keepaspectratio]{mensajes.png}
+  \caption{Estructura de los mensajes}
+  \label{fig:estructura_mensajes}
 \end{figure}
+
+\paragraph{Balanceo determinista basado en hash}
+Los nodos que antes distribuían carga con \textit{Round Robin} (contador) migran a \textbf{hash por \texttt{msg\_uuid}}. Este cambio evita desbalances e inconsistencias cuando un nodo cae y reinicia su contador:
+\begin{itemize}
+  \item Con \textit{Round Robin}, un reinicio cambia el punto del ciclo y el mismo mensaje podría enrutarse a un destino distinto.
+  \item Con \textbf{hash(msg\_uuid)}, a igual UUID se obtiene el mismo destino (consistentemente), incluso si el nodo se reinicia. Esto preserva afinidad de mensaje y localización esperada del estado.
+\end{itemize}
+
+\paragraph{Compatibilidad y consistencia}
+El encabezado es aditivo, no rompe el formato del payload previo. La escritura local sigue siendo atómica, y la lógica de ACK de \textit{RabbitMQ} permanece inalterada: el ACK sólo se emite cuando el procesamiento y la persistencia asociada se completan, manteniendo idempotencia extremo a extremo.
+
+\newpage
 
 \subsection{Escenarios de Falla}
 
-A continuación se detallan los distintos escenarios de falla analizados durante el diseño de los mecanismos de robustez del sistema, junto con las estrategias adoptadas para cada caso.  
-En todos los escenarios, se garantiza tanto la continuidad operativa del sistema ante la caída de cualquier nodo bajo control, como la consistencia y correctitud de los resultados producidos.
+A continuación se detallan los distintos escenarios de falla contemplados durante el diseño de los mecanismos de tolerancia y recuperación del sistema.  
+En todos los casos, se garantiza tanto la continuidad operativa ante la caída de uno o más nodos, como la consistencia de los resultados y del flujo de mensajes.
 
 \subsubsection{Falla en los Health Checkers}
 
@@ -99,48 +170,37 @@ Ante la caída de algún nodo del sistema de \textit{Health Checkers}, pueden pr
 
 En ambos casos, se intenta levantar nuevamente la instancia caída para restablecer el nivel de redundancia definido y mantener la alta disponibilidad del sistema.
 
+\subsubsection{Falla en los Nodos Stateless y Nodos Join}
+
+El comportamiento ante fallas es similar al de los nodos \textit{Join}:
+
+\begin{itemize}
+    \item \textbf{Falla antes del \textit{ACK}:}  
+    \textit{RabbitMQ} reencola el mensaje, que será procesado nuevamente cuando el nodo se recupere.
+    Como esta es la última operación antes de popear otro mensaje, no existe otro instante de falla a considerar.
+\end{itemize}
+
+\subsubsection{Falla en los Nodos Statefull}
+
+Dependiendo del tipo de nodo, los mecanismos de recuperación difieren:
+
+\paragraph{Nodos con estado acumulativo (Sorts, Sums, Counts):}
+\begin{itemize}
+    \item \textbf{Si el nodo falla antes de procesar el mensaje}:  
+    El mensaje se reencola automáticamente por \textit{RabbitMQ}, y al reiniciarse, el nodo lo vuelve a procesar desde su archivo o desde el backup más reciente.
+
+    \item \textbf{Si falla después de procesar el mensaje pero antes del \textit{ACK}}:  
+    El mensaje se reencola, y al recuperarse, el nodo detecta en su registro que el mensaje ya fue computado, evitando duplicaciones.
+
+    \item \textbf{Si falla durante la acumulación}:  
+    Al reiniciarse, el nodo restaura su estado desde el último backup disponible y continúa procesando desde el siguiente mensaje.
+
+    \item \textbf{Si falla en el proceso de envío del reporte hacia el próximo nodo}:  
+    Al volver a despertar, se retoma desde el último mensaje enviado, para garantizar la consistencia del sistema, evitando mensajes duplicados.
+    Para identificar los mensajes, el nodo que genera el reporte asigna los IDs correspondientes, haciendose responsable de su correctitud.
+\end{itemize}
+
 \newpage
-
-\subsubsection{Falla en los Nodos Stateful}
-
-Según el tipo de nodo, los posibles escenarios son los siguientes:
-
-\begin{itemize}
-    \item \textbf{Nodos que requieren todos los datos para operar (Sorts y Reducers):}
-    \begin{itemize}
-        \item El nodo falla antes de consumir el mensaje:  
-        El mensaje es reencolado automáticamente por \textit{RabbitMQ}.  
-        Al reiniciarse, el nodo vuelve a consumir dicho mensaje, lo registra en el archivo y continúa con el procedimiento normal.
-
-        \item El nodo falla después de escribir el mensaje, pero antes de enviar el \textit{ACK}:  
-        Al reiniciarse, el mensaje se reencola y es consumido nuevamente; al detectar que el mensaje ya fue procesado (comparando con el registro en el archivo), se descarta y se continúa con el siguiente.
-
-        \item El nodo falla luego de recibir todos los mensajes:  
-        Al reiniciarse, detecta en su archivo que ya recibió todos los \textit{EOF} correspondientes y ejecuta el cómputo pendiente.  
-        Una vez finalizado, envía el resultado y marca en el archivo que el procesamiento del cliente ha sido completado.
-    \end{itemize}
-
-    \item \textbf{Nodos que procesan datos de manera incremental (Joins):}
-    \begin{itemize}
-        \item Falla antes de consumir el mensaje:  
-        El mensaje se reencola, y al reiniciarse, el nodo lo vuelve a procesar normalmente.
-
-        \item Falla después de escribir el mensaje pero antes del \textit{ACK}:  
-        El mensaje se reencola; al recuperarse, el nodo detecta que ya fue procesado y continúa con el siguiente.
-    \end{itemize}
-\end{itemize}
-
-\subsubsection{Falla en los Nodos Stateless}
-
-El comportamiento ante fallas es análogo al de los nodos \textit{Joins}:
-
-\begin{itemize}
-    \item Falla antes de consumir el mensaje:  
-    \textit{RabbitMQ} reencola el mensaje, y al reiniciarse el nodo, lo vuelve a procesar desde el punto anterior.
-
-    \item Falla después de escribir el mensaje pero antes del \textit{ACK}:  
-    El mensaje se reencola; al recuperarse, el nodo detecta la duplicación y continúa con el procesamiento siguiente.
-\end{itemize}
 
 \subsubsection{Fallas Desestimadas}
 
@@ -156,7 +216,14 @@ El manejo de estos escenarios fue desestimado en esta versión del sistema, dado
 
 Sin embargo, se documentan estos casos para su consideración en futuras versiones del sistema.
 
-\newpage
+\subsubsection{Mecanismos adicionales de consistencia}
+
+Para garantizar la coherencia incluso en escenarios de fallas simultáneas:
+\begin{itemize}
+    \item El nodo siguiente a uno caído valida que los mensajes recibidos no sean duplicados, comparando el último mensaje recibido con el nuevo.
+    \item Los nodos que mantienen estado lo recomponen desde su último backup; los que no, reprocesan los mensajes pendientes desde la cola.
+    \item Dado que \textit{RabbitMQ} no pierde mensajes durante las caídas, el sistema mantiene su integridad global.
+\end{itemize}
 
 \subsection{Sistema de Generación de Errores}
 
@@ -174,6 +241,8 @@ Este sistema cuenta con dos funcionalidades principales:
     De esta forma, se evalúa el comportamiento integral del sistema distribuido bajo condiciones de falla no determinísticas, más cercanas a un entorno real de producción.  
     Este enfoque permite demostrar la robustez global y la correcta recuperación de los componentes frente a fallas imprevistas.
 \end{itemize}
+
+La señal que envía el sistema de generación de fallas a los nodos vivos es \textbf{SIGKILL}. 
 
 En conjunto, ambas funcionalidades permiten validar tanto el funcionamiento individual de los mecanismos de tolerancia a fallas como su efectividad a nivel global, asegurando la resiliencia y estabilidad del sistema frente a distintos tipos de incidentes.
 
