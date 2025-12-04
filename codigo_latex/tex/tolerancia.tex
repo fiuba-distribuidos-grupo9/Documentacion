@@ -17,20 +17,52 @@ Uno de los nodos cumple el rol de \textbf{Líder}, siendo el responsable de coor
 En caso de que el líder falle, se ejecuta automáticamente un algoritmo de elección que designa un nuevo líder, el cual retoma las tareas del anterior.
 
 El proceso de verificación consiste en el envío periódico de mensajes de tipo \textit{Ping} a cada nodo del sistema.  
-Si el nodo responde con un \textit{ACK}, se considera activo; en caso contrario, el líder inicia el proceso de recuperación de esa instancia.
+Si el nodo responde con un \textit{ACK}, se considera activo; En caso contrario, el líder inicia el proceso de recuperación de esa instancia.
+
+El servidor central también participa de este esquema de \textit{heartbeat}.
+Por cada cliente que levanta, registra el identificador de sesión en un archivo persistente.  
+Si el servidor se cae y luego se reinicia, utiliza esa información para notificar a todos los controladores que deben limpiar el estado asociado a las sesiones previamente activas, evitando que queden residuos de consultas incompletas.  
+De forma análoga, cuando el servidor detecta que un cliente finaliza o se desconecta definitivamente, envía una orden de limpieza sólo para esa sesión, de modo que se liberen los recursos correspondientes en todos los nodos sin afectar las consultas del resto de los clientes.
 
 \subsubsection{Topología del Sistema de Health Checkers}
 
-A continuación se deja un diagrama que representa la topología del \textbf{Sistema de Health Checkers}, donde se representa tanto la lógica de
-topología de anillo, como la función del \textbf{Líder} y un ejemplo de funcionamiento al hacer \textit{Ping} a diversos \textit{Cleaners}.
+A continuación se dejan unos diagramas que representan:
 
-\vspace{0.5cm}
+\begin{enumerate}
+    \item La topología de anillo de los Health Checkers.
+    \item La interacción entre el líder y los otros nodos Health Checkers.
+    \item La interacción entre el líder y los nodos del Sistema Distribuido.
+\end{enumerate}
 
 \FloatBarrier
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=0.22, keepaspectratio]{health.png}
-  \caption{Topología del Sistema de Health Checkers}
+  \includegraphics[scale=0.16, keepaspectratio]{ring.png}
+  \caption{Topología de anillo de los Health Checkers}
+  \label{fig:healthcheckers}
+\end{figure}
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.16, keepaspectratio]{health1.png}
+  \caption{Pings y ACKs que manda el Líder a los otros Health Checkers}
+  \label{fig:healthcheckers}
+\end{figure}
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.16, keepaspectratio]{health2.png}
+  \caption{Pings y ACKs que mandan los Health Checkers al Líder}
+  \label{fig:healthcheckers}
+\end{figure}
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.4, keepaspectratio]{health3.png}
+  \caption{Pings y ACKs que manda el Líder a los nodos del Sistema Distribuido}
   \label{fig:healthcheckers}
 \end{figure}
 
@@ -73,10 +105,13 @@ Los nodos \textit{Joins} presentan un comportamiento intermedio entre los nodos 
 Durante su ejecución inicial, reciben información de configuración proveniente del servidor, la cual se almacena en su volumen local y se utiliza de manera incremental al procesar los siguientes mensajes.
 
 Una vez recibida toda la información del servidor, el nodo pasa a comportarse de forma análoga a un nodo \textit{Stateless}:  
-procesa, envía, registra y confirma cada mensaje de manera independiente.
+Procesa, envía, registra y confirma cada mensaje de manera independiente.
 
-Para facilitar la recuperación ante fallas, una vez completada la fase de inicialización, el nodo \textit{Join} registra un indicador distintivo (por ejemplo, una marca de finalización) en su archivo local.  
+Para facilitar la recuperación ante fallas, una vez completada la fase de inicialización, el nodo \textit{Join} registra un indicador distintivo (Por ejemplo, una marca de finalización) en su archivo local.  
 De esta forma, si el nodo se reinicia, puede detectar fácilmente si ya recibió todos los datos del servidor o si aún resta información por almacenar.
+
+Como optimización adicional, los \textit{Joiners} persisten la información base separada por sesión.  
+Cada consulta mantiene su propio archivo de estado, lo que permite recomponer de forma localizada la información de un cliente en caso de caída, y evita que el estado de una sesión afecte o contamine el de las demás.
 
 \newpage
 
@@ -102,15 +137,19 @@ Este se guarda en un archivo separado dentro del mismo volumen, y actúa como pu
 
 \textbf{Envío del reporte generado hacia el próximo nodo}
 
-Finalmente, una vez completado el procesamiento de todos los mensajes correspondientes a una consulta o cliente, el nodo realiza el cálculo del estado final acumulado.  
-Antes de enviarlo al siguiente nodo de la secuencia, dicho estado se escribe en el archivo de \textbf{backup/checkpoint}, garantizando la persistencia del resultado más reciente.
+Finalmente, una vez completado el procesamiento de todos los mensajes correspondientes a una consulta o cliente, el nodo realiza el cálculo del estado final acumulado antes de enviar cualquier resultado al siguiente nodo de la secuencia.  
+Ese estado final se persiste en el archivo de \textbf{backup/checkpoint}, garantizando la existencia de una versión consistente desde la cual se puedan regenerar los mensajes de salida.
 
 Posteriormente, se procede al envío del estado al nodo siguiente.  
-Una vez completado este envío, el nodo registra en su volumen una marca o indicador que señala que el estado correspondiente a esa consulta o cliente ya fue transmitido correctamente.  
+Entre cada mensaje que se emite (Por ejemplo, cuando el resultado debe fragmentarse en varios mensajes), el nodo actualiza y persiste el estado intermedio asociado a esa salida.  
+De esta forma, si se produce una caída durante el envío, al reiniciarse puede reconstruir exactamente los mismos mensajes a partir del estado almacenado, sin introducir variaciones en el contenido.
+
+Una vez completado el envío de todos los fragmentos, el nodo registra en su volumen una marca o indicador que señala que el estado correspondiente a esa consulta o cliente ya fue transmitido correctamente.  
 Esto permite que, en caso de una caída y posterior recuperación, el nodo identifique que el resultado ya fue enviado y evite duplicaciones o recomputaciones innecesarias.
 
 En los casos en que el envío del estado final requiera dividir la información en múltiples mensajes, se aplica la misma lógica de procesamiento y persistencia que para el resto de los mensajes:  
-cada fragmento enviado se escribe previamente en un volumen dedicado al manejo de dichos estados parciales, asegurando un control preciso de la consistencia y la trazabilidad del proceso completo.
+cada fragmento enviado se genera de forma determinista a partir del estado persistido y se escribe previamente en un volumen dedicado al manejo de dichos estados parciales.  
+Así, si un mensaje debe reenviarse por un fallo en la confirmación, el contenido es idéntico al original y puede ser detectado como duplicado por el nodo receptor usando el \texttt{msg\_uuid} o los registros locales.
 
 \textbf{Consideraciones}
 
@@ -119,6 +158,43 @@ Para mantener el uso eficiente del almacenamiento, tras cada backup se eliminan 
 Cada nodo mantiene archivos separados por cada uno de sus antecesores.  
 Esto permite acceder de manera directa al último mensaje procesado por cada fuente, manteniendo la trazabilidad y la consistencia del flujo completo.  
 Se asume además que todas las escrituras en disco son \textbf{atómicas}, garantizando que sólo existen dos posibles resultados: escritura completa o ausencia total de la misma, eliminando la posibilidad de estados intermedios inconsistentes.
+
+\newpage
+
+\subsubsection{Procesos e Hilos por nodo}
+
+En cuanto a la arquitectura interna de cada nodo, se implementó un modelo basado en múltiples hilos y/o procesos de ejecución para optimizar el procesamiento y posibilitar la gestión de mensajes en paralelo.
+
+A continuación se describen mediante a diagramas los distintos modelos implementados según el tipo de nodo:
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.12, keepaspectratio]{controller_processes.png}
+  \caption{Procesos en los Controladores}
+  \label{fig:stateless_model}
+\end{figure}
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.22, keepaspectratio]{health_processes.png}
+  \caption{Procesos e hilos en los Health Checkers}
+  \label{fig:stateless_model}
+\end{figure}
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \rotatebox{270}{%
+    \includegraphics[
+      width=0.95\textheight,
+      keepaspectratio
+    ]{img/server_processes.png}%
+  }
+  \caption{Procesos en el Servidor Central}
+  \label{fig:robustez}
+\end{figure}
 
 \newpage
 
@@ -210,11 +286,14 @@ Durante el análisis se identificaron otros posibles tipos de falla:
     \item Falla en el \textbf{Servidor Central}.
     \item Falla en los \textbf{Clientes}.
     \item Falla en el \textbf{Middleware RabbitMQ}.
+    \item Falla en \textbf{todos los Health Checkers simultáneamente}.
 \end{itemize}
 
-El manejo de estos escenarios fue desestimado en esta versión del sistema, dado que implicaría definir contratos adicionales con los clientes y un nivel de complejidad que excede los requerimientos del presente enunciado.  
+El manejo para generar la recuperación de las consultas, ante alguno de estos escenarios fue desestimado en esta versión del sistema, dado que implicaría definir contratos adicionales con los clientes, considerar hipótesis extremadamente remotas y un nivel de complejidad que excede los requerimientos del presente enunciado.  
 
 Sin embargo, se documentan estos casos para su consideración en futuras versiones del sistema.
+
+De igual manera, la ocurrencia de alguno de los tipos de falla mencionados se encuentran controlados de forma que el Sistema Distribuido pueda seguir su ejecución, luego de controlar las inconsistencias (Por ejemplo, vaciando los estados de los controladores para reiniciar consultas).
 
 \subsubsection{Mecanismos adicionales de consistencia}
 
@@ -251,27 +330,30 @@ En conjunto, ambas funcionalidades permiten validar tanto el funcionamiento indi
 \subsection{Mediciones de Rendimiento (Con Fallas)}
 
 Con el objetivo de evaluar el comportamiento y la eficiencia del sistema distribuido, se realizaron diversas mediciones de rendimiento bajo distintos escenarios y volúmenes de datos.  
+
 El propósito de este análisis es determinar la capacidad del sistema para mantener la consistencia de los resultados y la estabilidad de los tiempos de respuesta ante la presencia de fallas controladas o aleatorias.
 
-Las pruebas se dividen en dos grupos principales: aquellas realizadas sobre un \textbf{dataset reducido}, orientadas a validar la consistencia frente a fallas aleatorias, y aquellas efectuadas sobre el \textbf{dataset completo}, destinadas a medir la performance global del sistema con y sin eventos de falla.
+Las pruebas se dividen en dos grupos principales: Aquellas realizadas sobre un \textbf{dataset reducido}, orientadas a validar la consistencia frente a fallas aleatorias, y aquellas efectuadas sobre el \textbf{dataset completo}, destinadas a medir la performance global del sistema con y sin eventos de falla.
 
 \subsubsection{Dataset Reducido: Consistencia frente a caídas aleatorias}
 
 En este conjunto de pruebas se busca demostrar que el sistema mantiene resultados consistentes ante la ocurrencia de fallas aleatorias, validando así la efectividad de los mecanismos de tolerancia a fallas implementados.
 
 \paragraph{Herramienta de evaluación}
+
 Para la ejecución de estas pruebas se empleará el \textbf{Sistema de Generación de Errores} previamente descripto, en su modo de funcionamiento aleatorio tipo \textit{Chaos Monkey}.  
+
 Esta herramienta permitirá simular caídas no determinísticas de distintas instancias del sistema, abarcando tanto nodos \textit{stateless} como \textit{stateful} y componentes del anillo de \textit{Health Checkers}.
 
 \paragraph{Parámetros de prueba}
+
 Los principales parámetros de configuración de las pruebas son los siguientes (valores a definir en futuras iteraciones):
 
 \begin{itemize}
-    \item Frecuencia de generación de fallas: \texttt{X segundos}.
-    \item Duración total de la prueba: \texttt{X minutos}.
-    \item Cantidad de nodos involucrados: \texttt{X}.
-    \item Tipos de nodos afectados: \texttt{Stateful / Stateless / Health Checker}.
-    \item Volumen de datos procesado: \texttt{X Gb}.
+    \item Frecuencia de generación de fallas: \texttt{120 segundos}.
+    \item Duración total de la prueba: \texttt{11 minutos}.
+    \item Cantidad de nodos involucrados: \texttt{63}.
+    \item Volumen de datos procesado: \texttt{Dataset reducido}.
 \end{itemize}
 
 \paragraph{Criterios de evaluación}
@@ -285,7 +367,9 @@ Los criterios utilizados para validar la consistencia y estabilidad del sistema 
 \end{itemize}
 
 \paragraph{Resultados esperados}
+
 Se espera observar resultados consistentes en la salida final, independientemente de las caídas aleatorias introducidas, y una recuperación rápida de las instancias afectadas.  
+
 Los valores numéricos y métricas específicas serán completados una vez finalizada la ejecución de las pruebas.
 
 \newpage
@@ -295,30 +379,36 @@ Los valores numéricos y métricas específicas serán completados una vez final
 Este conjunto de pruebas se orienta a analizar el rendimiento del sistema distribuido bajo carga completa, tanto en condiciones estables (sin fallas) como durante la inyección de fallas aleatorias, con el fin de evaluar la degradación del desempeño.
 
 \paragraph{Herramienta y entorno de medición}
-Las mediciones se realizarán utilizando herramientas de monitoreo de recursos y trazabilidad, tales como \texttt{Prometheus}, \texttt{Grafana} o equivalentes (a definir).  
-Estas permitirán recolectar métricas en tiempo real sobre el consumo de CPU, memoria, tráfico de red y latencia promedio de las consultas distribuidas.
+
+Las mediciones se realizarán utilizando herramientas de monitoreo de recursos y trazabilidad, tales como \texttt{htop}.
+
+Esta permitirá recolectar métricas en tiempo real sobre el consumo de CPU, memoria, tráfico de red y latencia promedio de las consultas distribuidas.
 
 \paragraph{Parámetros de prueba}
+
 Los principales parámetros definidos para este escenario son los siguientes (valores a completar):
 
 \begin{itemize}
-    \item Tamaño del dataset completo: \texttt{X Gb}.
-    \item Cantidad total de nodos en ejecución: \texttt{X}.
-    \item Cantidad de consultas simultáneas: \texttt{X}.
-    \item Duración de la medición: \texttt{X minutos}.
-    \item Inyección de fallas aleatorias: \texttt{Sí / No}.
+    \item Frecuencia de generación de fallas: \texttt{120 segundos}.
+    \item Volumen de datos procesado: \texttt{Dataset completo}.
+    \item Cantidad total de nodos en ejecución: \texttt{63}.
+    \item Cantidad de consultas simultáneas: \texttt{5 (1 Cliente)}.
+    \item Duración de la medición: Aproximadamente se estiman \texttt{50 minutos}, no se realizó la medición en su totalidad para evitar daños en el disco de la computadora.
 \end{itemize}
 
 \paragraph{Criterios de evaluación}
+
 Las métricas principales a analizar serán:
 
 \begin{itemize}
     \item Tiempo promedio de procesamiento por consulta.
-    \item Throughput del sistema (consultas por segundo).
+    \item Throughput del sistema.
     \item Utilización promedio de recursos (CPU, memoria, red).
     \item Variación del rendimiento ante la presencia de fallas.
 \end{itemize}
 
 \paragraph{Resultados esperados}
+
 Se espera observar un desempeño estable del sistema bajo carga completa en condiciones normales, con una degradación controlada durante las pruebas con fallas aleatorias.  
+
 Los resultados cuantitativos y gráficos comparativos serán incorporados una vez completadas las mediciones experimentales.

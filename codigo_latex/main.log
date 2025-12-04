@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.9.19)  19 NOV 2025 17:52
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.9.19)  4 DEC 2025 12:22
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1036,6 +1036,21 @@ LaTeX Warning: Label `fig:dag' multiply defined.
 
 LaTeX Warning: Label `fig:robustez' multiply defined.
 
+
+LaTeX Warning: Label `fig:healthcheckers' multiply defined.
+
+
+LaTeX Warning: Label `fig:healthcheckers' multiply defined.
+
+
+LaTeX Warning: Label `fig:healthcheckers' multiply defined.
+
+
+LaTeX Warning: Label `fig:stateless_model' multiply defined.
+
+
+LaTeX Warning: Label `fig:robustez' multiply defined.
+
 )
 \openout1 = `main.aux'.
 
@@ -1157,7 +1172,7 @@ Package biblatex Info: Reference segment=0 on input line 70.
 
 
 pdfTeX warning: pdflatex (file ./logo.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<logo.pdf, id=445, 239.89626pt x 87.32625pt>
+<logo.pdf, id=449, 239.89626pt x 87.32625pt>
 File: logo.pdf Graphic file (type pdf)
 <use logo.pdf>
 Package pdftex.def Info: logo.pdf  used on input line 71.
@@ -1297,7 +1312,7 @@ Package fancyhdr Warning: \headheight is too small (27.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49297pt}.
 
 [9] (./tex/escenarios.tex
-<img//casosdeuso.png, id=710, 438.63875pt x 452.69125pt>
+<img//casosdeuso.png, id=715, 438.63875pt x 452.69125pt>
 File: img//casosdeuso.png Graphic file (type png)
 <use img//casosdeuso.png>
 Package pdftex.def Info: img//casosdeuso.png  used on input line 10.
@@ -1320,12 +1335,12 @@ Package fancyhdr Warning: \headheight is too small (27.0pt):
                                                   \__shipout_drop_firstpage_...
 l.94 \newpage
               <./img//casosdeuso.png>] (./tex/vista_procesos.tex
-<img//actividad1.png, id=718, 263.98625pt x 524.96124pt>
+<img//actividad1.png, id=723, 263.98625pt x 524.96124pt>
 File: img//actividad1.png Graphic file (type png)
 <use img//actividad1.png>
 Package pdftex.def Info: img//actividad1.png  used on input line 14.
 (pdftex.def)             Requested size: 203.4674pt x 404.6139pt.
-<img//actividad2.png, id=719, 340.27126pt x 711.65875pt>
+<img//actividad2.png, id=724, 340.27126pt x 711.65875pt>
 File: img//actividad2.png Graphic file (type png)
 <use img//actividad2.png>
 Package pdftex.def Info: img//actividad2.png  used on input line 24.
@@ -1347,7 +1362,7 @@ Package fancyhdr Warning: \headheight is too small (27.0pt):
                                                   \__shipout_drop_firstpage_...
 l.28 
       <./img//actividad1.png>]
-<img//actividad3.png, id=726, 323.2075pt x 603.25375pt>
+<img//actividad3.png, id=731, 323.2075pt x 603.25375pt>
 File: img//actividad3.png Graphic file (type png)
 <use img//actividad3.png>
 Package pdftex.def Info: img//actividad3.png  used on input line 34.
@@ -1369,7 +1384,7 @@ Package fancyhdr Warning: \headheight is too small (27.0pt):
                                                   \__shipout_drop_firstpage_...
 l.38 
       <./img//actividad2.png>]
-<img//actividad4.png, id=733, 452.69125pt x 854.19125pt>
+<img//actividad4.png, id=738, 452.69125pt x 854.19125pt>
 File: img//actividad4.png Graphic file (type png)
 <use img//actividad4.png>
 Package pdftex.def Info: img//actividad4.png  used on input line 44.
@@ -1408,12 +1423,12 @@ Package fancyhdr Warning: \headheight is too small (27.0pt):
                                                   \__shipout_drop_firstpage_...
 l.52 \newpage
               <./img//actividad4.png>]
-<img/Vista de Procesos - Diagrama Secuencia Query 1.drawio.png, id=747, 643.40375pt x 563.10374pt>
+<img/Vista de Procesos - Diagrama Secuencia Query 1.drawio.png, id=752, 643.40375pt x 563.10374pt>
 File: img/Vista de Procesos - Diagrama Secuencia Query 1.drawio.png Graphic file (type png)
 <use img/Vista de Procesos - Diagrama Secuencia Query 1.drawio.png>
 Package pdftex.def Info: img/Vista de Procesos - Diagrama Secuencia Query 1.drawio.png  used on input line 65.
 (pdftex.def)             Requested size: 426.80765pt x 373.53992pt.
-<img/Vista de Procesos - Diagrama Secuencia Query 2.drawio.png, id=748, 924.45375pt x 551.05875pt>
+<img/Vista de Procesos - Diagrama Secuencia Query 2.drawio.png, id=753, 924.45375pt x 551.05875pt>
 File: img/Vista de Procesos - Diagrama Secuencia Query 2.drawio.png Graphic file (type png)
 <use img/Vista de Procesos - Diagrama Secuencia Query 2.drawio.png>
 Package pdftex.def Info: img/Vista de Procesos - Diagrama Secuencia Query 2.drawio.png  used on input line 77.
@@ -1435,12 +1450,12 @@ Package fancyhdr Warning: \headheight is too small (27.0pt):
                                                   \__shipout_drop_firstpage_...
 l.81 
       <./img/Vista de Procesos - Diagrama Secuencia Query 1.drawio.png>]
-<img/Vista de Procesos - Diagrama Secuencia Query 3.drawio.png, id=755, 924.45375pt x 551.05875pt>
+<img/Vista de Procesos - Diagrama Secuencia Query 3.drawio.png, id=760, 924.45375pt x 551.05875pt>
 File: img/Vista de Procesos - Diagrama Secuencia Query 3.drawio.png Graphic file (type png)
 <use img/Vista de Procesos - Diagrama Secuencia Query 3.drawio.png>
 Package pdftex.def Info: img/Vista de Procesos - Diagrama Secuencia Query 3.drawio.png  used on input line 89.
 (pdftex.def)             Requested size: 395.94159pt x 236.01729pt.
-<img/Vista de Procesos - Diagrama Secuencia Query 4.drawio.png, id=756, 924.45375pt x 551.05875pt>
+<img/Vista de Procesos - Diagrama Secuencia Query 4.drawio.png, id=761, 924.45375pt x 551.05875pt>
 File: img/Vista de Procesos - Diagrama Secuencia Query 4.drawio.png Graphic file (type png)
 <use img/Vista de Procesos - Diagrama Secuencia Query 4.drawio.png>
 Package pdftex.def Info: img/Vista de Procesos - Diagrama Secuencia Query 4.drawio.png  used on input line 101.
@@ -1484,7 +1499,7 @@ Package fancyhdr Warning: \headheight is too small (27.0pt):
                                                   \__shipout_drop_firstpage_...
 l.96 \newpage
               <./img/Vista de Procesos - Diagrama Secuencia Query 4.drawio.png>] (./tex/vista_fisica.tex
-<img/robustez.png, id=771, 4889.26625pt x 1766.6pt>
+<img/robustez.png, id=776, 4889.26625pt x 1766.6pt>
 File: img/robustez.png Graphic file (type png)
 <use img/robustez.png>
 Package pdftex.def Info: img/robustez.png  used on input line 15.
@@ -1506,12 +1521,12 @@ Package fancyhdr Warning: \headheight is too small (27.0pt):
                                                   \__shipout_drop_firstpage_...
 l.20 \newpage
               <./img/robustez.png>]
-<img/robustez1.png, id=778, 976.64874pt x 852.18375pt>
+<img/robustez1.png, id=783, 976.64874pt x 852.18375pt>
 File: img/robustez1.png Graphic file (type png)
 <use img/robustez1.png>
 Package pdftex.def Info: img/robustez1.png  used on input line 30.
 (pdftex.def)             Requested size: 337.16516pt x 294.19875pt.
-<img/robustez2.png, id=779, 1415.2875pt x 1128.215pt>
+<img/robustez2.png, id=784, 1415.2875pt x 1128.215pt>
 File: img/robustez2.png Graphic file (type png)
 <use img/robustez2.png>
 Package pdftex.def Info: img/robustez2.png  used on input line 40.
@@ -1529,12 +1544,12 @@ Package fancyhdr Warning: \headheight is too small (27.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49297pt}.
 
 [19 <./img/robustez1.png> <./img/robustez2.png>]
-<img/robustez3.png, id=787, 1534.73375pt x 676.5275pt>
+<img/robustez3.png, id=793, 1534.73375pt x 676.5275pt>
 File: img/robustez3.png Graphic file (type png)
 <use img/robustez3.png>
 Package pdftex.def Info: img/robustez3.png  used on input line 52.
 (pdftex.def)             Requested size: 404.59488pt x 269.72874pt.
-<img/robustez4.png, id=788, 2236.355pt x 700.6175pt>
+<img/robustez4.png, id=794, 2236.355pt x 700.6175pt>
 File: img/robustez4.png Graphic file (type png)
 <use img/robustez4.png>
 Package pdftex.def Info: img/robustez4.png  used on input line 62.
@@ -1552,7 +1567,7 @@ Package fancyhdr Warning: \headheight is too small (27.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49297pt}.
 
 [20 <./img/robustez3.png> <./img/robustez4.png>]
-<img/Vista Física - Diagrama de Despliegue.drawio.png, id=796, 1361.085pt x 1135.24126pt>
+<img/Vista Física - Diagrama de Despliegue.drawio.png, id=801, 1361.085pt x 1135.24126pt>
 File: img/Vista Física - Diagrama de Despliegue.drawio.png Graphic file (type png)
 <use img/Vista Física - Diagrama de Despliegue.drawio.png>
 Package pdftex.def Info: img/Vista Física - Diagrama de Despliegue.drawio.png  used on input line 75.
@@ -1575,7 +1590,7 @@ Package fancyhdr Warning: \headheight is too small (27.0pt):
                                                   \__shipout_drop_firstpage_...
 l.98 \newpage
               <./img/Vista Física - Diagrama de Despliegue.drawio.png>] (./tex/vista_desarrollo.tex
-<img/Vista de Desarrollo - Diagrama de Paquetes.drawio.png, id=803, 972.63374pt x 600.2425pt>
+<img/Vista de Desarrollo - Diagrama de Paquetes.drawio.png, id=808, 972.63374pt x 600.2425pt>
 File: img/Vista de Desarrollo - Diagrama de Paquetes.drawio.png Graphic file (type png)
 <use img/Vista de Desarrollo - Diagrama de Paquetes.drawio.png>
 Package pdftex.def Info: img/Vista de Desarrollo - Diagrama de Paquetes.drawio.png  used on input line 12.
@@ -1598,17 +1613,17 @@ Package fancyhdr Warning: \headheight is too small (27.0pt):
                                                   \__shipout_drop_firstpage_...
 l.100 \newpage
                <./img/Vista de Desarrollo - Diagrama de Paquetes.drawio.png>] (./tex/vista_logica.tex
-<img/Vista Lógica - Diagrama de Clases - Cleaner.png, id=810, 1496.59125pt x 433.62pt>
+<img/Vista Lógica - Diagrama de Clases - Cleaner.png, id=815, 1496.59125pt x 433.62pt>
 File: img/Vista Lógica - Diagrama de Clases - Cleaner.png Graphic file (type png)
 <use img/Vista Lógica - Diagrama de Clases - Cleaner.png>
 Package pdftex.def Info: img/Vista Lógica - Diagrama de Clases - Cleaner.png  used on input line 12.
 (pdftex.def)             Requested size: 426.78413pt x 168.5818pt.
-<img/Vista Lógica - Diagrama de Clases - Filter.png, id=811, 1623.06375pt x 433.62pt>
+<img/Vista Lógica - Diagrama de Clases - Filter.png, id=816, 1623.06375pt x 433.62pt>
 File: img/Vista Lógica - Diagrama de Clases - Filter.png Graphic file (type png)
 <use img/Vista Lógica - Diagrama de Clases - Filter.png>
 Package pdftex.def Info: img/Vista Lógica - Diagrama de Clases - Filter.png  used on input line 22.
 (pdftex.def)             Requested size: 426.79121pt x 168.5818pt.
-<img/Vista Lógica - Diagrama de Clases - Map.png, id=812, 1104.125pt x 433.62pt>
+<img/Vista Lógica - Diagrama de Clases - Map.png, id=817, 1104.125pt x 433.62pt>
 File: img/Vista Lógica - Diagrama de Clases - Map.png Graphic file (type png)
 <use img/Vista Lógica - Diagrama de Clases - Map.png>
 Package pdftex.def Info: img/Vista Lógica - Diagrama de Clases - Map.png  used on input line 32.
@@ -1634,17 +1649,17 @@ l.36
                                                   \__shipout_drop_firstpage_...
 l.36 
       <./img/Vista Lógica - Diagrama de Clases - Cleaner.png> <./img/Vista Lógica - Diagrama de Clases - Filter.png>]
-<img/Vista Lógica - Diagrama de Clases - Reducer.png, id=821, 2489.3pt x 433.62pt>
+<img/Vista Lógica - Diagrama de Clases - Reducer.png, id=826, 2489.3pt x 433.62pt>
 File: img/Vista Lógica - Diagrama de Clases - Reducer.png Graphic file (type png)
 <use img/Vista Lógica - Diagrama de Clases - Reducer.png>
 Package pdftex.def Info: img/Vista Lógica - Diagrama de Clases - Reducer.png  used on input line 42.
 (pdftex.def)             Requested size: 426.79135pt x 74.34299pt.
-<img/Vista Lógica - Diagrama de Clases - Sort.png, id=822, 1777.64125pt x 433.62pt>
+<img/Vista Lógica - Diagrama de Clases - Sort.png, id=827, 1777.64125pt x 433.62pt>
 File: img/Vista Lógica - Diagrama de Clases - Sort.png Graphic file (type png)
 <use img/Vista Lógica - Diagrama de Clases - Sort.png>
 Package pdftex.def Info: img/Vista Lógica - Diagrama de Clases - Sort.png  used on input line 52.
 (pdftex.def)             Requested size: 426.77824pt x 168.5818pt.
-<img/Vista Lógica - Diagrama de Clases - Join.png, id=823, 1342.01375pt x 433.62pt>
+<img/Vista Lógica - Diagrama de Clases - Join.png, id=828, 1342.01375pt x 433.62pt>
 File: img/Vista Lógica - Diagrama de Clases - Join.png Graphic file (type png)
 <use img/Vista Lógica - Diagrama de Clases - Join.png>
 Package pdftex.def Info: img/Vista Lógica - Diagrama de Clases - Join.png  used on input line 62.
@@ -1674,7 +1689,7 @@ l.66
                                                   \__shipout_drop_firstpage_...
 l.66 
       <./img/Vista Lógica - Diagrama de Clases - Map.png> <./img/Vista Lógica - Diagrama de Clases - Reducer.png> <./img/Vista Lógica - Diagrama de Clases - Sort.png>]
-<img/Vista Lógica - Diagrama de Clases - Output Builder.png, id=834, 1737.49126pt x 433.62pt>
+<img/Vista Lógica - Diagrama de Clases - Output Builder.png, id=839, 1737.49126pt x 433.62pt>
 File: img/Vista Lógica - Diagrama de Clases - Output Builder.png Graphic file (type png)
 <use img/Vista Lógica - Diagrama de Clases - Output Builder.png>
 Package pdftex.def Info: img/Vista Lógica - Diagrama de Clases - Output Builder.png  used on input line 72.
@@ -1701,7 +1716,7 @@ l.104 \newpage
                                                   \__shipout_drop_firstpage_...
 l.104 \newpage
                <./img/Vista Lógica - Diagrama de Clases - Join.png> <./img/Vista Lógica - Diagrama de Clases - Output Builder.png>] (./tex/dag.tex
-<img/DAG.drawio.png, id=844, 1467.4825pt x 1367.1075pt>
+<img/DAG.drawio.png, id=849, 1467.4825pt x 1367.1075pt>
 File: img/DAG.drawio.png Graphic file (type png)
 <use img/DAG.drawio.png>
 Package pdftex.def Info: img/DAG.drawio.png  used on input line 10.
@@ -1723,7 +1738,7 @@ Package fancyhdr Warning: \headheight is too small (27.0pt):
                                                   \__shipout_drop_firstpage_...
 l.15 \newpage
               <./img/DAG.drawio.png>]
-<img/DAG1.png, id=851, 293.095pt x 885.3075pt>
+<img/DAG1.png, id=856, 293.095pt x 885.3075pt>
 File: img/DAG1.png Graphic file (type png)
 <use img/DAG1.png>
 Package pdftex.def Info: img/DAG1.png  used on input line 22.
@@ -1745,7 +1760,7 @@ Package fancyhdr Warning: \headheight is too small (27.0pt):
                                                   \__shipout_drop_firstpage_...
 l.27 \newpage
               <./img/DAG1.png>]
-<img/DAG2.png, id=858, 494.84875pt x 1206.5075pt>
+<img/DAG2.png, id=863, 494.84875pt x 1206.5075pt>
 File: img/DAG2.png Graphic file (type png)
 <use img/DAG2.png>
 Package pdftex.def Info: img/DAG2.png  used on input line 34.
@@ -1767,7 +1782,7 @@ Package fancyhdr Warning: \headheight is too small (27.0pt):
                                                   \__shipout_drop_firstpage_...
 l.39 \newpage
               <./img/DAG2.png>]
-<img/DAG3.png, id=865, 607.26875pt x 1205.50375pt>
+<img/DAG3.png, id=870, 607.26875pt x 1205.50375pt>
 File: img/DAG3.png Graphic file (type png)
 <use img/DAG3.png>
 Package pdftex.def Info: img/DAG3.png  used on input line 46.
@@ -1789,7 +1804,7 @@ Package fancyhdr Warning: \headheight is too small (27.0pt):
                                                   \__shipout_drop_firstpage_...
 l.51 \newpage
               <./img/DAG3.png>]
-<img/DAG4.png, id=872, 986.68625pt x 1367.1075pt>
+<img/DAG4.png, id=877, 986.68625pt x 1367.1075pt>
 File: img/DAG4.png Graphic file (type png)
 <use img/DAG4.png>
 Package pdftex.def Info: img/DAG4.png  used on input line 58.
@@ -1825,7 +1840,7 @@ Package fancyhdr Warning: \headheight is too small (27.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49297pt}.
 
 [31]
-<img/comunicacion1.png, id=884, 432.61626pt x 254.9525pt>
+<img/comunicacion1.png, id=889, 432.61626pt x 254.9525pt>
 File: img/comunicacion1.png Graphic file (type png)
 <use img/comunicacion1.png>
 Package pdftex.def Info: img/comunicacion1.png  used on input line 50.
@@ -1847,7 +1862,7 @@ Package fancyhdr Warning: \headheight is too small (27.0pt):
                                                   \__shipout_drop_firstpage_...
 l.54 \newpage
               <./img/comunicacion1.png>]
-<img/comunicacion2.png, id=896, 523.9575pt x 172.645pt>
+<img/comunicacion2.png, id=901, 523.9575pt x 172.645pt>
 File: img/comunicacion2.png Graphic file (type png)
 <use img/comunicacion2.png>
 Package pdftex.def Info: img/comunicacion2.png  used on input line 68.
@@ -1979,7 +1994,7 @@ Package fancyhdr Warning: \headheight is too small (27.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49297pt}.
 
 [40]
-<img/grafico_clientes.png, id=970, 505.89pt x 361.35pt>
+<img/grafico_clientes.png, id=975, 505.89pt x 361.35pt>
 File: img/grafico_clientes.png Graphic file (type png)
 <use img/grafico_clientes.png>
 Package pdftex.def Info: img/grafico_clientes.png  used on input line 62.
@@ -2057,14 +2072,19 @@ Package fancyhdr Warning: \headheight is too small (27.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49297pt}.
 
 [45] (./tex/tolerancia.tex
-<img//health.png, id=998, 1885.0425pt x 652.4375pt>
-File: img//health.png Graphic file (type png)
-<use img//health.png>
-Package pdftex.def Info: img//health.png  used on input line 32.
-(pdftex.def)             Requested size: 414.71063pt x 143.53668pt.
+<img//ring.png, id=1003, 2473.24pt x 630.355pt>
+File: img//ring.png Graphic file (type png)
+<use img//ring.png>
+Package pdftex.def Info: img//ring.png  used on input line 40.
+(pdftex.def)             Requested size: 395.72649pt x 100.85886pt.
+<img//health1.png, id=1004, 2611.7575pt x 1549.79pt>
+File: img//health1.png Graphic file (type png)
+<use img//health1.png>
+Package pdftex.def Info: img//health1.png  used on input line 48.
+(pdftex.def)             Requested size: 417.88974pt x 247.97147pt.
 File: logo.pdf Graphic file (type pdf)
 <use logo.pdf>
-Package pdftex.def Info: logo.pdf  used on input line 37.
+Package pdftex.def Info: logo.pdf  used on input line 52.
 (pdftex.def)             Requested size: 71.13188pt x 25.89293pt.
 
 
@@ -2077,11 +2097,21 @@ Package fancyhdr Warning: \headheight is too small (27.0pt):
 [46pdfTeX warning (ext4): destination with the same identifier (name{figure.28}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.37 \newpage
-              <./img//health.png>]
+l.52 
+      <./img//ring.png>]
+<img//health2.png, id=1015, 2611.7575pt x 1549.79pt>
+File: img//health2.png Graphic file (type png)
+<use img//health2.png>
+Package pdftex.def Info: img//health2.png  used on input line 56.
+(pdftex.def)             Requested size: 417.88974pt x 247.97147pt.
+<img//health3.png, id=1016, 696.6025pt x 1550.79375pt>
+File: img//health3.png Graphic file (type png)
+<use img//health3.png>
+Package pdftex.def Info: img//health3.png  used on input line 64.
+(pdftex.def)             Requested size: 278.63606pt x 620.30652pt.
 File: logo.pdf Graphic file (type pdf)
 <use logo.pdf>
-Package pdftex.def Info: logo.pdf  used on input line 81.
+Package pdftex.def Info: logo.pdf  used on input line 68.
 (pdftex.def)             Requested size: 71.13188pt x 25.89293pt.
 
 
@@ -2091,45 +2121,18 @@ Package fancyhdr Warning: \headheight is too small (27.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49297pt}.
 
-[47]
-File: logo.pdf Graphic file (type pdf)
-<use logo.pdf>
-Package pdftex.def Info: logo.pdf  used on input line 123.
-(pdftex.def)             Requested size: 71.13188pt x 25.89293pt.
-
-
-Package fancyhdr Warning: \headheight is too small (27.0pt): 
-(fancyhdr)                Make it at least 29.49297pt, for example:
-(fancyhdr)                \setlength{\headheight}{29.49297pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-2.49297pt}.
-
-[48]
-<img//mensajes.png, id=1025, 2241.37375pt x 636.3775pt>
-File: img//mensajes.png Graphic file (type png)
-<use img//mensajes.png>
-Package pdftex.def Info: img//mensajes.png  used on input line 137.
-(pdftex.def)             Requested size: 403.42987pt x 114.543pt.
-File: logo.pdf Graphic file (type pdf)
-<use logo.pdf>
-Package pdftex.def Info: logo.pdf  used on input line 152.
-(pdftex.def)             Requested size: 71.13188pt x 25.89293pt.
-
-
-Package fancyhdr Warning: \headheight is too small (27.0pt): 
-(fancyhdr)                Make it at least 29.49297pt, for example:
-(fancyhdr)                \setlength{\headheight}{29.49297pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-2.49297pt}.
-
-[49pdfTeX warning (ext4): destination with the same identifier (name{figure.29}) has been already used, duplicate ignored
+[47pdfTeX warning (ext4): destination with the same identifier (name{figure.29}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.152 \newpage
-               <./img//mensajes.png>]
+l.68 
+     pdfTeX warning (ext4): destination with the same identifier (name{figure.30}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.68 
+      <./img//health1.png> <./img//health2.png>]
 File: logo.pdf Graphic file (type pdf)
 <use logo.pdf>
-Package pdftex.def Info: logo.pdf  used on input line 203.
+Package pdftex.def Info: logo.pdf  used on input line 69.
 (pdftex.def)             Requested size: 71.13188pt x 25.89293pt.
 
 
@@ -2139,10 +2142,14 @@ Package fancyhdr Warning: \headheight is too small (27.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49297pt}.
 
-[50]
+[48pdfTeX warning (ext4): destination with the same identifier (name{figure.31}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.69 \newpage
+              <./img//health3.png>]
 File: logo.pdf Graphic file (type pdf)
 <use logo.pdf>
-Package pdftex.def Info: logo.pdf  used on input line 249.
+Package pdftex.def Info: logo.pdf  used on input line 116.
 (pdftex.def)             Requested size: 71.13188pt x 25.89293pt.
 
 
@@ -2152,85 +2159,7 @@ Package fancyhdr Warning: \headheight is too small (27.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49297pt}.
 
-[51]
-File: logo.pdf Graphic file (type pdf)
-<use logo.pdf>
-Package pdftex.def Info: logo.pdf  used on input line 291.
-(pdftex.def)             Requested size: 71.13188pt x 25.89293pt.
-
-
-Package fancyhdr Warning: \headheight is too small (27.0pt): 
-(fancyhdr)                Make it at least 29.49297pt, for example:
-(fancyhdr)                \setlength{\headheight}{29.49297pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-2.49297pt}.
-
-[52])
-File: logo.pdf Graphic file (type pdf)
-<use logo.pdf>
-Package pdftex.def Info: logo.pdf  used on input line 138.
-(pdftex.def)             Requested size: 71.13188pt x 25.89293pt.
-
-
-Package fancyhdr Warning: \headheight is too small (27.0pt): 
-(fancyhdr)                Make it at least 29.49297pt, for example:
-(fancyhdr)                \setlength{\headheight}{29.49297pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-2.49297pt}.
-
-[53] (./tex/cronograma_teorico.tex)
-File: logo.pdf Graphic file (type pdf)
-<use logo.pdf>
-Package pdftex.def Info: logo.pdf  used on input line 141.
-(pdftex.def)             Requested size: 71.13188pt x 25.89293pt.
-
-
-Package fancyhdr Warning: \headheight is too small (27.0pt): 
-(fancyhdr)                Make it at least 29.49297pt, for example:
-(fancyhdr)                \setlength{\headheight}{29.49297pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-2.49297pt}.
-
-[54] (./tex/cronograma_real.tex
-File: logo.pdf Graphic file (type pdf)
-<use logo.pdf>
-Package pdftex.def Info: logo.pdf  used on input line 42.
-(pdftex.def)             Requested size: 71.13188pt x 25.89293pt.
-
-
-Package fancyhdr Warning: \headheight is too small (27.0pt): 
-(fancyhdr)                Make it at least 29.49297pt, for example:
-(fancyhdr)                \setlength{\headheight}{29.49297pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-2.49297pt}.
-
-[55]
-File: logo.pdf Graphic file (type pdf)
-<use logo.pdf>
-Package pdftex.def Info: logo.pdf  used on input line 99.
-(pdftex.def)             Requested size: 71.13188pt x 25.89293pt.
-
-
-Package fancyhdr Warning: \headheight is too small (27.0pt): 
-(fancyhdr)                Make it at least 29.49297pt, for example:
-(fancyhdr)                \setlength{\headheight}{29.49297pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-2.49297pt}.
-
-[56]
-File: logo.pdf Graphic file (type pdf)
-<use logo.pdf>
-Package pdftex.def Info: logo.pdf  used on input line 132.
-(pdftex.def)             Requested size: 71.13188pt x 25.89293pt.
-
-
-Package fancyhdr Warning: \headheight is too small (27.0pt): 
-(fancyhdr)                Make it at least 29.49297pt, for example:
-(fancyhdr)                \setlength{\headheight}{29.49297pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-2.49297pt}.
-
-[57]
+[49]
 File: logo.pdf Graphic file (type pdf)
 <use logo.pdf>
 Package pdftex.def Info: logo.pdf  used on input line 162.
@@ -2243,7 +2172,207 @@ Package fancyhdr Warning: \headheight is too small (27.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49297pt}.
 
-[58])
+[50]
+<img//controller_processes.png, id=1051, 2611.7575pt x 1549.79pt>
+File: img//controller_processes.png Graphic file (type png)
+<use img//controller_processes.png>
+Package pdftex.def Info: img//controller_processes.png  used on input line 173.
+(pdftex.def)             Requested size: 313.39738pt x 185.96677pt.
+<img//health_processes.png, id=1052, 1989.68344pt x 1162.3425pt>
+File: img//health_processes.png Graphic file (type png)
+<use img//health_processes.png>
+Package pdftex.def Info: img//health_processes.png  used on input line 181.
+(pdftex.def)             Requested size: 437.73172pt x 255.71614pt.
+
+Overfull \hbox (10.94037pt too wide) in paragraph at lines 181--182
+ [][] 
+ []
+
+<img/server_processes.png, id=1053, 899.61093pt x 283.81032pt>
+File: img/server_processes.png Graphic file (type png)
+<use img/server_processes.png>
+Package pdftex.def Info: img/server_processes.png  used on input line 194.
+(pdftex.def)             Requested size: 640.61174pt x 202.10867pt.
+File: logo.pdf Graphic file (type pdf)
+<use logo.pdf>
+Package pdftex.def Info: logo.pdf  used on input line 198.
+(pdftex.def)             Requested size: 71.13188pt x 25.89293pt.
+
+Package fancyhdr Warning: \headheight is too small (27.0pt): 
+(fancyhdr)                Make it at least 29.49297pt, for example:
+(fancyhdr)                \setlength{\headheight}{29.49297pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49297pt}.
+
+[51pdfTeX warning (ext4): destination with the same identifier (name{figure.32}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.198 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.33}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.198 
+       <./img//controller_processes.png> <./img//health_processes.png>]
+File: logo.pdf Graphic file (type pdf)
+<use logo.pdf>
+Package pdftex.def Info: logo.pdf  used on input line 199.
+(pdftex.def)             Requested size: 71.13188pt x 25.89293pt.
+
+
+Package fancyhdr Warning: \headheight is too small (27.0pt): 
+(fancyhdr)                Make it at least 29.49297pt, for example:
+(fancyhdr)                \setlength{\headheight}{29.49297pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49297pt}.
+
+[52pdfTeX warning (ext4): destination with the same identifier (name{figure.34}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.199 \newpage
+               <./img/server_processes.png>]
+<img//mensajes.png, id=1068, 2611.7575pt x 1549.79pt>
+File: img//mensajes.png Graphic file (type png)
+<use img//mensajes.png>
+Package pdftex.def Info: img//mensajes.png  used on input line 213.
+(pdftex.def)             Requested size: 470.09607pt x 278.95016pt.
+
+Overfull \hbox (43.30472pt too wide) in paragraph at lines 213--214
+ [][] 
+ []
+
+File: logo.pdf Graphic file (type pdf)
+<use logo.pdf>
+Package pdftex.def Info: logo.pdf  used on input line 228.
+(pdftex.def)             Requested size: 71.13188pt x 25.89293pt.
+
+Package fancyhdr Warning: \headheight is too small (27.0pt): 
+(fancyhdr)                Make it at least 29.49297pt, for example:
+(fancyhdr)                \setlength{\headheight}{29.49297pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49297pt}.
+
+[53pdfTeX warning (ext4): destination with the same identifier (name{figure.35}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.228 \newpage
+               <./img//mensajes.png>]
+File: logo.pdf Graphic file (type pdf)
+<use logo.pdf>
+Package pdftex.def Info: logo.pdf  used on input line 279.
+(pdftex.def)             Requested size: 71.13188pt x 25.89293pt.
+
+
+Package fancyhdr Warning: \headheight is too small (27.0pt): 
+(fancyhdr)                Make it at least 29.49297pt, for example:
+(fancyhdr)                \setlength{\headheight}{29.49297pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49297pt}.
+
+[54]
+File: logo.pdf Graphic file (type pdf)
+<use logo.pdf>
+Package pdftex.def Info: logo.pdf  used on input line 328.
+(pdftex.def)             Requested size: 71.13188pt x 25.89293pt.
+
+
+Package fancyhdr Warning: \headheight is too small (27.0pt): 
+(fancyhdr)                Make it at least 29.49297pt, for example:
+(fancyhdr)                \setlength{\headheight}{29.49297pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49297pt}.
+
+[55]
+File: logo.pdf Graphic file (type pdf)
+<use logo.pdf>
+Package pdftex.def Info: logo.pdf  used on input line 375.
+(pdftex.def)             Requested size: 71.13188pt x 25.89293pt.
+
+
+Package fancyhdr Warning: \headheight is too small (27.0pt): 
+(fancyhdr)                Make it at least 29.49297pt, for example:
+(fancyhdr)                \setlength{\headheight}{29.49297pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49297pt}.
+
+[56])
+File: logo.pdf Graphic file (type pdf)
+<use logo.pdf>
+Package pdftex.def Info: logo.pdf  used on input line 138.
+(pdftex.def)             Requested size: 71.13188pt x 25.89293pt.
+
+
+Package fancyhdr Warning: \headheight is too small (27.0pt): 
+(fancyhdr)                Make it at least 29.49297pt, for example:
+(fancyhdr)                \setlength{\headheight}{29.49297pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49297pt}.
+
+[57] (./tex/cronograma_teorico.tex)
+File: logo.pdf Graphic file (type pdf)
+<use logo.pdf>
+Package pdftex.def Info: logo.pdf  used on input line 141.
+(pdftex.def)             Requested size: 71.13188pt x 25.89293pt.
+
+
+Package fancyhdr Warning: \headheight is too small (27.0pt): 
+(fancyhdr)                Make it at least 29.49297pt, for example:
+(fancyhdr)                \setlength{\headheight}{29.49297pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49297pt}.
+
+[58] (./tex/cronograma_real.tex
+File: logo.pdf Graphic file (type pdf)
+<use logo.pdf>
+Package pdftex.def Info: logo.pdf  used on input line 42.
+(pdftex.def)             Requested size: 71.13188pt x 25.89293pt.
+
+
+Package fancyhdr Warning: \headheight is too small (27.0pt): 
+(fancyhdr)                Make it at least 29.49297pt, for example:
+(fancyhdr)                \setlength{\headheight}{29.49297pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49297pt}.
+
+[59]
+File: logo.pdf Graphic file (type pdf)
+<use logo.pdf>
+Package pdftex.def Info: logo.pdf  used on input line 99.
+(pdftex.def)             Requested size: 71.13188pt x 25.89293pt.
+
+
+Package fancyhdr Warning: \headheight is too small (27.0pt): 
+(fancyhdr)                Make it at least 29.49297pt, for example:
+(fancyhdr)                \setlength{\headheight}{29.49297pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49297pt}.
+
+[60]
+File: logo.pdf Graphic file (type pdf)
+<use logo.pdf>
+Package pdftex.def Info: logo.pdf  used on input line 132.
+(pdftex.def)             Requested size: 71.13188pt x 25.89293pt.
+
+
+Package fancyhdr Warning: \headheight is too small (27.0pt): 
+(fancyhdr)                Make it at least 29.49297pt, for example:
+(fancyhdr)                \setlength{\headheight}{29.49297pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49297pt}.
+
+[61]
+File: logo.pdf Graphic file (type pdf)
+<use logo.pdf>
+Package pdftex.def Info: logo.pdf  used on input line 162.
+(pdftex.def)             Requested size: 71.13188pt x 25.89293pt.
+
+
+Package fancyhdr Warning: \headheight is too small (27.0pt): 
+(fancyhdr)                Make it at least 29.49297pt, for example:
+(fancyhdr)                \setlength{\headheight}{29.49297pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49297pt}.
+
+[62])
 File: logo.pdf Graphic file (type pdf)
 <use logo.pdf>
 Package pdftex.def Info: logo.pdf  used on input line 145.
@@ -2256,7 +2385,7 @@ Package fancyhdr Warning: \headheight is too small (27.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49297pt}.
 
-[59] 
+[63] 
 AED: lastpage setting LastPage
 (./main.aux
 LaTeX Info: Redefining \sptext on input line 26.
@@ -2270,24 +2399,24 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 99B94E48800A2E76935AC11D65DB5073;24278.
+(rerunfilecheck)             Checksum: 0CAD4E3CB0440234017BB44F1DB716D3;24486.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 36904 strings out of 479591
- 697904 string characters out of 5877085
- 1488229 words of memory out of 5000000
- 53872 multiletter control sequences out of 15000+600000
+ 36967 strings out of 479591
+ 699230 string characters out of 5877085
+ 1488327 words of memory out of 5000000
+ 53915 multiletter control sequences out of 15000+600000
  480499 words of font info for 70 fonts, out of 8000000 for 9000
  376 hyphenation exceptions out of 8191
  103i,16n,105p,781b,2229s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/felipe/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on main.pdf (59 pages, 1872430 bytes).
+Output written on main.pdf (63 pages, 2539617 bytes).
 PDF statistics:
- 1220 PDF objects out of 1440 (max. 8388607)
- 1028 compressed objects within 11 object streams
- 319 named destinations out of 1000 (max. 500000)
- 1229 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1266 PDF objects out of 1440 (max. 8388607)
+ 1058 compressed objects within 11 object streams
+ 333 named destinations out of 1000 (max. 500000)
+ 1267 words of extra memory for PDF output out of 10000 (max. 10000000)
 
