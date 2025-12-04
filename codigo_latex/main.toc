@@ -116,15 +116,15 @@
 \contentsline {subsection}{\numberline {19.6}Sistema de Generación de Errores}{55}{subsection.19.6}%
 \contentsline {subsection}{\numberline {19.7}Mediciones de Rendimiento (Con Fallas)}{56}{subsection.19.7}%
 \contentsline {subsubsection}{\numberline {19.7.1}Dataset Reducido: Consistencia frente a caídas aleatorias}{56}{subsubsection.19.7.1}%
-\contentsline {paragraph}{Herramienta de evaluación}{56}{section*.26}%
-\contentsline {paragraph}{Parámetros de prueba}{56}{section*.27}%
-\contentsline {paragraph}{Criterios de evaluación}{56}{section*.28}%
-\contentsline {paragraph}{Resultados esperados}{56}{section*.29}%
+\contentsline {paragraph}{Herramienta de evaluación:}{56}{section*.26}%
+\contentsline {paragraph}{Parámetros de prueba:}{56}{section*.27}%
+\contentsline {paragraph}{Criterios de evaluación:}{56}{section*.28}%
+\contentsline {paragraph}{Comparación con escenario sin fallas:}{56}{section*.29}%
 \contentsline {subsubsection}{\numberline {19.7.2}Dataset Completo: Monitoreo de performance con y sin fallas}{57}{subsubsection.19.7.2}%
-\contentsline {paragraph}{Herramienta y entorno de medición}{57}{section*.30}%
-\contentsline {paragraph}{Parámetros de prueba}{57}{section*.31}%
-\contentsline {paragraph}{Criterios de evaluación}{57}{section*.32}%
-\contentsline {paragraph}{Resultados esperados}{57}{section*.33}%
+\contentsline {paragraph}{Herramienta y entorno de medición:}{57}{section*.30}%
+\contentsline {paragraph}{Parámetros de prueba:}{57}{section*.31}%
+\contentsline {paragraph}{Criterios de evaluación:}{57}{section*.32}%
+\contentsline {paragraph}{Aclaración final importante:}{57}{section*.33}%
 \contentsline {section}{\numberline {20}Cronograma teórico del desarrollo}{58}{section.20}%
 \contentsline {subsection}{\numberline {20.1}Diseño}{58}{subsection.20.1}%
 \contentsline {subsection}{\numberline {20.2}Escalabilidad}{58}{subsection.20.2}%

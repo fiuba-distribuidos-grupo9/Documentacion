@@ -6,6 +6,10 @@ diversas mediciones bajo diferentes configuraciones y cargas de trabajo, poniend
 especial énfasis en la capacidad del sistema para manejar múltiples clientes
 en ejecución simultánea (\emph{MultiClient}) sobre el dataset completo.
 
+Una consideración importante es que estas mediciones fueron realizadas previas a la implementación de los sistemas de tolerancia a fallas y recuperación ante
+errores.
+Por lo tanto, los resultados reflejan el rendimiento del sistema en una versión donde no se hacen operaciones de lectura y escritura constante. Lo que reduce de forma significativa el tiempo de procesamiento total.
+
 A continuación, se detallan los resultados obtenidos y su análisis correspondiente.
 
 \subsection{Configuración del entorno de pruebas}
@@ -79,4 +83,3 @@ El tiempo medido para la ejecución de las cuatro consultas sobre el dataset red
 \end{itemize}
 
 \textbf{Conclusión general:} A pesar del incremento en el tiempo con más clientes, el sistema muestra un \textbf{buen rendimiento general} y mantiene tiempos de respuesta aceptables bajo concurrencia. Esto sugiere que la arquitectura utilizada maneja adecuadamente la carga y ofrece un desempeño estable en escenarios con múltiples clientes.
-
